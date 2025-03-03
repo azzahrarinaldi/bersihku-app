@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093867923110",
+    "project_id": "bersihku-app",
+    "storage_bucket": "bersihku-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093867923110:android:f7455c0d7600b7bab2f667",
+        "android_client_info": {
+          "package_name": "com.example.bersihku"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqtarwR72nxTvHi-eqtbveyXOuGNEm84Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
