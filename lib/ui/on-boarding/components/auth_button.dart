@@ -1,3 +1,4 @@
+import 'package:bersihku/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
@@ -9,7 +10,14 @@ class AuthButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ),
+            );
+          },
           style: ElevatedButton.styleFrom(
             elevation: 0,
             backgroundColor: Colors.white,
