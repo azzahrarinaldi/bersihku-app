@@ -14,7 +14,11 @@ class Report extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset("assets/images/report-trash.png"),
+          Image.asset(
+            "assets/images/report-trash.png", 
+            width: 95, 
+            height: 92.51
+          ),
           SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +36,7 @@ class Report extends StatelessWidget {
               Text(
                 "Buat Laporan untuk hari ini",
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: FontWeight.w500,
                   color: Color(0xFF646464),
                 ),

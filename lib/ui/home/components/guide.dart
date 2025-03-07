@@ -22,7 +22,7 @@ class Guide extends StatelessWidget {
                 Text(
                   "Pelajari cara menggunakan aplikasi ini untuk melaporkan dan memantau pengangkutan sampah dengan mudah!",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -40,7 +40,7 @@ class Guide extends StatelessWidget {
                   ),
                   child: Text(
                     "Panduan Penggunaan Aplikasi",
-                    style: TextStyle(fontSize: 11.31, color: Colors.white),
+                    style: TextStyle(fontSize: 12, color: Colors.white),
                   ),
                 ),
               ],
@@ -49,8 +49,8 @@ class Guide extends StatelessWidget {
           SizedBox(height: 20),
           Image.asset(
             "assets/images/guide.png",
-            width: 70, 
-            height: 100, 
+            width: 90, 
+            height: 105, 
           ),
         ],
       ),

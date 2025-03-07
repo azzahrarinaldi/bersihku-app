@@ -6,7 +6,7 @@ class Constraints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 17),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -14,7 +14,11 @@ class Constraints extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset("assets/images/constrains-trash.png"),
+          Image.asset(
+            "assets/images/constrains-trash.png",
+            width: 95,
+            height: 92.51,
+          ),
           SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +37,7 @@ class Constraints extends StatelessWidget {
                 child: Text(
                   "Laporkan Jika Mengalami Kendala Pengangkutan",
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF646464),
                   ),

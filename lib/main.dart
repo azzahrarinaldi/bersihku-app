@@ -1,4 +1,5 @@
-import 'package:bersihku/ui/on-boarding/splash_screen.dart';
+import 'package:bersihku/ui/home/home_screen.dart';
+import 'package:bersihku/ui/splash_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,10 +25,11 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(color: Color(0xFF757575)),
         ),
       ),
-      initialRoute: '/', 
+      initialRoute: '/home', 
       routes: {
         '/': (context) => const SplashScreen(),
-        '/on-boarding' : (context) => const OnboardingScreen()
+        '/on-boarding' : (context) => const OnboardingScreen(),
+        '/home' : (context) => const HomeScreen(),
       },
     );
   }
