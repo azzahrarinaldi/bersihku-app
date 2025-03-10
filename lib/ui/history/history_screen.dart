@@ -11,7 +11,7 @@ class HistoryScreen extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/backgorund-blue.png"),
+            image: AssetImage("assets/images/blue-pettern.png"),
             fit: BoxFit.cover,
           ),
         ),

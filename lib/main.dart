@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(color: Color(0xFF757575)),
         ),
       ),
-      initialRoute: '/home', 
+      initialRoute: '/', 
       routes: {
         '/': (context) => const SplashScreen(),
         '/on-boarding' : (context) => const OnboardingScreen(),
