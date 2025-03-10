@@ -1,7 +1,9 @@
+import 'package:bersihku/ui/history/history_screen.dart';
 import 'package:bersihku/ui/home/components/bottom_navbar.dart';
 import 'package:bersihku/ui/home/components/contraints.dart';
 import 'package:bersihku/ui/home/components/guide.dart';
 import 'package:bersihku/ui/home/components/report.dart';
+import 'package:bersihku/ui/profile-user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,30 +11,42 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+  
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+   int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
+
+
+  final List<Widget> _widgetOptions = [ //dasar untuk bernavigasi via bottom nav bar
+    const HomeScreen(),
+    const HistoryScreen(),
+    const ProfileScreen()
+    
+  ];
+
+   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; 
+      /*menyatakan bahwa initial actionnya adalah untuk menampilkan objek yg berada pada index 0*/
+      _selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF4EBAE5),
-      body: Container(
-        decoration: BoxDecoration(
+      backgroundColor: const Color(0xFF4EBAE5),
+      body: _selectedIndex == 0 ?
+      Container(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/blue-pettern.png"),
+            image: AssetImage("assets/images/backgorund-blue.png"),
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+        child: const Padding(
+          padding: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -56,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  Image.asset(
-                    "assets/icons/notification.png",
+                  Image(
+                    image: AssetImage("assets/icons/notifikasi.png"),
                     width: 40,
                     height: 40,
                   ),
@@ -81,11 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: CustomBottomNav(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,   
-      ),
+      )
+       : _widgetOptions[_selectedIndex], //titik dua itu adalah repersentasi dari ternari operator di flutter, tampilkan widget berdasarkan index
+        bottomNavigationBar: BottomNavBar(
+          selectedIndex: _selectedIndex, 
+          onItemTapped: _onItemTapped,
+          )
     );
   }
 }

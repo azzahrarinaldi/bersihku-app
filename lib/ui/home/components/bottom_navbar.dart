@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 
-class CustomBottomNav extends StatefulWidget {
-  final int selectedIndex;
-  final Function(int) onItemTapped;
 
-  const CustomBottomNav({
-    Key? key,
+class BottomNavBar extends StatelessWidget {
+  final int selectedIndex;
+  final ValueChanged<int> onItemTapped;
+
+  const BottomNavBar({
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
-  @override
-  _CustomBottomNavState createState() => _CustomBottomNavState();
-}
-
-class _CustomBottomNavState extends State<CustomBottomNav> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(color: Colors.grey.withOpacity(0.2)),
+        )
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildNavItem(Icons.home_filled, "Beranda", 0),
+          _buildNavItem(Icons.home_filled, "Home", 0),
           _buildNavItem(Icons.history, "Riwayat", 1),
           _buildNavItem(Icons.person_outline_outlined, "Profil", 2),
         ],
@@ -32,12 +33,13 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
   }
 
   Widget _buildNavItem(IconData icon, String label, int index) {
-    bool isSelected = widget.selectedIndex == index;
+    bool isSelected = selectedIndex == index;
 
     return GestureDetector(
-      onTap: () => widget.onItemTapped(index),
+      onTap: () => onItemTapped(index),
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
         padding: EdgeInsets.symmetric(horizontal: isSelected ? 9 : 0, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected ? Colors.orange : Colors.transparent,
@@ -45,32 +47,21 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
         ),
         child: Row(
           children: [
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 200),
-              transitionBuilder: (child, animation) => FadeTransition(opacity: animation, child: child),
-              child: Icon(
-                icon,
-                key: ValueKey(isSelected), 
-                size: 28,
-                color: isSelected ? Colors.white : Colors.grey,
+            Icon(
+              icon,
+              size: 28,
+              color: isSelected ? Colors.white : Colors.grey,
+            ),
+            if (isSelected) SizedBox(width: 5),
+            if (isSelected)
+              Text(
+                label,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(width: isSelected ? 8 : 0),
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 0),
-              transitionBuilder: (child, animation) => FadeTransition(opacity: animation, child: child),
-              child: isSelected
-                  ? Text(
-                      label,
-                      key: ValueKey(label),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  : SizedBox(),
-            ),
           ],
         ),
       ),
