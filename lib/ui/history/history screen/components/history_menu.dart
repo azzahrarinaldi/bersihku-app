@@ -1,3 +1,5 @@
+import 'package:bersihku/ui/history/detail-history/detail_screen.dart';
+import 'package:bersihku/ui/profile-user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HistoryMenu extends StatelessWidget {
@@ -24,7 +26,16 @@ class HistoryMenu extends StatelessWidget {
           minWidth: 140,
           maxWidth: 140, 
         ),
-        onSelected: onSelected,
+        onSelected: (value) {
+          if (value == 'edit') {
+             Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailScreenHistory()),
+            );
+          } else if (value == 'detail') {
+            Navigator.pushNamed(context, '/detail');
+          }
+        },
         offset: Offset(20, 30), 
         itemBuilder: (context) => [
           PopupMenuItem(
@@ -34,12 +45,12 @@ class HistoryMenu extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12), 
               child: Text(
                 'Edit',
-                style: TextStyle(color: Colors.black, fontSize: 10),
+                style: TextStyle(color: Colors.black, fontSize: 10)
               ),
             ),
           ),
           PopupMenuItem(
-            height: 5, // Tinggi lebih kecil
+            height: 5, 
             value: 'detail',
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
