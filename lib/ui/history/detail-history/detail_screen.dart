@@ -11,6 +11,8 @@ class DetailScreenHistory extends StatefulWidget {
 class _DetailScreenHistoryState extends State<DetailScreenHistory> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double screenWidth = size.width;
     return Scaffold(
       backgroundColor: const Color(0xFF4EBAE5),
       body: Container(
@@ -20,36 +22,37 @@ class _DetailScreenHistoryState extends State<DetailScreenHistory> {
               fit: BoxFit.cover,
             ),
           ),
-          child: SingleChildScrollView(
-            child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          child: Padding(
+              padding:EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05, 
+                  vertical: 20, 
+                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Detail Supir",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(width: 10),
-                        Text(
-                          "Detail Supir",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20), 
-                    CardDetailHistory(),
-                  ],
-                )),
-          )),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20), 
+                  CardDetailHistory(),
+                ],
+              ))),
     );
   }
 }

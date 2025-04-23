@@ -35,64 +35,73 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+     double screenWidth = size.width;
+     
     return Scaffold(
       backgroundColor: const Color(0xFF4EBAE5),
       body: _selectedIndex == 0 ?
       Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/blue-pettern.png"),
+            image: AssetImage("assets/images/blue-pettern.png",),
             fit: BoxFit.cover,
+            
           ),
         ),
-        child: const Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Hai, Joko 👋🏻",
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.05, 
+                    vertical: 20,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hai, Joko 👋🏻",
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Siap menjemput sampah hari ini?",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  Image(
-                    image: AssetImage("assets/icons/notification.png"),
-                    width: 40,
-                    height: 40,
-                  ),
-                ],
-              ),
-              SizedBox(height: 28),
-              Guide(),
-              SizedBox(height: 24),
-              Text(
-                "Drop In",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                        Text(
+                          "Siap menjemput sampah hari ini?",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    Image(
+                      image: AssetImage("assets/icons/notification.png"),
+                      width: 40,
+                      height: 40,
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 24),
-              Report(),
-              SizedBox(height: 24),
-              Constraints(),
-            ],
+                SizedBox(height: screenWidth * 0.06),
+                Guide(),
+                 SizedBox(height: screenWidth * 0.05),
+                Text(
+                  "Drop In",
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.045,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 24),
+                Report(),
+                SizedBox(height: 24),
+                Constraints(),
+              ],
+            ),
           ),
         ),
       )
