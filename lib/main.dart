@@ -1,3 +1,4 @@
+import 'package:bersihku/ui/history/detail-history/detail_screen.dart';
 import 'package:bersihku/ui/home/home_screen.dart';
 import 'package:bersihku/ui/splash_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/on-boarding' : (context) => const OnboardingScreen(),
         '/home' : (context) => const HomeScreen(),
+        '/detail-history' : (context) => const DetailScreenHistory(),
       },
     );
   }

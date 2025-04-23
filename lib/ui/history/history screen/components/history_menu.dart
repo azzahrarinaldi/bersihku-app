@@ -1,5 +1,3 @@
-import 'package:bersihku/ui/history/detail-history/detail_screen.dart';
-import 'package:bersihku/ui/profile-user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HistoryMenu extends StatelessWidget {
@@ -28,12 +26,9 @@ class HistoryMenu extends StatelessWidget {
         ),
         onSelected: (value) {
           if (value == 'edit') {
-             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DetailScreenHistory()),
-            );
+             Navigator.pushNamed(context, '/edit-riwayat');
           } else if (value == 'detail') {
-            Navigator.pushNamed(context, '/detail');
+            Navigator.pushNamed(context, '/detail-history');
           }
         },
         offset: Offset(20, 30), 

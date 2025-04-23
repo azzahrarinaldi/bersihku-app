@@ -22,37 +22,38 @@ class _DetailScreenHistoryState extends State<DetailScreenHistory> {
               fit: BoxFit.cover,
             ),
           ),
-          child: Padding(
-              padding:EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05, 
-                  vertical: 20, 
-                ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Detail Supir",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+          child: SafeArea(
+            child: Padding(
+                padding:EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.05, 
                   ),
-                  SizedBox(height: 20), 
-                  CardDetailHistory(),
-                ],
-              ))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          "Detail Supir",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20), 
+                    CardDetailHistory(),
+                  ],
+                )),
+          )),
     );
   }
 }
