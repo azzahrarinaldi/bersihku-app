@@ -1,9 +1,28 @@
+import 'package:bersihku/firebase_options.dart';
+import 'package:bersihku/provider/auth_provider.dart';
 import 'package:bersihku/ui/on-boarding/splash_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inisialisasi Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Jalankan app dengan provider
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
