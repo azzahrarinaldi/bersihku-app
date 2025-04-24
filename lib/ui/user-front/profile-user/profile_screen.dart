@@ -1,4 +1,4 @@
-import 'package:bersihku/ui/profile-user/components/profile_option.dart';
+import 'package:bersihku/ui/user-front/profile-user/components/profile_option.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.05,
-                  vertical: 20,
+                  vertical: 10,
                 ),                
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,

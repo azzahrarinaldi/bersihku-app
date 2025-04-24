@@ -1,4 +1,4 @@
-import 'package:bersihku/ui/history/detail-history/components/card_detail.dart';
+import 'package:bersihku/ui/user-front/history/detail-history/components/card_detail.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreenHistory extends StatefulWidget {

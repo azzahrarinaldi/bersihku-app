@@ -1,26 +1,26 @@
-import 'package:bersihku/ui/history/history%20screen/history_screen.dart';
-import 'package:bersihku/ui/home/components/bottom_navbar.dart';
-import 'package:bersihku/ui/home/components/contraints.dart';
-import 'package:bersihku/ui/home/components/guide.dart';
-import 'package:bersihku/ui/home/components/report.dart';
-import 'package:bersihku/ui/profile-user/profile_screen.dart';
+import 'package:bersihku/ui/user-front/history/history%20screen/history_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/components/bottom_navbar.dart';
+import 'package:bersihku/ui/user-front/home-user/components/contraints.dart';
+import 'package:bersihku/ui/user-front/home-user/components/guide.dart';
+import 'package:bersihku/ui/user-front/home-user/components/report.dart';
+import 'package:bersihku/ui/user-front/profile-user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class UserHomeScreen extends StatefulWidget {
+  const UserHomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<UserHomeScreen> createState() => _UserHomeScreenState();
   
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _UserHomeScreenState extends State<UserHomeScreen> {
    int _selectedIndex = 0;
 
 
 
   final List<Widget> _widgetOptions = [ //dasar untuk bernavigasi via bottom nav bar
-    const HomeScreen(),
+    const UserHomeScreen(),
     const HistoryScreen(),
     const ProfileScreen()
     

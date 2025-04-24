@@ -1,4 +1,4 @@
-import 'package:bersihku/ui/history/history%20screen/components/history_card.dart';
+import 'package:bersihku/ui/user-front/history/history%20screen/components/history_card.dart';
 import 'package:flutter/material.dart';
 
 class HistoryScreen extends StatelessWidget {

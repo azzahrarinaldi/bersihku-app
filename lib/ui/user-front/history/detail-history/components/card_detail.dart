@@ -1,6 +1,6 @@
-import 'package:bersihku/ui/history/detail-history/components/card_image.dart';
-import 'package:bersihku/ui/history/detail-history/components/notes.dart';
-import 'package:bersihku/ui/history/detail-history/components/total_wight.dart';
+import 'package:bersihku/ui/user-front/history/detail-history/components/card_image.dart';
+import 'package:bersihku/ui/user-front/history/detail-history/components/notes.dart';
+import 'package:bersihku/ui/user-front/history/detail-history/components/total_wight.dart';
 import 'package:flutter/material.dart';
 
 class CardDetailHistory extends StatefulWidget {

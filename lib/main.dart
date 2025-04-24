@@ -1,5 +1,6 @@
-import 'package:bersihku/ui/history/detail-history/detail_screen.dart';
-import 'package:bersihku/ui/home/home_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
+import 'package:bersihku/ui/user-front/history/detail-history/detail_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/user_home_screen.dart';
 import 'package:bersihku/ui/splash_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashScreen(),
         '/on-boarding' : (context) => const OnboardingScreen(),
-        '/home' : (context) => const HomeScreen(),
+        '/home-user' : (context) => const UserHomeScreen(),
         '/detail-history' : (context) => const DetailScreenHistory(),
+        '/home-admin' : (context) => const AdminHomeScreen(),
       },
     );
   }
