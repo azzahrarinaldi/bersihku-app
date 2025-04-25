@@ -9,6 +9,7 @@ class HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           padding: EdgeInsets.symmetric(
@@ -38,9 +39,8 @@ class HeaderSection extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+          padding: EdgeInsets.only(left: 20),
           child: Container(
-            alignment: Alignment.centerLeft,
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.6),
