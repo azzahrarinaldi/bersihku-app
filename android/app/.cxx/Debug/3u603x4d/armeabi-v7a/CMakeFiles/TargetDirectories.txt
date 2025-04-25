@@ -1,0 +1,2 @@
+C:/Users/djopr/Documents/RPL_2024/capstone/bersihku-app/android/app/.cxx/Debug/3u603x4d/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/djopr/Documents/RPL_2024/capstone/bersihku-app/android/app/.cxx/Debug/3u603x4d/armeabi-v7a/CMakeFiles/rebuild_cache.dir

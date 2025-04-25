@@ -3,7 +3,7 @@ import 'package:bersihku/ui/user-front/home-user/components/bottom_navbar.dart';
 import 'package:bersihku/ui/user-front/home-user/components/contraints.dart';
 import 'package:bersihku/ui/user-front/home-user/components/guide.dart';
 import 'package:bersihku/ui/user-front/home-user/components/report.dart';
-import 'package:bersihku/ui/user-front/profile-user/profile_screen.dart';
+import 'package:bersihku/ui/user-front/profile-user/components/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class UserHomeScreen extends StatefulWidget {

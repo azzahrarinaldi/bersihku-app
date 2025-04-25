@@ -1,3 +1,4 @@
+import 'package:bersihku/ui/user-front/guide/guide_screen.dart';
 import 'package:flutter/material.dart';
 
 class Guide extends StatelessWidget {
@@ -9,10 +10,10 @@ class Guide extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12), 
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min, 
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
@@ -27,30 +28,42 @@ class Guide extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 7), 
+                SizedBox(height: 7),
                 ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    minimumSize: Size(10, 32),
-                    backgroundColor: Color(0xFF4EBAE5), 
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6), 
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      minimumSize: Size(10, 32),
+                      backgroundColor: Color(0xFF4EBAE5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    "Panduan Penggunaan Aplikasi",
-                    style: TextStyle(fontSize: 12, color: Colors.white),
-                  ),
-                ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                 HelpGuideScreen()), // ganti dengan screen tujuan kamu
+                        );
+                      },
+                      child: const Text(
+                        "Panduan Penggunaan Aplikasi",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                           ),
+                      ),
+                    )),
               ],
             ),
           ),
           SizedBox(height: 20),
           Image.asset(
             "assets/images/guide.png",
-            width: 90, 
-            height: 105, 
+            width: 90,
+            height: 105,
           ),
         ],
       ),
