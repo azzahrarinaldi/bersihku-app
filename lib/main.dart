@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'PlusJakartaSans',
+        fontFamily: 'Plus Jakarta Sans',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Color(0xFF757575)),
