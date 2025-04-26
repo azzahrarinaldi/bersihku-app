@@ -17,28 +17,29 @@ class _NotesDetailHistoryState extends State<NotesDetailHistory> {
           'Catatan',
           style: TextStyle(fontSize: 12, color: Colors.black),
         ),
-        const SizedBox(height: 10), 
-       Container(
-  height: 150, // kamu bisa atur tinggi sesuai kebutuhan
-  padding: const EdgeInsets.all(40),
-  decoration: BoxDecoration(
-    color: Colors.grey[200],
-    borderRadius: BorderRadius.circular(8),
-  ),
-  child: const TextField(
-    expands: true,
-    maxLines: null,
-    minLines: null,
-    textAlignVertical: TextAlignVertical.top,
-    decoration: InputDecoration(
-      border: InputBorder.none,
-      hintText: 'tambahkan jika ada keperluan',
-      contentPadding: EdgeInsets.zero,
-      alignLabelWithHint: true,
-    ),
-    style: TextStyle(fontSize: 10),
-  ),
-),
+        const SizedBox(height: 10),
+        Container(
+          height: 150,
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: const TextField(
+            expands: true,
+            maxLines: null,
+            minLines: null,
+            textAlign: TextAlign.start,
+            textAlignVertical: TextAlignVertical.top,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'tambahkan jika ada keperluan',
+              contentPadding:
+                  EdgeInsets.zero, alignLabelWithHint: true,
+            ),
+            style: TextStyle(fontSize: 13),
+          ),
+        ),
       ],
     );
   }

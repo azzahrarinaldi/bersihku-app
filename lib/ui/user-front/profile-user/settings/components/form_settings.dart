@@ -75,7 +75,7 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
           controller: _emailController,
           style: const TextStyle(color: Colors.black38),
           keyboardType: TextInputType.emailAddress,
-          decoration: buildInputDecoration(Icons.email),
+          decoration: buildInputDecoration(Icons.email_rounded),
         ),
         const SizedBox(height: 20),
         Row(
@@ -87,7 +87,7 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
             ),
             const Text(
               "Ganti Kata Sandi",
-              style: TextStyle(fontSize: 14, color: textPrimary),
+              style: TextStyle(fontSize: 14, color: textPrimary, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -104,7 +104,7 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: thirdColor,
               padding: const EdgeInsets.symmetric(vertical: 14),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(3),

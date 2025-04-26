@@ -1,9 +1,9 @@
 import 'package:bersihku/ui/user-front/history/history%20screen/history_screen.dart';
-import 'package:bersihku/ui/user-front/home-user/components/bottom_navbar.dart';
-import 'package:bersihku/ui/user-front/home-user/components/contraints.dart';
-import 'package:bersihku/ui/user-front/home-user/components/guide.dart';
-import 'package:bersihku/ui/user-front/home-user/components/report.dart';
-import 'package:bersihku/ui/user-front/profile-user/components/profile_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/bottom_navbar.dart';
+import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/contraints.dart';
+import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/guide.dart';
+import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/report.dart';
+import 'package:bersihku/ui/user-front/profile-user/profile-user-screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class UserHomeScreen extends StatefulWidget {
@@ -53,7 +53,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: screenWidth * 0.05, 
-                    vertical: 20,
+                    vertical: 15,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +79,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       ],
                     ),
                     Image(
-                      image: AssetImage("assets/icons/notification.png"),
+                      image: AssetImage("assets/icons/non-active-notification.png"),
                       width: 40,
                       height: 40,
                     ),

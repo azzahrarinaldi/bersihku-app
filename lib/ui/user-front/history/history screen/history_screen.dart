@@ -24,7 +24,7 @@ class HistoryScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(
                       horizontal: screenWidth * 0.05, // padding kiri-kanan 5%
-                      vertical: 20, // padding atas-bawah tetap bisa disesuaikan
+                      vertical: 15, // padding atas-bawah tetap bisa disesuaikan
                     ),
                 child: Row(
                   children: [

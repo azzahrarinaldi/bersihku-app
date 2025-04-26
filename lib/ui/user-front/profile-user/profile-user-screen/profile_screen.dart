@@ -1,4 +1,4 @@
-import 'package:bersihku/ui/user-front/profile-user/components/profile_option.dart';
+import 'package:bersihku/ui/user-front/profile-user/profile-user-screen/components/profile_option.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {

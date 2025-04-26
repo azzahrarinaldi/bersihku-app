@@ -41,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: screenWidth * 0.06, 
-              vertical: 20,
+              vertical: 15,
             ),
             child: Column(
               children: [
@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         "Edit Foto",
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                           color: Colors.blueAccent,
                           decoration: TextDecoration.underline, 
                           decorationColor: Colors.blueAccent,

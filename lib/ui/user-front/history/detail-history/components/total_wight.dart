@@ -16,7 +16,7 @@ class _TotalWightState extends State<TotalWight> {
         Text(
           "Pengangkutan sampah",
           style: TextStyle(
-            fontSize: 10,
+            fontSize: 13,
             color: Colors.black,
             fontWeight: FontWeight.bold
           ),
@@ -24,7 +24,7 @@ class _TotalWightState extends State<TotalWight> {
         Text(
           "1.648 kg",
           style: TextStyle(
-            fontSize: 10,
+            fontSize: 13,
             color: Colors.black,
             fontWeight: FontWeight.bold
           ),

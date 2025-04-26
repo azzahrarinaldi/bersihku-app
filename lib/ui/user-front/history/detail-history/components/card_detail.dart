@@ -70,38 +70,39 @@ class _CardDetailHistoryState extends State<CardDetailHistory> {
             children: [
               Text(
                 "Kemang Village Arpartement",
-                style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 5,),
               Text(
+                 textAlign: TextAlign.justify,
                 "Jl. Pangeran Antasari No.36, Bangka, Kec. Mampang Prpt.",
                 style: TextStyle(fontSize: 11.7, color: Colors.black,),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 17),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Rabu, 26 Februari 2025",
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 13,
                       color: Colors.black
                     ),
                   ),
                   Text(
                     "21.00-06.00",
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 13,
                       color: Colors.black
                     ),
                   )
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 17),
               CardImage(),
               SizedBox(height: 10),
               TotalWight(),
-              SizedBox(height: 20),
+              SizedBox(height: 17),
               NotesDetailHistory()
             ],
           ),

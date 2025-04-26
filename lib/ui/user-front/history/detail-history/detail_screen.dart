@@ -15,6 +15,7 @@ class _DetailScreenHistoryState extends State<DetailScreenHistory> {
     double screenWidth = size.width;
     return Scaffold(
       backgroundColor: const Color(0xFF4EBAE5),
+      resizeToAvoidBottomInset: false,
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -22,37 +23,39 @@ class _DetailScreenHistoryState extends State<DetailScreenHistory> {
               fit: BoxFit.cover,
             ),
           ),
-          child: SafeArea(
-            child: Padding(
-                padding:EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.05, 
-                  ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          "Detail Supir",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                  padding:EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.04, 
                     ),
-                    SizedBox(height: 20), 
-                    CardDetailHistory(),
-                  ],
-                )),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            "Detail Supir",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 6), 
+                      CardDetailHistory(),
+                    ],
+                  )),
+            ),
           )),
     );
   }

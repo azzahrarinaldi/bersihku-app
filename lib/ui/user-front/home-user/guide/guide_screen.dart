@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bersihku/ui/user-front/guide/components/instruction_cards.dart';
+import 'package:bersihku/ui/user-front/home-user/guide/components/instruction_cards.dart';
 
 class HelpGuideScreen extends StatelessWidget {
   const HelpGuideScreen({super.key});
@@ -87,7 +87,7 @@ class HelpGuideScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Row(
                     children: [
                       GestureDetector(

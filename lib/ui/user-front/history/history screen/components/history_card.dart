@@ -73,7 +73,7 @@ class HistoryCard extends StatelessWidget {
                         SizedBox(height: 5),
                         Text(
                           vehicle,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style: TextStyle(fontSize: 13, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -87,19 +87,19 @@ class HistoryCard extends StatelessWidget {
           Text(
             place,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 14,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 9),
-          Text(address, style: TextStyle(fontSize: 11, color: Colors.black)),
+          Text(address, style: TextStyle(fontSize: 11.4, color: Colors.black)),
           SizedBox(height: 9),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(date, style: TextStyle(fontSize: 11, color: Colors.black)),
-              Text(time, style: TextStyle(fontSize: 11, color: Colors.black)),
+              Text(date, style: TextStyle(fontSize: 12, color: Colors.black)),
+              Text(time, style: TextStyle(fontSize: 12, color: Colors.black)),
             ],
           ),
           SizedBox(height: 20),
@@ -109,7 +109,7 @@ class HistoryCard extends StatelessWidget {
               Text(
                 type,
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -117,7 +117,7 @@ class HistoryCard extends StatelessWidget {
               Text(
                 "$weight Kg",
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
