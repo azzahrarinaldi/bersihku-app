@@ -157,15 +157,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocialButton(
-                        assetPath: 'assets/icons/google-icon.png',
-                        onTap: _signInWithGoogle, 
-                        text: 'Google',
-                      ),
-                    ],
+                  Center(
+                    child: SocialButton(
+                      assetPath: 'assets/icons/google-icon.png',
+                      onTap: _signInWithGoogle, 
+                      text: 'Google',
+                    ),
                   ),
                   const SizedBox(height: 25),
                   Center(
