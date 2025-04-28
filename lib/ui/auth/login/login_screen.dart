@@ -1,9 +1,14 @@
+import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/auth/sign-up/signup_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/user_home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'components/email_input.dart';
 import 'components/password_input.dart';
 import 'components/social_button.dart';
 import 'components/login_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,7 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _updateButtonState() {
     setState(() {
-      _isFormFilled = _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
+      _isFormFilled =
+          _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
     });
   }
 
@@ -28,6 +34,91 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     _emailController.addListener(_updateButtonState);
     _passwordController.addListener(_updateButtonState);
+  }
+
+  void _handleLogin() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    try {
+      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final uid = userCredential.user?.uid;
+      if (uid != null) {
+        final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+        if (userDoc.exists) {
+          final role = userDoc.data()?['role'];
+          if (role == 'admin') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const AdminHomeScreen()),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const UserHomeScreen()),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('User data not found')),
+          );
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      String errorMsg = 'Login failed';
+      if (e.code == 'user-not-found') {
+        errorMsg = 'Email not found';
+      } else if (e.code == 'wrong-password') {
+        errorMsg = 'Wrong password';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMsg)));
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final uid = userCredential.user?.uid;
+      if (uid != null) {
+        final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+        if (userDoc.exists) {
+          final role = userDoc.data()?['role'];
+          if (role == 'admin') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const AdminHomeScreen()),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const UserHomeScreen()),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('User data not found')),
+          );
+        }
+      }
+    } catch (e) {
+      print('Google Sign-In error: $e');
+    }
   }
 
   @override
@@ -70,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {}, // Tambahkan action lupa password
+                      onPressed: () {},
                       child: const Text(
                         "Lupa kata sandi?",
                         style: TextStyle(color: Colors.blue),
@@ -84,19 +175,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   const Center(
-                    child: Text(
-                      "Atau masuk dengan:", 
-                      style: TextStyle(fontSize: 14)
-                    ),
+                    child: Text("Atau masuk dengan:", style: TextStyle(fontSize: 14)),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocialButton(assetPath: 'assets/icons/google-icon.png'),
-                      const SizedBox(width: 16),
-                      SocialButton(assetPath: 'assets/icons/facebook-icon.png'),
-                    ],
+                  Center(
+                    child: SocialButton(
+                      assetPath: 'assets/icons/google-icon.png',
+                      text: 'Google',
+                      onTap: _signInWithGoogle,
+                    ),
                   ),
                   const SizedBox(height: 25),
                   Center(
@@ -119,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20)
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
@@ -129,3 +216,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

@@ -1,9 +1,14 @@
 import 'package:bersihku/firebase_options.dart';
 import 'package:bersihku/provider/auth_provider.dart';
-import 'package:bersihku/ui/on-boarding/splash_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
+import 'package:bersihku/ui/auth_wrapper.dart';
+import 'package:bersihku/ui/user-front/history/detail-history/detail_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/user_home_screen.dart';
+import 'package:bersihku/ui/splash_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -13,6 +18,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Inisialisasi Google Sign-In
+  await GoogleSignIn().isSignedIn(); // Ini untuk memastikan plugin Google Sign-In terdeteksi
 
   // Jalankan app dengan provider
   runApp(
@@ -36,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'PlusJakartaSans',
+        fontFamily: 'Plus Jakarta Sans',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Color(0xFF757575)),
@@ -46,7 +54,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', 
       routes: {
         '/': (context) => const SplashScreen(),
-        '/on-boarding' : (context) => const OnboardingScreen()
+        '/auth-wrapper': (context) => const AuthWrapper(),
+        '/on-boarding' : (context) => const OnboardingScreen(),
+        '/home-user' : (context) => const UserHomeScreen(),
+        '/detail-history' : (context) => const DetailScreenHistory(),
+        '/home-admin' : (context) => const AdminHomeScreen(),
       },
     );
   }

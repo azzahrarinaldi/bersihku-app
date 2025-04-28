@@ -2,18 +2,49 @@ import 'package:flutter/material.dart';
 
 class SocialButton extends StatelessWidget {
   final String assetPath;
+  final String text;
+  final VoidCallback? onTap;
 
-  const SocialButton({super.key, required this.assetPath});
+  const SocialButton({
+    super.key,
+    required this.assetPath,
+    required this.text,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(72, 10, 72, 10),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F7FA),
-        borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: double.infinity, // full width
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF5F7FA),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center, // tengahin icon + text
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Image.asset(
+                assetPath,
+                width: 24,
+                height: 24,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      child: Image.asset(assetPath, width: 24, height: 24),
     );
   }
 }

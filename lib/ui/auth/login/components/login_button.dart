@@ -1,20 +1,22 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/user_home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:bersihku/ui/auth/admin.dart';
-import 'package:bersihku/ui/auth/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
   final bool isFormFilled;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final Function()? onGoogleSignIn;  // Menambahkan parameter untuk sign-in dengan Google
 
   const LoginButton({
-    Key? key,
+    super.key,
     required this.isFormFilled,
     required this.emailController,
     required this.passwordController,
-  }) : super(key: key);
+    this.onGoogleSignIn,  // Menambahkan parameter onGoogleSignIn
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class LoginButton extends StatelessWidget {
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: isFormFilled ? Colors.blue : Color(0xFFA6A6A6),
+          backgroundColor: isFormFilled ? Color(0xFF4AB1DA) : Color(0xFFA6A6A6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -46,13 +48,13 @@ class LoginButton extends StatelessWidget {
                       if (role == 'admin') {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => const AdminScreen()),
+                          MaterialPageRoute(builder: (context) => AdminHomeScreen()),
                           (Route<dynamic> route) => false,
                         );
                       } else {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => const UserScreen()),
+                          MaterialPageRoute(builder: (context) => const UserHomeScreen()),
                           (Route<dynamic> route) => false,
                         );
                       }

@@ -69,24 +69,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             left: 0,
             right: 0,
             child: DotsIndicator(
-              currentPage: _currentPage, totalPage: onboardingData.length
-            ),
+                currentPage: _currentPage, totalPage: onboardingData.length),
           ),
           _currentPage == onboardingData.length - 1
-          ? Align(
-              alignment: Alignment.center, // AuthButton di tengah
-              child: AuthButton(),
-            )
-          : Positioned(
-              bottom: size.height * 0.07,
-              left: size.width * 0.1,
-              right: size.width * 0.1,
-              child: NavigationButton(
-                currentPage: _currentPage,
-                onNext: () => _navigatePage(true),
-                onPrev: () => _navigatePage(false),
-              ),
-            ),
+              ? Align(
+                  alignment: Alignment.center, 
+                  child: AuthButton(),
+                )
+              : Positioned(
+                  bottom: size.height * 0.07,
+                  left: size.width * 0.1,
+                  right: size.width * 0.1,
+                  child: NavigationButton(
+                    currentPage: _currentPage,
+                    onNext: () => _navigatePage(true),
+                    onPrev: () => _navigatePage(false),
+                  ),
+                ),
         ],
       ),
     );

@@ -1,0 +1,2 @@
+/Users/nailaalfatin/Documents/School/RPL_2024/bersihku-app/android/app/.cxx/Debug/28637253/x86_64/CMakeFiles/edit_cache.dir
+/Users/nailaalfatin/Documents/School/RPL_2024/bersihku-app/android/app/.cxx/Debug/28637253/x86_64/CMakeFiles/rebuild_cache.dir

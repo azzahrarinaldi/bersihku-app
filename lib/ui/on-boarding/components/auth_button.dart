@@ -12,9 +12,11 @@ class AuthButton extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(
+                builder: (context) => LoginScreen(),
+              ),
             );
           },
           style: ElevatedButton.styleFrom(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PasswordInput extends StatefulWidget {
   final TextEditingController controller;
 
-  const PasswordInput({Key? key, required this.controller}) : super(key: key);
+  const PasswordInput({super.key, required this.controller});
 
   @override
   _PasswordInputState createState() => _PasswordInputState();

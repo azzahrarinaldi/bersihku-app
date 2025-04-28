@@ -1,43 +1,44 @@
-import 'package:bersihku/ui/auth/sign-up/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomPasswordField extends StatelessWidget {
   final TextEditingController controller;
-  final FocusNode passwordFocusNode;
   final bool isPasswordVisible;
   final VoidCallback setPasswordVisible;
+  final FormFieldValidator<String>? validator;  // Add validator parameter
+  final FocusNode passwordFocusNode;  // Add FocusNode parameter
 
   const CustomPasswordField({
     super.key,
     required this.controller,
-    required this.passwordFocusNode,
     required this.isPasswordVisible,
     required this.setPasswordVisible,
+    this.validator,  // Accept the validator parameter
+    required this.passwordFocusNode,  // Accept the FocusNode
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
-        focusNode: passwordFocusNode,
         obscureText: !isPasswordVisible,
-        onChanged: (value) {},
+        focusNode: passwordFocusNode,  // Set FocusNode here
         decoration: InputDecoration(
-          hintText: "Masukkan Kata Sandi",
-          hintStyle: const TextStyle(fontSize: 14, color: hintTextColor),
-          filled: true,
-          fillColor: fieldBg,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+          hintText: 'Password',
+          hintStyle: const TextStyle(fontSize: 14, color: Color(0xFF9E9E9E)),
           suffixIcon: IconButton(
-            icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+            icon: Icon(
+              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+            ),
             onPressed: setPasswordVisible,
           ),
-          helperText: passwordFocusNode.hasFocus ? "Minimal 8 karakter" : null,
-          helperStyle: const TextStyle(fontSize: 12, color: Colors.grey),
+          filled: true,
+          fillColor: const Color(0xFFF5F7FA),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
         ),
+        validator: validator,  // Use the validator parameter
       ),
     );
   }
