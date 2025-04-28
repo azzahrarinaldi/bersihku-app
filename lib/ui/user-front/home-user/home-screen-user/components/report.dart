@@ -6,58 +6,62 @@ class Report extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   double screenWidth = MediaQuery.of(context).size.width; 
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenWidth * 0.05), 
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center, 
         children: [
-          Image.asset("assets/images/report-trash.png",
-              width: 95, height: 92.51),
-          SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Buat Laporan Pengangkutan",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+          Image.asset(
+            "assets/images/report-trash.png",
+            height: screenWidth * 0.25, 
+          ),
+          SizedBox(width: screenWidth * 0.04), 
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                "Buat Laporan Pengangkutan?",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                "Buat Laporan untuk hari ini",
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF646464),
+                SizedBox(height: 8),
+                Text(
+                  "Buat Laporan untuk hari ini!",
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF646464),
+                  ),
                 ),
-              ),
-              SizedBox(height: 8),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: ElevatedButton(
+                SizedBox(height: 5), 
+                ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
+                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              LaporanPengangkutanScreen()), // Ganti NewScreen() dengan widget halaman yang ingin dituju
+                        builder: (context) =>
+                            LaporanPengangkutanScreen(), // Ganti dengan screen yang ingin dituju
+                      ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(200, 30),
+                    minimumSize: Size(screenWidth * 0.55, screenWidth * 0.075), 
                     elevation: 0,
                     backgroundColor: Colors.transparent,
                     foregroundColor: Color(0xFF4EBAE5),
                     shadowColor: Colors.transparent,
-                    surfaceTintColor: Colors.transparent,
+                    surfaceTintColor: Colors.transparent, 
                     splashFactory: NoSplash.splashFactory,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
@@ -70,13 +74,13 @@ class Report extends StatelessWidget {
                   child: Text(
                     "Buat Laporan",
                     style: TextStyle(
-                      fontSize: 11.31,
+                      fontSize: screenWidth * 0.03, 
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

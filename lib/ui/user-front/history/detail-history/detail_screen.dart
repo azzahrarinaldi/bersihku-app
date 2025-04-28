@@ -15,7 +15,6 @@ class _DetailScreenHistoryState extends State<DetailScreenHistory> {
     double screenWidth = size.width;
     return Scaffold(
       backgroundColor: const Color(0xFF4EBAE5),
-      resizeToAvoidBottomInset: false,
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -27,7 +26,7 @@ class _DetailScreenHistoryState extends State<DetailScreenHistory> {
             child: SafeArea(
               child: Padding(
                   padding:EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.04, 
+                      horizontal: screenWidth * 0.03, 
                     ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

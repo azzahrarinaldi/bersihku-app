@@ -106,7 +106,7 @@ class HelpGuideScreen extends StatelessWidget {
                 Center(
                   child: Image.asset("assets/images/guide-image.png", width: 100),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 29),
                 Expanded(
                   child: SingleChildScrollView(
                     child: InstructionCards(instructions: instructionData),

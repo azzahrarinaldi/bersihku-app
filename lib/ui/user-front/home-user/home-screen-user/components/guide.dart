@@ -24,11 +24,11 @@ class Guide extends StatelessWidget {
                 Text(
                   "Pelajari cara menggunakan aplikasi ini untuk melaporkan dan memantau pengangkutan sampah dengan mudah!",
                   style: TextStyle(
-                    fontSize: 12, 
+                    fontSize: 11,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
-                  maxLines: 4, 
+                  maxLines: 4,
                 ),
                 SizedBox(height: 10),
                 ElevatedButton(
@@ -46,14 +46,20 @@ class Guide extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
                     ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 18, vertical: 6), // Mengurangi padding
                   ),
                   child: Text(
                     "Panduan Penggunaan Aplikasi",
                     style: TextStyle(
-                      fontSize: 11, 
+                      fontSize:
+                          10, 
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
+                    overflow:
+                        TextOverflow.ellipsis, // Agar teks tidak terpotong
+                    softWrap: false, // Agar teks tetap dalam satu baris
                   ),
                 ),
               ],

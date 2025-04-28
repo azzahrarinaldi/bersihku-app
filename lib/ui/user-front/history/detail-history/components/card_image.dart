@@ -31,11 +31,11 @@ class _CardImageState extends State<CardImage> {
           children: [
             Image.asset(
               "assets/images/sampah-kering-sebelum-diangkat.png",
-              width: 150,
+              width: 140,
             ),
             Image.asset(
               "assets/images/sampah-kering-sebelum-diangkat.png",
-              width: 150,
+              width: 140,
             ),
           ],
         ),
@@ -58,11 +58,11 @@ class _CardImageState extends State<CardImage> {
           children: [
             Image.asset(
               "assets/images/sampah-kering-sebelum-diangkat.png",
-              width: 150,
+              width: 140,
             ),
             Image.asset(
               "assets/images/sampah-kering-sebelum-diangkat.png",
-              width: 150,
+              width: 140,
             ),
           ],
         )
