@@ -24,10 +24,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // Fungsi untuk ambil path gambar yang disimpan dari SharedPreferences
   Future<void> _loadImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? imagePath = prefs.getString('profile_image'); // Ambil path gambar
+    String? imagePath = prefs.getString('profile_image'); 
     if (imagePath != null) {
       setState(() {
-        _imageFile = File(imagePath); // Set imageFile dengan path yang disimpan
+        _imageFile = File(imagePath); 
       });
     }
   }
@@ -35,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // Fungsi untuk menyimpan path gambar ke SharedPreferences
   Future<void> _saveImagePath(String path) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('profile_image', path); // Simpan path gambar
+    prefs.setString('profile_image', path);
   }
 
   Future<void> _showImageSourceActionSheet() async {
@@ -55,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     setState(() {
                       _imageFile = File(pickedFile.path);
                     });
-                    _saveImagePath(pickedFile.path); // Simpan path gambar
+                    _saveImagePath(pickedFile.path); 
                   }
                 },
               ),
@@ -114,7 +114,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06, vertical: 15),
             child: Column(
               children: [
-                // Gambar profile ganti dinamis
                 _imageFile == null
                     ? Image.asset(
                         "assets/images/profile-person-history.png",

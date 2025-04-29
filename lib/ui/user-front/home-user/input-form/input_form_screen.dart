@@ -106,7 +106,7 @@ class _InputFormScreenState extends State<InputFormScreen> {
               ),
               const SizedBox(height: 16),
               const UploadImagePlaceholder(title: "Foto Sampah Sebelum Diangkat"),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
               const UploadImagePlaceholder(title: "Foto Sampah Sesudah Diangkat"),
               const SizedBox(height: 24),
               const FormSectionTitle(title: "Sampah Basah", color: Colors.orange),
@@ -125,7 +125,7 @@ class _InputFormScreenState extends State<InputFormScreen> {
               ),
               const SizedBox(height: 16),
               const UploadImagePlaceholder(title: "Foto Sampah Sebelum Diangkat"),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
               const UploadImagePlaceholder(title: "Foto Sampah Sesudah Diangkat"),
               const SizedBox(height: 24),
               Text(

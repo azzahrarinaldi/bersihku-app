@@ -4,14 +4,13 @@ import 'package:url_launcher/url_launcher.dart';
 class Constraints extends StatelessWidget {
   const Constraints({super.key});
 
-  final String adminPhoneNumber = '6285694787246';
+  static const String adminPhoneNumber = '6285694787246';
 
   Future<void> _launchWhatsApp() async {
-    final Uri whatsappUrl = Uri.parse("https://wa.me/6285694787246?text=Hello,%20I%20need%20help%20with%20a%20transportation%20issue.");
+    final Uri whatsappUrl = Uri.parse("https://wa.me/6285694787246");
 
-    if (await canLaunchUrl(whatsappUrl)) {
-      await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
-    } else {
+    if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
+      debugPrint("Could not launch WhatsApp: $whatsappUrl");
       throw 'Could not launch WhatsApp';
     }
   }
@@ -21,7 +20,8 @@ class Constraints extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenWidth * 0.05),
+      padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.04, vertical: screenWidth * 0.05),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -39,11 +39,17 @@ class Constraints extends StatelessWidget {
               children: [
                 const Text(
                   "Ada Kendala Pengangkutan?",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 const Text(
                   "Laporkan Jika Mengalami Kendala Pengangkutan",
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Color(0xFF646464)),
+                  style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF646464)),
                 ),
                 ElevatedButton(
                   onPressed: _launchWhatsApp,
@@ -63,7 +69,9 @@ class Constraints extends StatelessWidget {
                   ),
                   child: Text(
                     "Beri Tahu admin di Sini!",
-                    style: TextStyle(fontSize: screenWidth * 0.03, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: screenWidth * 0.03,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
