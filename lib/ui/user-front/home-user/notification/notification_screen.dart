@@ -12,9 +12,6 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: secondaryColor,
       body: Stack(
@@ -44,7 +41,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         },
                         icon: Icon(Icons.arrow_back_ios, color: Colors.white,)
                         ),
-                      SizedBox(width: 10,),
                       Text(
                         "Detail Notifikasi",
                         style: TextStyle(
@@ -58,7 +54,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             
                 // Info atas (TETAP di background putih)
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),

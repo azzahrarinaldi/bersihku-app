@@ -26,7 +26,7 @@ class HistoryMenu extends StatelessWidget {
         ),
         onSelected: (value) {
           if (value == 'edit') {
-             Navigator.pushNamed(context, '/edit-riwayat');
+             Navigator.pushNamed(context, '/input-form');
           } else if (value == 'detail') {
             Navigator.pushNamed(context, '/detail-history');
           }

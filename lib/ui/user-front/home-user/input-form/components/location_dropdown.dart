@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class LocationDropdown extends StatelessWidget {
   final Function(String?) onChanged;
+  final String? Function(String?)? validator; 
 
-  const LocationDropdown({super.key, required this.onChanged});
+  const LocationDropdown({
+    super.key,
+    required this.onChanged,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class LocationDropdown extends StatelessWidget {
       ],
       onChanged: onChanged,
       hint: const Text("Pilih"),
+      validator: validator, // Menambahkan validator
     );
   }
 }

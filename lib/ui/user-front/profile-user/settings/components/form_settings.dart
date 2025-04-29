@@ -9,10 +9,16 @@ class FormSettingsScreen extends StatefulWidget {
 }
 
 class _FormSettingsScreenState extends State<FormSettingsScreen> {
-  final TextEditingController _nameController = TextEditingController(text: "Kanaya Riany");
-  final TextEditingController _phoneController = TextEditingController(text: "081234567890");
-  final TextEditingController _emailController = TextEditingController(text: "kanaya@email.com");
-  final TextEditingController _passwordController = TextEditingController(text: "password123");
+  bool _obscurePassword =
+      true; // Tambahkan ini di dalam _FormSettingsScreenState
+  final TextEditingController _nameController =
+      TextEditingController(text: "Kanaya Riany");
+  final TextEditingController _phoneController =
+      TextEditingController(text: "081234567890");
+  final TextEditingController _emailController =
+      TextEditingController(text: "kanaya@email.com");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "password123");
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +44,15 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
       children: [
         const Text(
           "Nama",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         const SizedBox(height: 8),
         Focus(
           onFocusChange: (hasFocus) {
             if (hasFocus) {
-              _nameController.selection = TextSelection(baseOffset: 0, extentOffset: _nameController.text.length);
+              _nameController.selection = TextSelection(
+                  baseOffset: 0, extentOffset: _nameController.text.length);
             }
           },
           child: TextField(
@@ -56,7 +64,8 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
         const SizedBox(height: 20),
         const Text(
           "No. Telepon",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         const SizedBox(height: 8),
         TextField(
@@ -68,7 +77,8 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
         const SizedBox(height: 20),
         const Text(
           "Email",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         const SizedBox(height: 8),
         TextField(
@@ -83,11 +93,17 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
           children: [
             const Text(
               "Kata Sandi",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
             ),
             const Text(
               "Ganti Kata Sandi",
-              style: TextStyle(fontSize: 14, color: textPrimary, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: 14,
+                  color: textPrimary,
+                  fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -95,8 +111,20 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
         TextField(
           controller: _passwordController,
           style: const TextStyle(color: Colors.black38),
-          obscureText: true,
-          decoration: buildInputDecoration(Icons.lock),
+          obscureText: _obscurePassword,
+          decoration: buildInputDecoration(Icons.lock).copyWith(
+            suffixIcon: IconButton(
+              icon: Icon(
+                _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                color: Colors.grey,
+              ),
+              onPressed: () {
+                setState(() {
+                  _obscurePassword = !_obscurePassword;
+                });
+              },
+            ),
+          ),
         ),
         const SizedBox(height: 80),
         SizedBox(

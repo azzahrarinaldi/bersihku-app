@@ -1,46 +1,50 @@
 import 'package:bersihku/const.dart';
+import 'package:flutter/material.dart';
 import 'package:bersihku/ui/user-front/home-user/input-form/components/form_field_row.dart';
 import 'package:bersihku/ui/user-front/home-user/input-form/components/form_section.dart';
 import 'package:bersihku/ui/user-front/home-user/input-form/components/image_placeholder.dart';
 import 'package:bersihku/ui/user-front/home-user/input-form/components/location_dropdown.dart';
 import 'package:bersihku/ui/user-front/succes-screen/succes_screen.dart';
-import 'package:flutter/material.dart';
 
-class LaporanPengangkutanScreen extends StatefulWidget {
-  const LaporanPengangkutanScreen({Key? key}) : super(key: key);
+class InputFormScreen extends StatefulWidget {
+  const InputFormScreen({Key? key}) : super(key: key);
 
   @override
-  State<LaporanPengangkutanScreen> createState() =>
-      _LaporanPengangkutanScreenState();
+  State<InputFormScreen> createState() => _InputFormScreenState();
 }
 
-class _LaporanPengangkutanScreenState extends State<LaporanPengangkutanScreen> {
+class _InputFormScreenState extends State<InputFormScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
   final TextEditingController lokasiController = TextEditingController();
   final TextEditingController platController = TextEditingController();
-  final TextEditingController beratKeseluruhanController =
-      TextEditingController();
+  final TextEditingController beratKeseluruhanController = TextEditingController();
   final TextEditingController beratKeringController = TextEditingController();
   final TextEditingController beratBasahController = TextEditingController();
   final TextEditingController catatanController = TextEditingController();
+  String? selectedLocation;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-     double screenWidth = size.width;
+    double screenWidth = size.width;
+
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text(
-            'Laporan Pengangkutan',
-            style: TextStyle(
-                fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Laporan Pengangkutan',
+          style: TextStyle(
+              fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: screenWidth * 0.05, // padding kiri-kanan 5%
-            vertical: 15, // padding atas-bawah tetap bisa disesuaikan
-          ),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.05, 
+          vertical: 15, 
+        ),
+        child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,20 +53,40 @@ class _LaporanPengangkutanScreenState extends State<LaporanPengangkutanScreen> {
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 10),
-              LocationDropdown(onChanged: (val) {
-                print(val);
-              }),
+              LocationDropdown(
+                onChanged: (val) {
+                  selectedLocation = val;
+                },
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Lokasi harus dipilih';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 16),
               FieldWithLabel(
                   label: "Nomor Plat Truk",
                   controller: platController,
-                  spacing: 100),
+                  spacing: 100,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Harus diisi';
+                    }
+                    return null;
+                  }),
               const SizedBox(height: 16),
               FieldWithLabel(
                 label: "Total Berat Keseluruhan",
                 controller: beratKeseluruhanController,
                 spacing: 70,
                 suffixText: "Kg",
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Harus diisi';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 24),
               const FormSectionTitle(
@@ -73,29 +97,36 @@ class _LaporanPengangkutanScreenState extends State<LaporanPengangkutanScreen> {
                 controller: beratKeringController,
                 spacing: 160,
                 suffixText: "Kg",
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Harus diisi';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
-              const UploadImagePlaceholder(
-                  title: "Foto Sampah Sebelum Diangkat"),
+              const UploadImagePlaceholder(title: "Foto Sampah Sebelum Diangkat"),
               const SizedBox(height: 16),
-              const UploadImagePlaceholder(
-                  title: "Foto Sampah Sesudah Diangkat"),
+              const UploadImagePlaceholder(title: "Foto Sampah Sesudah Diangkat"),
               const SizedBox(height: 24),
-              const FormSectionTitle(
-                  title: "Sampah Basah", color: Colors.orange),
+              const FormSectionTitle(title: "Sampah Basah", color: Colors.orange),
               const SizedBox(height: 16),
               FieldWithLabel(
                 label: "Total Berat",
-                controller: beratKeringController,
+                controller: beratBasahController,
                 spacing: 160,
                 suffixText: "Kg",
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Harus diisi';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
-              const UploadImagePlaceholder(
-                  title: "Foto Sampah Sebelum Diangkat"),
+              const UploadImagePlaceholder(title: "Foto Sampah Sebelum Diangkat"),
               const SizedBox(height: 16),
-              const UploadImagePlaceholder(
-                  title: "Foto Sampah Sesudah Diangkat"),
+              const UploadImagePlaceholder(title: "Foto Sampah Sesudah Diangkat"),
               const SizedBox(height: 24),
               Text(
                 "Catatan",
@@ -104,9 +135,7 @@ class _LaporanPengangkutanScreenState extends State<LaporanPengangkutanScreen> {
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Container(
                 height: 150,
                 padding: const EdgeInsets.all(12),
@@ -114,20 +143,21 @@ class _LaporanPengangkutanScreenState extends State<LaporanPengangkutanScreen> {
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const TextField(
+                child: TextFormField(
+                  controller: catatanController,
                   expands: true,
                   maxLines: null,
                   minLines: null,
                   textAlign: TextAlign.start,
                   textAlignVertical: TextAlignVertical.top,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'tambahkan Catatan',
+                    hintText: 'Tambahkan Catatan',
                     hintStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.zero,
                     alignLabelWithHint: true,
                   ),
-                  style: TextStyle(fontSize: 13),
+                  style: const TextStyle(fontSize: 13),
                 ),
               ),
               SizedBox(height: 20),
@@ -143,10 +173,12 @@ class _LaporanPengangkutanScreenState extends State<LaporanPengangkutanScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SuccesScreen()),
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SuccesScreen()),
+                      );
+                    }
                   },
                   child: const Text(
                     "Submit",
@@ -156,6 +188,8 @@ class _LaporanPengangkutanScreenState extends State<LaporanPengangkutanScreen> {
               )
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

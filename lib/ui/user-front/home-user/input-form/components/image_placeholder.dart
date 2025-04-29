@@ -7,8 +7,9 @@ import 'package:path/path.dart';
 
 class UploadImagePlaceholder extends StatefulWidget {
   final String title;
+  final String? Function(String?)? validator; // Validator untuk gambar
 
-  const UploadImagePlaceholder({Key? key, required this.title})
+  const UploadImagePlaceholder({Key? key, required this.title, this.validator})
       : super(key: key);
 
   @override
@@ -21,9 +22,10 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
   @override
   void initState() {
     super.initState();
-    _loadImage(); // Ini PENTING supaya gambar tetap
+    _loadImage(); // Load gambar yang disimpan
   }
 
+  // Fungsi untuk memuat gambar yang sudah dipilih sebelumnya
   Future<void> _loadImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedPath = prefs.getString('saved_image');
@@ -35,6 +37,7 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
     }
   }
 
+  // Fungsi untuk memilih gambar
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -55,6 +58,25 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
     }
   }
 
+  // Fungsi untuk membuka gambar di layar penuh
+  void _openFullImage(BuildContext context) {
+    if (_imagePath != null) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Image.file(
+              File(_imagePath!),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,21 +92,28 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: _imagePath != null
-                  ? Image.file(
-                      File(_imagePath!),
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 150,
+                  ? GestureDetector(
+                      onTap: () => _openFullImage(context),
+                      child: Image.file(
+                        File(_imagePath!),
+                        fit: BoxFit.cover,
+                      ),
                     )
                   : Image.asset(
                       'assets/images/tambah-foto.png',
                       fit: BoxFit.cover,
-                      width: 150,
-                      height: 150,
                     ),
             ),
           ),
         ),
+        if (widget.validator != null && _imagePath == null)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              'Gambar harus dipilih',
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+          ),
       ],
     );
   }
