@@ -1,4 +1,5 @@
 import 'package:bersihku/const.dart';
+import 'package:bersihku/ui/admin-front/notification-screen/admin_detail_notifikasi.dart';
 import 'package:flutter/material.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -13,7 +14,9 @@ class HeaderSection extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.05, vertical: 15),
+            horizontal: screenWidth * 0.05,
+            vertical: 15,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -27,19 +30,33 @@ class HeaderSection extends StatelessWidget {
                   Text(
                     "Nuara 👋🏻",
                     style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
-              Image.asset("assets/icons/notification.png",
-                  width: 40, height: 40),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DetailNotifikasiAdmin(),
+                    ),
+                  );
+                },
+                child: Image.asset(
+                  "assets/icons/non-active-notification.png",
+                  width: 40,
+                  height: 40,
+                ),
+              ),
             ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20),
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -47,12 +64,14 @@ class HeaderSection extends StatelessWidget {
             ),
             child: Text(
               "Riwayat Pengangkutan Terbaru",
-              style:
-                  TextStyle(color: textPrimary, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: textPrimary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
-        SizedBox(height: 20)
+        const SizedBox(height: 20),
       ],
     );
   }

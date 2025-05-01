@@ -1,7 +1,7 @@
+import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/data-supir/data_supir_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-laporan/detail_laporan_screen.dart';
-import 'package:bersihku/ui/admin-front/home-admin/home-screen-user/admin_home_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/laporan_masuk_screen.dart';
 import 'package:bersihku/ui/user-front/history/detail-history/detail_screen.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/user_home_screen.dart';

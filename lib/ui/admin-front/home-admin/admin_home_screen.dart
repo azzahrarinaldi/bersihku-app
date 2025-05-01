@@ -1,6 +1,8 @@
 import 'package:bersihku/ui/admin-front/home-admin/components/buttom_navbar.dart';
 import 'package:bersihku/ui/admin-front/home-admin/components/header.dart';
 import 'package:bersihku/ui/admin-front/home-admin/components/riwayat_card.dart';
+import 'package:bersihku/ui/admin-front/home-admin/history-admin/admin_history_screen.dart';
+import 'package:bersihku/ui/admin-front/profile-admin/profile-admin-screen/profile_admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'components/card_menu.dart';
 
@@ -13,6 +15,13 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   int _selectedIndex = 0;
+
+  final List<Widget> _widgetOptions = [
+    const AdminHomeScreen(),
+    const AdminHistoryScreen(),
+    const ProfileScreenAdmin(),
+    
+    ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,7 +36,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFF4EBAE5),
-      body: Stack(
+      body: _selectedIndex == 0
+          ?  Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
@@ -96,8 +106,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNav(
+      )
+      : _widgetOptions[
+            _selectedIndex],
+      bottomNavigationBar: AdminBottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
