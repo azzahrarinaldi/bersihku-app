@@ -5,6 +5,8 @@ class RiwayatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double screenWidth = size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -13,7 +15,11 @@ class RiwayatCard extends StatelessWidget {
           Column(
             children: [
               Container(width: 2, height: 30, color: Colors.white),
-              Container(width: 12, height: 12, decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle)),
+              Container(
+                  width: 12,
+                  height: 12,
+                  decoration: const BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle)),
               Container(width: 2, height: 70, color: Colors.white),
             ],
           ),
@@ -29,23 +35,31 @@ class RiwayatCard extends StatelessWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Kemang Village Apartment",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
                   ),
                   SizedBox(height: 5),
                   Text(
                     "Jl. Pangeran Antasari No.36, Bangka, Kec. Mampang Prpt.",
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.black54),
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Rabu\n26 Februari 2025"),
-                      Text("21.00 - 06.00"),
-                    ],
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.05, vertical: 5),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(textAlign: TextAlign.center,"Rabu\n26 Februari 2025"),
+                        Text("21.00 - 06.00"),
+                      ],
+                    ),
                   ),
                 ],
               ),

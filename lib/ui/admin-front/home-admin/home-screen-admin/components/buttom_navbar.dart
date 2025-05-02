@@ -1,3 +1,4 @@
+import 'package:bersihku/const.dart';
 import 'package:flutter/material.dart';
 
 
@@ -42,7 +43,7 @@ class AdminBottomNavBar extends StatelessWidget {
         curve: Curves.easeOut,
         padding: EdgeInsets.symmetric(horizontal: isSelected ? 9 : 0, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.orange : Colors.transparent,
+          color: isSelected ? textSecondary : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(

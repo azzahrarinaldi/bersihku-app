@@ -6,6 +6,7 @@ class CardMenu extends StatelessWidget {
   final String subtitle;
   final String buttonText;
   final Widget icon;
+  final VoidCallback? onPressed;
 
   const CardMenu({
     super.key,
@@ -13,6 +14,7 @@ class CardMenu extends StatelessWidget {
     required this.subtitle,
     required this.buttonText,
     required this.icon,
+    this.onPressed
   });
 
   @override
@@ -38,11 +40,11 @@ class CardMenu extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
                 const SizedBox(height: 2),
-                Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                Text(subtitle, style: const TextStyle(color: Colors.black54, fontSize: 13)),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: onPressed,
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 35),
                     side: BorderSide(color: primaryColor, width: 2),

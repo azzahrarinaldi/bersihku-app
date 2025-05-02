@@ -12,7 +12,7 @@ class FotoSampah extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+          style: const TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 15),
         Image.asset("assets/images/sampah-kering-img.png", width: 222),

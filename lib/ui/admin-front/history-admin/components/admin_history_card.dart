@@ -1,3 +1,4 @@
+import 'package:bersihku/const.dart';
 import 'package:flutter/material.dart';
 
 class AdminHistoryCard extends StatelessWidget {
@@ -21,14 +22,6 @@ class AdminHistoryCard extends StatelessWidget {
     required this.weight,
     required this.place,
   });
-
-  void _handleMenuSelection(String value) {
-    if (value == 'edit') {
-      print("Edit dipilih");
-    } else if (value == 'detail') {
-      print("Detail dipilih");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,32 +57,30 @@ class AdminHistoryCard extends StatelessWidget {
                           name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                            fontSize: 15,
                             color: Colors.black,
                           ),
                         ),
                         SizedBox(height: 5),
                         Text(
                           vehicle,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style: TextStyle(fontSize: 12, color: Colors.black54),
                         ),
                       ],
                     ),
                   ],
                 ),
-                // Ganti titik tiga dengan "Lihat Detail"
                 InkWell(
                   onTap: () {
-                    _handleMenuSelection('detail');
+                    Navigator.pushNamed(context, '/detail-laporan-masuk');
                   },
                   child: Text(
                     "Lihat Detail",
                     style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.orange,
+                      color: textSecondary,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
-                      decorationColor: Colors.orange,
+                      decorationColor: textSecondary,
                     ),
                   ),
                 ),
@@ -100,19 +91,19 @@ class AdminHistoryCard extends StatelessWidget {
           Text(
             place,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 14,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 9),
-          Text(address, style: TextStyle(fontSize: 11, color: Colors.black)),
+          Text(address, style: TextStyle(fontSize: 12, color: Colors.black)),
           SizedBox(height: 9),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(date, style: TextStyle(fontSize: 11, color: Colors.black)),
-              Text(time, style: TextStyle(fontSize: 11, color: Colors.black)),
+              Text(date, style: TextStyle(fontSize: 12, color: Colors.black)),
+              Text(time, style: TextStyle(fontSize: 12, color: Colors.black)),
             ],
           ),
           SizedBox(height: 20),
@@ -122,7 +113,7 @@ class AdminHistoryCard extends StatelessWidget {
               Text(
                 type,
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 12,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -130,7 +121,7 @@ class AdminHistoryCard extends StatelessWidget {
               Text(
                 "$weight Kg",
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 12,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),

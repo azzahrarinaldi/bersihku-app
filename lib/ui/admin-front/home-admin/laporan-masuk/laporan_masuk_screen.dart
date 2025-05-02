@@ -87,7 +87,6 @@ class _LaporanMasukScreenState extends State<LaporanMasukScreen> {
                     },
                     icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                   ),
-                  const SizedBox(width: 8),
                   const Text(
                     'Cek Laporan Masuk',
                     style: TextStyle(
@@ -101,8 +100,8 @@ class _LaporanMasukScreenState extends State<LaporanMasukScreen> {
             ),
 
             // Rekapan Card
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: RekapanCard(),
             ),
 

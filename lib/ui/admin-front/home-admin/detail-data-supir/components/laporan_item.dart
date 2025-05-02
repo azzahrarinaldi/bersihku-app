@@ -21,6 +21,8 @@ class LaporanItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double screenWidth = size.width;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -35,7 +37,8 @@ class LaporanItem extends StatelessWidget {
             lokasi,
             style: const TextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
+              color: Colors.black
             ),
           ),
           const SizedBox(height: 8),
@@ -48,7 +51,7 @@ class LaporanItem extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 5),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: Colors.grey.shade300),

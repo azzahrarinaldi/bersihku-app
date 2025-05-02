@@ -20,12 +20,13 @@ class DataSupirProfile extends StatelessWidget {
             radius: 40,
             backgroundImage: AssetImage('assets/images/profile-laporan-img.png'),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
           const Text(
             'Hadi Sucipto',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: Colors.black
             ),
           ),
           const SizedBox(height: 8),
@@ -36,7 +37,7 @@ class DataSupirProfile extends StatelessWidget {
               color: Colors.black54,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(

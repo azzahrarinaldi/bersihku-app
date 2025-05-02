@@ -27,9 +27,9 @@ class RincianPengangkutan extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 12, color: Colors.grey)),
+        Text(title, style: TextStyle(fontSize: 13, color: Colors.black54)),
         const SizedBox(height: 5),
-        Text(value, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.black)),
+        Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black)),
         const SizedBox(height: 15),
       ],
     );

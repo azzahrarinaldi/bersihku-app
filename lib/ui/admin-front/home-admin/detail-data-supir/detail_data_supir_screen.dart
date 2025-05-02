@@ -27,7 +27,7 @@ class DetailDataSupirScreen extends StatelessWidget {
             children: [
               const DataSupirHeader(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: const DataSupirProfile(),
               ),
               const SizedBox(height: 24),
@@ -46,7 +46,7 @@ class DetailDataSupirScreen extends StatelessWidget {
                         const Text(
                           "Laporan Terakhir",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.grey,
                           ),

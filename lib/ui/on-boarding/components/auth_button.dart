@@ -1,4 +1,4 @@
-import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {

@@ -47,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreenAdmin> {
                       "Joko Priyanto",
                       style: TextStyle(
                         fontSize: 18,
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),

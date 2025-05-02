@@ -38,17 +38,6 @@ class ProfileOptions extends StatelessWidget {
           ),
           const Divider(color: Colors.grey, thickness: 0.5, height: 0),
           _buildOptionTile(
-            icon: Icons.headphones,
-            title: "Bantuan",
-            onTap: () {
-               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HelpGuideScreen()),
-              );
-            },
-          ),
-          const Divider(color: Colors.grey, thickness: 0.5, height: 0),
-          _buildOptionTile(
             icon: Icons.logout,
             title: "Keluar",
             color: Colors.red,

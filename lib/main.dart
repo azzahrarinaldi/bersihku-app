@@ -1,4 +1,4 @@
-import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/data-supir/data_supir_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-laporan/detail_laporan_screen.dart';

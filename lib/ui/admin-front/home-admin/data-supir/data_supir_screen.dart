@@ -68,8 +68,7 @@ class DataSupirScreen extends StatelessWidget {
                       DataSupirCard(
                       name: "Hadi Sucipto",
                       code: "B 1829 POP",
-                      location: "Mall Artha Gading",
-                      address: "Jl. Artha Gading Sel. No.1, Klp. Gading Bar., Kec. Klp. Gading",
+                      pengangkutanText: "Pengangkutan terakhir",
                       day: "Rabu",
                       date: "26 Februari 2025",
                       time: "21.00–06.00",
@@ -83,9 +82,7 @@ class DataSupirScreen extends StatelessWidget {
                       DataSupirCard(
                         name: "Joko Priyanto",
                         code: "B 1829 POP",
-                        location: "Mall Artha Gading",
-                        address:
-                            "Jl. Artha Gading Sel. No.1, Klp. Gading Bar., Kec. Klp. Gading",
+                        pengangkutanText: "Pengangkutan terakhir",
                         day: "Rabu",
                         date: "26 Februari 2025",
                         time: "21.00–06.00",
@@ -100,9 +97,7 @@ class DataSupirScreen extends StatelessWidget {
                       DataSupirCard(
                         name: "Joko Priyanto",
                         code: "B 1829 POP",
-                        location: "Mall Artha Gading",
-                        address:
-                            "Jl. Artha Gading Sel. No.1, Klp. Gading Bar., Kec. Klp. Gading",
+                        pengangkutanText: "Pengangkutan terakhir",
                         day: "Rabu",
                         date: "26 Februari 2025",
                         time: "21.00–06.00",
