@@ -44,29 +44,36 @@ List<Map<String, String>> getAllCardData() {
   ];
 }
 
-// Filtering berdasarkan bulan (tanpa hardcoded index!)
 List<Map<String, String>> getFilteredData({
   required bool isDaily,
   required String selectedBulan,
+  required String searchQuery, // ✅ tambahkan parameter ini
 }) {
-  if (isDaily || selectedBulan == "Pilih Bulan") {
-    return getAllCardData();
-  }
-
   return getAllCardData().where((item) {
-    final date = item['date'];
-    if (date == null) return false;
+    // Filter berdasarkan bulan (jika laporan bulanan)
+    if (!isDaily && selectedBulan != "Pilih Bulan") {
+      final date = item['date'];
+      if (date == null) return false;
 
-    // Pisah string berdasarkan koma dulu (hapus hari)
-    final parts = date.split(',');
-    if (parts.length < 2) return false;
+      final parts = date.split(',');
+      if (parts.length < 2) return false;
+      
+      final tanggalLengkap = parts[1].trim();
+      final bulan = tanggalLengkap.split(' ')[1];
 
-    // Ambil tanggal lengkap: contoh " 29 April 2025"
-    final tanggalLengkap = parts[1].trim();
+      if (bulan.toLowerCase() != selectedBulan.toLowerCase()) {
+        return false;
+      }
+    }
 
-    // Ambil nama bulan dari tanggal
-    final bulan = tanggalLengkap.split(' ')[1]; // "April"
+    // Filter berdasarkan nama tempat
+    final tempat = item['place'] ?? '';
+    final nama = item['name'] ?? '';
+    final combinedText = '$tempat $nama'.toLowerCase();
+     if (!combinedText.contains(searchQuery.toLowerCase())) {
+      return false;
+    }
 
-    return bulan.toLowerCase() == selectedBulan.toLowerCase();
+    return true;
   }).toList();
 }

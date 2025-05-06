@@ -14,6 +14,7 @@ class AdminHistoryScreen extends StatefulWidget {
 class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
   bool isDaily = true;
   String selectedBulan = "Pilih Bulan";
+  String searchQuery = "";
 
   final List<String> bulanList = [
     "Pilih Bulan",
@@ -39,6 +40,7 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
     final filteredData = getFilteredData(
       isDaily: isDaily,
       selectedBulan: selectedBulan,
+      searchQuery: searchQuery,
     );
 
     return Scaffold(
@@ -78,9 +80,14 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
                   ),
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   child: Row(
-                    children: const [
+                    children: [
                       Expanded(
                         child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              searchQuery = value;
+                            });
+                          },
                           decoration: InputDecoration(
                             hintText: "Cari Riwayat..",
                             border: InputBorder.none,
