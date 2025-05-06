@@ -169,7 +169,7 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
                       children: [
                         if (!isDaily)
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               DropdownBulan(
                                 selectedBulan: selectedBulan,
@@ -179,6 +179,18 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
                                     selectedBulan = newBulan;
                                   });
                                 },
+                              ),
+                              InkWell(
+                                onTap: () {},
+                                child: Text(
+                                  "Generate PDF",
+                                  style: TextStyle(
+                                    color: textSecondary,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: textSecondary,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
