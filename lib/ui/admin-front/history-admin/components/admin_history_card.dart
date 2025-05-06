@@ -1,4 +1,3 @@
-import 'package:bersihku/const.dart';
 import 'package:flutter/material.dart';
 
 class AdminHistoryCard extends StatelessWidget {
@@ -69,20 +68,6 @@ class AdminHistoryCard extends StatelessWidget {
                       ],
                     ),
                   ],
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/detail-laporan-masuk');
-                  },
-                  child: Text(
-                    "Lihat Detail",
-                    style: TextStyle(
-                      color: textSecondary,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      decorationColor: textSecondary,
-                    ),
-                  ),
                 ),
               ],
             ),
