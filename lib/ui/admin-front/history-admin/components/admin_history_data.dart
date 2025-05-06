@@ -1,3 +1,4 @@
+// Dummy data
 List<Map<String, String>> getAllCardData() {
   return [
     {
@@ -24,8 +25,7 @@ List<Map<String, String>> getAllCardData() {
       "name": "Abdul Kadir",
       "vehicle": "B 1701 AZS",
       "place": "The Margo Hotel",
-      "address":
-          "Jl. Margonda No.358, Kemiri Muka, Kecamatan Beji, Kota Depok",
+      "address": "Jl. Margonda No.358, Kemiri Muka, Kecamatan Beji, Kota Depok",
       "date": "Senin, 11 Maret 2025",
       "time": "22.00 - 05.00",
       "type": "Pengangkutan Limbah",
@@ -44,6 +44,7 @@ List<Map<String, String>> getAllCardData() {
   ];
 }
 
+// Filtering berdasarkan bulan (tanpa hardcoded index!)
 List<Map<String, String>> getFilteredData({
   required bool isDaily,
   required String selectedBulan,
@@ -52,14 +53,20 @@ List<Map<String, String>> getFilteredData({
     return getAllCardData();
   }
 
-  switch (selectedBulan) {
-    case "Februari":
-      return [getAllCardData()[1]];
-    case "Maret":
-      return [getAllCardData()[2]];
-    case "April":
-      return [getAllCardData()[3]];
-    default:
-      return [];
-  }
+  return getAllCardData().where((item) {
+    final date = item['date'];
+    if (date == null) return false;
+
+    // Pisah string berdasarkan koma dulu (hapus hari)
+    final parts = date.split(',');
+    if (parts.length < 2) return false;
+
+    // Ambil tanggal lengkap: contoh " 29 April 2025"
+    final tanggalLengkap = parts[1].trim();
+
+    // Ambil nama bulan dari tanggal
+    final bulan = tanggalLengkap.split(' ')[1]; // "April"
+
+    return bulan.toLowerCase() == selectedBulan.toLowerCase();
+  }).toList();
 }
