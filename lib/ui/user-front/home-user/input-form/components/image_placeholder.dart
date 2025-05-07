@@ -1,4 +1,4 @@
-import 'package:bersihku/logic/image_picker_logic.dart';
+import 'package:bersihku/handler/image_picker_handler.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image/image.dart' as img;
