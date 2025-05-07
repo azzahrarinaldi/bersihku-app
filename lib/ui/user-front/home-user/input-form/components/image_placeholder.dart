@@ -1,4 +1,4 @@
-import 'package:bersihku/handler/image_picker_handler.dart';
+import 'package:bersihku/handler/image_picker_services.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image/image.dart' as img;
@@ -19,7 +19,7 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
 
   // Fungsi pilih gambar
   Future<void> _pickImage() async {
-    String? path = await ImagePickerLogic.pickImage();
+    String? path = await ImagePickerHandler.pickImage();
     if (path != null && mounted) {
       String timestamp = DateTime.now().toString();
 
