@@ -1,26 +1,10 @@
+import 'package:bersihku/models/card_history_model.dart';
 import 'package:flutter/material.dart';
 
 class AdminHistoryCard extends StatelessWidget {
-  final String name;
-  final String vehicle;
-  final String place;
-  final String address;
-  final String date;
-  final String time;
-  final String type;
-  final String weight;
+  final CardDataModel data;
 
-  const AdminHistoryCard({
-    super.key,
-    required this.name,
-    required this.vehicle,
-    required this.address,
-    required this.date,
-    required this.time,
-    required this.type,
-    required this.weight,
-    required this.place,
-  });
+  const AdminHistoryCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +37,7 @@ class AdminHistoryCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          name,
+                          data.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
@@ -62,7 +46,7 @@ class AdminHistoryCard extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          vehicle,
+                          data.vehicle,
                           style: TextStyle(fontSize: 12, color: Colors.black54),
                         ),
                       ],
@@ -74,7 +58,7 @@ class AdminHistoryCard extends StatelessWidget {
           ),
           SizedBox(height: 12),
           Text(
-            place,
+            data.place,
             style: TextStyle(
               fontSize: 14,
               color: Colors.black,
@@ -82,13 +66,13 @@ class AdminHistoryCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 9),
-          Text(address, style: TextStyle(fontSize: 12, color: Colors.black)),
+          Text(data.address, style: TextStyle(fontSize: 12, color: Colors.black)),
           SizedBox(height: 9),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(date, style: TextStyle(fontSize: 12, color: Colors.black)),
-              Text(time, style: TextStyle(fontSize: 12, color: Colors.black)),
+              Text(data.date, style: TextStyle(fontSize: 12, color: Colors.black)),
+              Text(data.time, style: TextStyle(fontSize: 12, color: Colors.black)),
             ],
           ),
           SizedBox(height: 20),
@@ -96,7 +80,7 @@ class AdminHistoryCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                type,
+                data.type,
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.black,
@@ -104,7 +88,7 @@ class AdminHistoryCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "$weight Kg",
+                "${data.weight} Kg",
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.black,

@@ -1,3 +1,4 @@
+import 'package:bersihku/controllers/card_history_controller.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/data-supir/data_supir_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart';
@@ -9,8 +10,10 @@ import 'package:bersihku/ui/splash_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
 import 'package:bersihku/ui/user-front/home-user/input-form/input_form_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
+  Get.put(CardController());
   runApp(const MyApp());
 }
 

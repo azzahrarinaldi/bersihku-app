@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class DropdownBulan extends StatelessWidget {
   final String selectedBulan;
-  final List<String> BulanList;
+  final List<String> bulanList;
   final ValueChanged<String> onChanged;
 
   const DropdownBulan({
     super.key,
     required this.selectedBulan,
-    required this.BulanList,
+    required this.bulanList,
     required this.onChanged,
   });
 
@@ -16,7 +16,8 @@ class DropdownBulan extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
-        value: selectedBulan,
+        value: selectedBulan.isEmpty ? null : selectedBulan,
+        hint: const Text("Pilih Bulan", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         borderRadius: BorderRadius.circular(12),
         icon: const Icon(Icons.arrow_drop_down),
         style: const TextStyle(
@@ -25,7 +26,7 @@ class DropdownBulan extends StatelessWidget {
           color: Colors.black,
         ),
         dropdownColor: Colors.white,
-        items: BulanList.map((String wilayah) {
+        items: bulanList.map((String wilayah) {
           return DropdownMenuItem<String>(
             value: wilayah,
             child: Text(

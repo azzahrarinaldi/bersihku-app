@@ -21,7 +21,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   final List<Widget> _widgetOptions = [
     const AdminHomeScreen(),
-    const AdminHistoryScreen(),
+    AdminHistoryScreen(),
     const ProfileScreenAdmin(),
   ];
 

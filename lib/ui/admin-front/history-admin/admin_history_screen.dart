@@ -1,23 +1,16 @@
 import 'package:bersihku/const.dart';
-import 'package:bersihku/handler/history_filter_handler.dart';
+import 'package:bersihku/controllers/card_history_controller.dart';
 import 'package:bersihku/ui/admin-front/history-admin/components/admin_history_list.dart';
 import 'package:bersihku/ui/admin-front/history-admin/components/dropdown_bulan.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class AdminHistoryScreen extends StatefulWidget {
-  const AdminHistoryScreen({super.key});
+class AdminHistoryScreen extends StatelessWidget {
+  AdminHistoryScreen({super.key});
 
-  @override
-  State<AdminHistoryScreen> createState() => _AdminHistoryScreenState();
-}
-
-class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
-  bool isDaily = true;
-  String selectedBulan = "Pilih Bulan";
-  String searchQuery = "";
+  final cardController = Get.find<CardController>();
 
   final List<String> bulanList = [
-    "Pilih Bulan",
     "Januari",
     "Februari",
     "Maret",
@@ -29,19 +22,13 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
     "September",
     "Oktober",
     "November",
-    "Desember",
+    "Desember"
   ];
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
-
-    final filteredData = getFilteredData(
-      isDaily: isDaily,
-      selectedBulan: selectedBulan,
-      searchQuery: searchQuery,
-    );
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -82,20 +69,18 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          onChanged: (value) {
-                            setState(() {
-                              searchQuery = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            hintText: "Cari Riwayat..",
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(color: Colors.white),
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          child: TextField(
+                        onChanged: (value) {
+                          cardController.searchQuery.value = value;
+                          cardController.filterCardData();
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Cari Riwayat..",
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(color: Colors.white),
                         ),
-                      ),
+                        style: TextStyle(color: Colors.white),
+                      )),
                       Icon(Icons.search, color: Colors.white),
                     ],
                   ),
@@ -107,55 +92,69 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () => setState(() => isDaily = true),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: isDaily
-                                ? const Color(0xFFFDD835)
-                                : Colors.white.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Laporan Harian",
-                              style: TextStyle(
-                                color: isDaily ? Colors.black87 : Colors.white,
-                                fontWeight: isDaily
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
+                      child: Obx(() {
+                        return GestureDetector(
+                          onTap: () {
+                            cardController.isDaily.value = true;
+                            cardController.filterCardData();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: cardController.isDaily.value
+                                  ? const Color(0xFFFDD835)
+                                  : Colors.white.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Laporan Harian",
+                                style: TextStyle(
+                                  color: cardController.isDaily.value
+                                      ? Colors.black87
+                                      : Colors.white,
+                                  fontWeight: cardController.isDaily.value
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () => setState(() => isDaily = false),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: !isDaily
-                                ? const Color(0xFFFDD835)
-                                : Colors.white.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Laporan Bulanan",
-                              style: TextStyle(
-                                color: !isDaily ? Colors.black87 : Colors.white,
-                                fontWeight: !isDaily
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
+                      child: Obx(() {
+                        return GestureDetector(
+                          onTap: () {
+                            cardController.isDaily.value = false;
+                            cardController.filterCardData();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: !cardController.isDaily.value
+                                  ? const Color(0xFFFDD835)
+                                  : Colors.white.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Laporan Bulanan",
+                                style: TextStyle(
+                                  color: !cardController.isDaily.value
+                                      ? Colors.black87
+                                      : Colors.white,
+                                  fontWeight: !cardController.isDaily.value
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ),
                   ],
                 ),
@@ -174,36 +173,50 @@ class _AdminHistoryScreenState extends State<AdminHistoryScreen> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        if (!isDaily)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              DropdownBulan(
-                                selectedBulan: selectedBulan,
-                                BulanList: bulanList,
-                                onChanged: (newBulan) {
-                                  setState(() {
-                                    selectedBulan = newBulan;
-                                  });
-                                },
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: Text(
-                                  "Generate PDF",
-                                  style: TextStyle(
-                                    color: textSecondary,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: textSecondary,
+                        Obx(() {
+                          if (!cardController.isDaily.value) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DropdownBulan(
+                                  selectedBulan:
+                                      cardController.selectedBulan.value,
+                                  bulanList: bulanList,
+                                  onChanged: (newBulan) {
+                                    cardController.selectedBulan.value =
+                                        newBulan;
+                                    cardController.filterCardData();
+                                  },
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    // handle PDF generation
+                                  },
+                                  child: Text(
+                                    "Generate PDF",
+                                    style: TextStyle(
+                                      color: textSecondary,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: textSecondary,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            );
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        }),
                         const SizedBox(height: 16),
                         Expanded(
-                          child: AdminHistoryList(data: filteredData),
+                          child: GetX<CardController>(
+                            builder: (controller) {
+                              return AdminHistoryList(
+                                data: controller.filteredCardList.toList(),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),

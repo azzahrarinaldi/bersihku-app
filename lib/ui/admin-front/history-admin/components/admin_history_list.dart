@@ -1,8 +1,9 @@
+import 'package:bersihku/models/card_history_model.dart';
 import 'package:flutter/material.dart';
 import 'admin_history_card.dart';
 
 class AdminHistoryList extends StatelessWidget {
-  final List<Map<String, String>> data;
+  final List<CardDataModel> data;
 
   const AdminHistoryList({super.key, required this.data});
 
@@ -20,19 +21,9 @@ class AdminHistoryList extends StatelessWidget {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
-        final item = data[index];
         return Column(
           children: [
-            AdminHistoryCard(
-              name: item["name"]!,
-              vehicle: item["vehicle"]!,
-              place: item["place"]!,
-              address: item["address"]!,
-              date: item["date"]!,
-              time: item["time"]!,
-              type: item["type"]!,
-              weight: item["weight"]!,
-            ),
+            AdminHistoryCard(data: data[index]),
             const SizedBox(height: 15),
           ],
         );
