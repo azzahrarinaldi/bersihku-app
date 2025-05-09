@@ -8,7 +8,6 @@ class DataSupirCard extends StatelessWidget {
   final String day;
   final String date;
   final String time;
-  final String weight;
   final String imageAsset;
   final VoidCallback? onTapDetail;
 
@@ -20,7 +19,6 @@ class DataSupirCard extends StatelessWidget {
     required this.day,
     required this.date,
     required this.time,
-    required this.weight,
     required this.imageAsset,
     this.onTapDetail,
   });

@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
+import 'package:bersihku/models/card_history_model.dart';
 
 class PengangkutanCard extends StatelessWidget {
-  final String name;
-  final String code;
-  final String location;
-  final String address;
-  final String day;
-  final String date;
-  final String time;
-  final String weight;
+  final CardDataModel data;
   final String imageAsset;
   final VoidCallback? onTapDetail;
 
   const PengangkutanCard({
     super.key,
-    required this.name,
-    required this.code,
-    required this.location,
-    required this.address,
-    required this.day,
-    required this.date,
-    required this.time,
-    required this.weight,
+    required this.data,
     required this.imageAsset,
     this.onTapDetail,
   });
@@ -31,6 +18,10 @@ class PengangkutanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
+
+    String day = data.date.split(',')[0];
+    String date = data.date.split(',')[1].trim();
+
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -54,10 +45,15 @@ class PengangkutanCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(name,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
-                      Text(code, style: const TextStyle(color: Colors.grey)),
+                      Text(
+                        data.name,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
+                      Text(data.vehicle,
+                          style: const TextStyle(color: Colors.grey)),
                     ],
                   ),
                 ],
@@ -67,27 +63,39 @@ class PengangkutanCard extends StatelessWidget {
                 child: const Text(
                   "Lihat Detail",
                   style: TextStyle(
-                      color: textSecondary, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationColor: secondaryColor),
+                    color: textSecondary,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationColor: secondaryColor,
+                  ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          Text(location,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black)),
-          Text(address, style: const TextStyle(color: Colors.grey)),
+          Text(
+            data.place,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+              color: Colors.black,
+            ),
+          ),
+          Text(data.address, style: const TextStyle(color: Colors.grey)),
           const SizedBox(height: 12),
-
           Container(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 5),
+            padding:
+                EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 5),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(textAlign: TextAlign.center, "$day\n$date"), Text(time)],
+              children: [
+                Text("$day\n$date", textAlign: TextAlign.center),
+                Text(data.time),
+              ],
             ),
           ),
           const SizedBox(height: 12),
@@ -100,7 +108,7 @@ class PengangkutanCard extends StatelessWidget {
                     color: textSecondary, fontWeight: FontWeight.bold),
               ),
               Text(
-                weight,
+                "${data.weight} Kg",
                 style: const TextStyle(
                     color: textSecondary, fontWeight: FontWeight.bold),
               ),

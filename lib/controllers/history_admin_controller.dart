@@ -1,7 +1,7 @@
 import 'package:bersihku/models/card_history_model.dart';
 import 'package:get/get.dart';
 
-class CardController extends GetxController {
+class HistoryAdminController extends GetxController {
   var cardList = <CardDataModel>[].obs;
   var filteredCardList = <CardDataModel>[].obs;
   var isDaily = true.obs;          // Make isDaily observable

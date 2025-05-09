@@ -72,7 +72,6 @@ class DataSupirScreen extends StatelessWidget {
                       day: "Rabu",
                       date: "26 Februari 2025",
                       time: "21.00–06.00",
-                      weight: "1.648 Kg",
                       imageAsset: "assets/images/profile-laporan-img.png", // Ini path ke asset lokal
                       onTapDetail: () {
                         Navigator.pushNamed(context, '/detail-data-supir');
@@ -86,7 +85,6 @@ class DataSupirScreen extends StatelessWidget {
                         day: "Rabu",
                         date: "26 Februari 2025",
                         time: "21.00–06.00",
-                        weight: "1.648 Kg",
                         imageAsset:
                             "assets/images/profile-laporan-img.png",
                         onTapDetail: () {
@@ -101,7 +99,6 @@ class DataSupirScreen extends StatelessWidget {
                         day: "Rabu",
                         date: "26 Februari 2025",
                         time: "21.00–06.00",
-                        weight: "1.648 Kg",
                         imageAsset:
                             "assets/images/profile-laporan-img.png",
                         onTapDetail: () {

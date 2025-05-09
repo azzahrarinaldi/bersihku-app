@@ -1,4 +1,3 @@
-import 'package:bersihku/controllers/card_history_controller.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/data-supir/data_supir_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart';
@@ -13,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
-  Get.put(CardController());
   runApp(const MyApp());
 }
 
@@ -22,7 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bersihku',
       theme: ThemeData(
@@ -35,19 +33,19 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(color: Color(0xFF757575)),
         ),
       ),
-      initialRoute: '/', 
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/on-boarding' : (context) => const OnboardingScreen(),
-        '/home-user' : (context) => const UserHomeScreen(),
-        '/detail-history' : (context) => const DetailScreenHistory(),
-        '/home-admin' : (context) => const AdminHomeScreen(),
-        '/input-form' : (context) => const InputFormScreen(),
-        '/detail-data-supir' : (context) => const DetailDataSupirScreen(),
-        '/data-supir' : (context) => const DataSupirScreen(),
-        '/laporan-masuk' : (context) => const LaporanMasukScreen(),
-        '/detail-laporan-masuk' : (context) => const DetailLaporanMasukScreen(),
-      },
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const SplashScreen()),
+        GetPage(name: '/on-boarding', page: () => const OnboardingScreen()),
+        GetPage(name: '/home-user', page: () => const UserHomeScreen()),
+        GetPage(name: '/detail-history', page: () => const DetailScreenHistory()),
+        GetPage(name: '/home-admin', page: () => const AdminHomeScreen()),
+        GetPage(name: '/input-form', page: () => const InputFormScreen()),
+        GetPage(name: '/detail-data-supir', page: () => const DetailDataSupirScreen()),
+        GetPage(name: '/data-supir', page: () => const DataSupirScreen()),
+        GetPage(name: '/laporan-masuk', page: () => const LaporanMasukScreen()),
+        GetPage(name: '/detail-laporan-masuk', page: () => const DetailLaporanMasukScreen()),
+      ],
     );
   }
 }

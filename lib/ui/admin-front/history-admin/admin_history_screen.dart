@@ -1,5 +1,5 @@
 import 'package:bersihku/const.dart';
-import 'package:bersihku/controllers/card_history_controller.dart';
+import 'package:bersihku/controllers/history_admin_controller.dart';
 import 'package:bersihku/ui/admin-front/history-admin/components/admin_history_list.dart';
 import 'package:bersihku/ui/admin-front/history-admin/components/dropdown_bulan.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 class AdminHistoryScreen extends StatelessWidget {
   AdminHistoryScreen({super.key});
 
-  final cardController = Get.find<CardController>();
 
   final List<String> bulanList = [
     "Januari",
@@ -27,10 +26,12 @@ class AdminHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final   historyAdminController = Get.put(HistoryAdminController());
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
 
     return Scaffold(
+      
       backgroundColor: primaryColor,
       body: Container(
         decoration: const BoxDecoration(
@@ -71,8 +72,8 @@ class AdminHistoryScreen extends StatelessWidget {
                       Expanded(
                           child: TextField(
                         onChanged: (value) {
-                          cardController.searchQuery.value = value;
-                          cardController.filterCardData();
+                          historyAdminController.searchQuery.value = value;
+                          historyAdminController.filterCardData();
                         },
                         decoration: InputDecoration(
                           hintText: "Cari Riwayat..",
@@ -95,13 +96,13 @@ class AdminHistoryScreen extends StatelessWidget {
                       child: Obx(() {
                         return GestureDetector(
                           onTap: () {
-                            cardController.isDaily.value = true;
-                            cardController.filterCardData();
+                            historyAdminController.isDaily.value = true;
+                            historyAdminController.filterCardData();
                           },
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                              color: cardController.isDaily.value
+                              color: historyAdminController.isDaily.value
                                   ? const Color(0xFFFDD835)
                                   : Colors.white.withOpacity(0.3),
                               borderRadius: BorderRadius.circular(8),
@@ -110,10 +111,10 @@ class AdminHistoryScreen extends StatelessWidget {
                               child: Text(
                                 "Laporan Harian",
                                 style: TextStyle(
-                                  color: cardController.isDaily.value
+                                  color: historyAdminController.isDaily.value
                                       ? Colors.black87
                                       : Colors.white,
-                                  fontWeight: cardController.isDaily.value
+                                  fontWeight: historyAdminController.isDaily.value
                                       ? FontWeight.bold
                                       : FontWeight.normal,
                                 ),
@@ -128,13 +129,13 @@ class AdminHistoryScreen extends StatelessWidget {
                       child: Obx(() {
                         return GestureDetector(
                           onTap: () {
-                            cardController.isDaily.value = false;
-                            cardController.filterCardData();
+                            historyAdminController.isDaily.value = false;
+                            historyAdminController.filterCardData();
                           },
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                              color: !cardController.isDaily.value
+                              color: !historyAdminController.isDaily.value
                                   ? const Color(0xFFFDD835)
                                   : Colors.white.withOpacity(0.3),
                               borderRadius: BorderRadius.circular(8),
@@ -143,10 +144,10 @@ class AdminHistoryScreen extends StatelessWidget {
                               child: Text(
                                 "Laporan Bulanan",
                                 style: TextStyle(
-                                  color: !cardController.isDaily.value
+                                  color: !historyAdminController.isDaily.value
                                       ? Colors.black87
                                       : Colors.white,
-                                  fontWeight: !cardController.isDaily.value
+                                  fontWeight: !historyAdminController.isDaily.value
                                       ? FontWeight.bold
                                       : FontWeight.normal,
                                 ),
@@ -174,18 +175,18 @@ class AdminHistoryScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Obx(() {
-                          if (!cardController.isDaily.value) {
+                          if (!historyAdminController.isDaily.value) {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 DropdownBulan(
                                   selectedBulan:
-                                      cardController.selectedBulan.value,
+                                      historyAdminController.selectedBulan.value,
                                   bulanList: bulanList,
                                   onChanged: (newBulan) {
-                                    cardController.selectedBulan.value =
+                                    historyAdminController.selectedBulan.value =
                                         newBulan;
-                                    cardController.filterCardData();
+                                    historyAdminController.filterCardData();
                                   },
                                 ),
                                 InkWell(
@@ -210,7 +211,7 @@ class AdminHistoryScreen extends StatelessWidget {
                         }),
                         const SizedBox(height: 16),
                         Expanded(
-                          child: GetX<CardController>(
+                          child: GetX<HistoryAdminController>(
                             builder: (controller) {
                               return AdminHistoryList(
                                 data: controller.filteredCardList.toList(),
