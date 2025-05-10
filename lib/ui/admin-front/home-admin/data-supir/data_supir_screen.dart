@@ -1,6 +1,8 @@
-import 'package:bersihku/const.dart';
+import 'package:bersihku/controllers/data_supir_controller.dart';
 import 'package:bersihku/ui/admin-front/home-admin/data-supir/components/data_supir_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:bersihku/const.dart';
 
 class DataSupirScreen extends StatelessWidget {
   const DataSupirScreen({super.key});
@@ -9,6 +11,9 @@ class DataSupirScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
+
+    // Create controller instance
+    final DriverController driverController = Get.put(DriverController());
 
     return Scaffold(
       backgroundColor: secondaryColor,
@@ -19,101 +24,78 @@ class DataSupirScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-      child: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            // Header
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05, vertical: 15),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-                  ),
-                  const SizedBox(width: 5),
-                  const Text(
-                    'Info Data Supir',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 24),
-
-            Expanded(
-              child: Container(
-                width: double.infinity,
+        child: SafeArea(
+          bottom: false,
+          child: Column(
+            children: [
+              Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.05, vertical: 20),
-                decoration: const BoxDecoration(
-                  color: Colors.white
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 16),
-
-                      // List Card Rekapan
-                      DataSupirCard(
-                      name: "Hadi Sucipto",
-                      code: "B 1829 POP",
-                      pengangkutanText: "Pengangkutan terakhir",
-                      day: "Rabu",
-                      date: "26 Februari 2025",
-                      time: "21.00–06.00",
-                      imageAsset: "assets/images/profile-laporan-img.png", // Ini path ke asset lokal
-                      onTapDetail: () {
-                        Navigator.pushNamed(context, '/detail-data-supir');
+                    horizontal: screenWidth * 0.05, vertical: 15),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
                       },
+                      icon:
+                          const Icon(Icons.arrow_back_ios, color: Colors.white),
                     ),
-                      SizedBox(height: 16),
-                      DataSupirCard(
-                        name: "Joko Priyanto",
-                        code: "B 1829 POP",
-                        pengangkutanText: "Pengangkutan terakhir",
-                        day: "Rabu",
-                        date: "26 Februari 2025",
-                        time: "21.00–06.00",
-                        imageAsset:
-                            "assets/images/profile-laporan-img.png",
-                        onTapDetail: () {
-                          Navigator.pushNamed(context, '/detail-data-supir');
-                        },
+                    const SizedBox(width: 5),
+                    const Text(
+                      'Info Data Supir',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 16),
-                      DataSupirCard(
-                        name: "Joko Priyanto",
-                        code: "B 1829 POP",
-                        pengangkutanText: "Pengangkutan terakhir",
-                        day: "Rabu",
-                        date: "26 Februari 2025",
-                        time: "21.00–06.00",
-                        imageAsset:
-                            "assets/images/profile-laporan-img.png",
-                        onTapDetail: () {
-                          Navigator.pushNamed(context, '/detail-data-supir');
-                        },
-                      ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.05, vertical: 20),
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16),
+                        // Use GetX to listen to driver list changes
+                        Obx(() {
+                          return ListView.separated(
+                            physics:
+                                const NeverScrollableScrollPhysics(), // agar tetap bisa scroll di SingleChildScrollView
+                            shrinkWrap: true,
+                            itemCount: driverController.drivers.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 16),
+                            itemBuilder: (context, index) {
+                              final driver = driverController.drivers[index];
+                              return DataSupirCard(
+                                driver: driver,
+                                imageAsset:
+                                    "assets/images/profile-laporan-img.png",
+                                onTapDetail: () {
+                                  Navigator.pushNamed(
+                                      context, '/detail-data-supir');
+                                },
+                              );
+                            },
+                          );
+                        }),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
-      )
     );
   }
 }
