@@ -67,8 +67,7 @@ class DataSupirScreen extends StatelessWidget {
                         // Use GetX to listen to driver list changes
                         Obx(() {
                           return ListView.separated(
-                            physics:
-                                const NeverScrollableScrollPhysics(), // agar tetap bisa scroll di SingleChildScrollView
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: driverController.drivers.length,
                             separatorBuilder: (context, index) =>

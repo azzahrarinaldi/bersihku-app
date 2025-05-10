@@ -115,10 +115,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             Text(
                               "Manajemen Anda",
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.black
-                              ),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.black),
                             ),
                           ],
                         ),
@@ -160,7 +159,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
-      floatingActionButton: !_showManagementContainer
+      floatingActionButton: _selectedIndex == 0 && !_showManagementContainer
           ? FloatingActionButton(
               backgroundColor: primaryColor,
               elevation: 0,

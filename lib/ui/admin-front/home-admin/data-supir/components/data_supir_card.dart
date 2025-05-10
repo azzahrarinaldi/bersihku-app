@@ -1,4 +1,4 @@
-import 'package:bersihku/models/data_supir_card.dart';
+import 'package:bersihku/models/data_supir_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
 
