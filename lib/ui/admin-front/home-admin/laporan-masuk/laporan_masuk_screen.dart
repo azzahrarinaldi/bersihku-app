@@ -76,7 +76,6 @@ class LaporanMasukScreen extends StatelessWidget {
                           child: ListView.builder(
                             itemCount: controller.filteredList.length,
                             itemBuilder: (context, index) {
-                              final data = controller.filteredList[index];
                               return Column(
                                 children: [
                                   PengangkutanCard(
