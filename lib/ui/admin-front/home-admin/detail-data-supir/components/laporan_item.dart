@@ -1,30 +1,20 @@
+import 'package:bersihku/models/detail_data_supir_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
 
 class LaporanItem extends StatelessWidget {
-  final String lokasi;
-  final String alamat;
-  final String hari;
-  final String tanggal;
-  final String jam;
-  final String berat;
+  final DriverDetailModel laporan;
 
-  const LaporanItem({
-    super.key,
-    required this.lokasi,
-    required this.alamat,
-    required this.hari,
-    required this.tanggal,
-    required this.jam,
-    required this.berat,
-  });
+  const LaporanItem({super.key, required this.laporan});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
+
     return Container(
       padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -34,16 +24,16 @@ class LaporanItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            lokasi,
+            laporan.place,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: Colors.black
+              color: Colors.black,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            alamat,
+            laporan.address,
             style: const TextStyle(
               fontSize: 14,
               color: Colors.black54,
@@ -61,31 +51,22 @@ class LaporanItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const Text('Tanggal', style: TextStyle(color: Colors.black54)),
                     Text(
-                      hari,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      tanggal,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black87,
-                      ),
+                      laporan.date,
+                      style: const TextStyle(fontSize: 14, color: Colors.black87),
                     ),
                   ],
                 ),
-                Text(
-                  jam,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87,
-                  ),
+                Column(
+                  children: [
+                    const Text('Jam', style: TextStyle(color: Colors.black54)),
+                    Text(
+                      laporan.time,
+                      style: const TextStyle(fontSize: 14, color: Colors.black87),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -103,7 +84,7 @@ class LaporanItem extends StatelessWidget {
                 ),
               ),
               Text(
-                berat,
+                   "${laporan.weight} Kg",
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,

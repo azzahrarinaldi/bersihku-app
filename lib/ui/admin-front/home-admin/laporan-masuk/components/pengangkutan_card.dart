@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
-import 'package:bersihku/models/card_history_model.dart';
+import 'package:bersihku/models/card_data_model.dart';
 
 class PengangkutanCard extends StatelessWidget {
   final CardDataModel data;

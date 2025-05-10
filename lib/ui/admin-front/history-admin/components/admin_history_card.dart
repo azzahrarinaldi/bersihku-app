@@ -1,4 +1,4 @@
-import 'package:bersihku/models/card_history_model.dart';
+import 'package:bersihku/models/card_data_model.dart';
 import 'package:flutter/material.dart';
 
 class AdminHistoryCard extends StatelessWidget {

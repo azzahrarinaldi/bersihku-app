@@ -4,7 +4,6 @@ class DriverModel {
   final String place;
   final String date;
   final String time;
-  final String type;
 
   DriverModel({
     required this.name,
@@ -12,7 +11,6 @@ class DriverModel {
     required this.place,
     required this.date,
     required this.time,
-    required this.type,
   });
 
   factory DriverModel.fromMap(Map<String, dynamic> map) {
@@ -21,8 +19,7 @@ class DriverModel {
       vehicle: map['PlateNumber'] ?? '',  
       place: map['place'] ?? '',                             
       date: map['date'] ?? '',
-      time: map['time'] ?? '',
-      type: map['pengangkutanText'] ?? '',                    
+      time: map['time'] ?? '',                 
     );
   }
 
@@ -32,8 +29,7 @@ class DriverModel {
       'PlateNumber': vehicle,             
       'place': place,                                                    
       'date': date,
-      'time': time,
-      'pengangkutanText': type,                                         
+      'time': time,                                        
     };
   }
 }

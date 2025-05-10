@@ -19,7 +19,6 @@ class DriverController extends GetxController {
         place: "Pengangkutan terakhir",
         date: "26 Februari 2025",
         time: "21.00–06.00",
-        type: "Tipe Pengangkutan", 
       ),
       DriverModel(
         name: "Joko Priyanto",
@@ -27,7 +26,6 @@ class DriverController extends GetxController {
         place: "Pengangkutan terakhir",
         date: "26 Februari 2025",
         time: "21.00–06.00",
-        type: "Tipe Pengangkutan",
       ),
     ]);
   }
