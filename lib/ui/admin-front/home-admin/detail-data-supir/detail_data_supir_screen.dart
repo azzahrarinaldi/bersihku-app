@@ -14,7 +14,7 @@ class DetailDataSupirScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
 
-    final controller = Get.put(DetailDataSupirController());
+    final controller = Get.find<DetailDataSupirController>();
 
     return Scaffold(
       backgroundColor: primaryColor,

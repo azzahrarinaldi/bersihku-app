@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
 
 class ProfileInfo extends StatelessWidget {
-  const ProfileInfo({super.key});
+  final String name;
+  final String vehicle;
+
+  const ProfileInfo({super.key, required this.name, required this.vehicle});
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +41,8 @@ class ProfileInfo extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        const Text(
-          'Joko Priyanto',
+        Text(
+          name,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -61,8 +64,8 @@ class ProfileInfo extends StatelessWidget {
                 color: Color(0xFFFFCFAA),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: const Text(
-                'B 1829 POP',
+              child: Text(
+                vehicle,
                 style: TextStyle(
                   color: textSecondary,
                   fontWeight: FontWeight.bold,

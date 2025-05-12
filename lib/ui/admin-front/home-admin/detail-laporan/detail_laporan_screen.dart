@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:bersihku/const.dart';
+import 'package:bersihku/controllers/detail_laporan_controller.dart';
 import 'components/profile_info.dart';
 import 'components/rincian_pengangkutan.dart';
 import 'components/foto_sampah.dart';
 
 class DetailLaporanMasukScreen extends StatelessWidget {
-  const DetailLaporanMasukScreen({super.key});
+  final int index;
+
+  const DetailLaporanMasukScreen({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DetailLaporanController>();
+    final laporan = controller.laporanList[index];
+
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
 
@@ -52,14 +59,14 @@ class DetailLaporanMasukScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Laporan Joko Priyanto:",
+                          "Laporan ${laporan.name}:",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: textPrimary),
                         ),
                         Text(
-                          "3 Laporan",
+                          "1 Laporan",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -96,9 +103,11 @@ class DetailLaporanMasukScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const ProfileInfo(),
+                      ProfileInfo(
+                        name: laporan.name,
+                        vehicle: laporan.vehicle,
+                      ),
                       const SizedBox(height: 15),
-                      // Mulai container stroke abu-abu
                       Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * 0.05, vertical: 15),
@@ -108,16 +117,25 @@ class DetailLaporanMasukScreen extends StatelessWidget {
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            RincianPengangkutan(),
-                            SizedBox(height: 30),
+                          children: [
+                            RincianPengangkutan(
+                              place: laporan.place,
+                              address: laporan.address,
+                              time: laporan.time,
+                              weightTotal: laporan.weightTotal,
+                            ),
+                            const SizedBox(height: 30),
                             FotoSampah(
-                                title:
-                                    "Foto Sampah Basah Sebelum & Sesudah Diangkat"),
-                            SizedBox(height: 30),
+                              title:
+                                  "Foto Sampah Sebelum Diangkat",
+                              imageUrl: laporan.urlFotoSebelum,
+                            ),
+                            const SizedBox(height: 30),
                             FotoSampah(
-                                title:
-                                    "Foto Sampah Kering Sebelum & Sesudah Diangkat"),
+                              title:
+                                  "Foto Sampah Sesudah Diangkat",
+                              imageUrl: laporan.urlFotoSesudah,
+                            ),
                           ],
                         ),
                       ),

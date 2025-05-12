@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class RincianPengangkutan extends StatelessWidget {
-  const RincianPengangkutan({super.key});
+  final String place;
+  final String address;
+  final String time;
+  final String weightTotal;
+
+  const RincianPengangkutan({super.key, required this.place, required this.address, required this.time, required this.weightTotal});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +19,10 @@ class RincianPengangkutan extends StatelessWidget {
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         const SizedBox(height: 15),
-        _buildDetail("Wilayah Pengangkutan", "Margo City"),
-        _buildDetail("Alamat", "Jl. Margonda Raya No.358, Kemiri Muka, Kecamatan Beji"),
-        _buildDetail("Tanggal Pengangkutan", "Rabu, 26 Februari 2025"),
-        _buildDetail("Waktu Pengangkutan", "Rabu, 26 Februari 2025"),
-        _buildDetail("Total Berat Keseluruhan", "7.050"),
+        _buildDetail("Wilayah Pengangkutan", place),
+        _buildDetail("Alamat", address),
+        _buildDetail("Tanggal & Waktu Pengangkutan", time),
+        _buildDetail("Total Berat Keseluruhan", weightTotal),
       ],
     );
   }

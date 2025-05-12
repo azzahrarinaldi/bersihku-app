@@ -16,7 +16,8 @@ class DropdownWilayah extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
-        value: selectedWilayah,
+        value: selectedWilayah.isEmpty ? null : selectedWilayah,
+        hint: Text("Pilih Wilayah", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         borderRadius: BorderRadius.circular(12),
         icon: const Icon(Icons.arrow_drop_down),
         style: const TextStyle(

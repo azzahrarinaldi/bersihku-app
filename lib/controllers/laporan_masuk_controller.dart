@@ -2,10 +2,9 @@ import 'package:bersihku/models/card_data_model.dart';
 import 'package:get/get.dart';
 
 class LaporanMasukController extends GetxController {
-  var selectedWilayah = 'Pilih Wilayah'.obs;
+  var selectedWilayah = ''.obs;
 
   final List<String> wilayahList = [
-    'Pilih Wilayah',
     'Margo City',
     'Kuningan City',
     'Mall Artha Gading',
@@ -45,7 +44,7 @@ class LaporanMasukController extends GetxController {
   ];
 
   List<CardDataModel> get filteredList {
-    if (selectedWilayah.value == 'Pilih Wilayah') {
+    if (selectedWilayah.value.isEmpty) {
       return allData;
     } else {
       return allData

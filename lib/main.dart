@@ -1,3 +1,5 @@
+import 'package:bersihku/bindings/detail_data_supir_binding.dart';
+import 'package:bersihku/bindings/detail_laporan_binding.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/data-supir/data_supir_screen.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart';
@@ -41,10 +43,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/detail-history', page: () => const DetailScreenHistory()),
         GetPage(name: '/home-admin', page: () => const AdminHomeScreen()),
         GetPage(name: '/input-form', page: () => const InputFormScreen()),
-        GetPage(name: '/detail-data-supir', page: () => const DetailDataSupirScreen()),
+        GetPage(name: '/detail-data-supir', page: () => DetailDataSupirScreen(), binding: DetailDataSupirBinding()),
         GetPage(name: '/data-supir', page: () => const DataSupirScreen()),
         GetPage(name: '/laporan-masuk', page: () => const LaporanMasukScreen()),
-        GetPage(name: '/detail-laporan-masuk', page: () => const DetailLaporanMasukScreen()),
+        GetPage(name: '/detail-laporan-masuk', page: () => DetailLaporanMasukScreen(index: Get.arguments as int), binding: DetailLaporanBinding()),
       ],
     );
   }

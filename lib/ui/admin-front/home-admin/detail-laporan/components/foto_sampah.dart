@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class FotoSampah extends StatelessWidget {
   final String title;
+  final String imageUrl;
 
-  const FotoSampah({super.key, required this.title});
+  const FotoSampah({super.key, required this.title, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +16,9 @@ class FotoSampah extends StatelessWidget {
           style: const TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 15),
-        Image.asset("assets/images/sampah-kering-img.png", width: 222),
+        Image.asset(imageUrl, width: 222),
         const SizedBox(height: 15),
-        Image.asset("assets/images/sampah-kering-img.png", width: 222),
+        Image.asset(imageUrl, width: 222),
       ],
     );
   }
