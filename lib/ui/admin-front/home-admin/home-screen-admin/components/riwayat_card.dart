@@ -1,7 +1,9 @@
+import 'package:bersihku/models/riwayat_card_model.dart';
 import 'package:flutter/material.dart';
 
 class RiwayatCard extends StatelessWidget {
-  const RiwayatCard({super.key});
+  const RiwayatCard({super.key, required this.data});
+  final RiwayatCardModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,12 @@ class RiwayatCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Kemang Village Apartment",
+                    data.place,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
                   ),
                   SizedBox(height: 5),
                   Text(
-                    "Jl. Pangeran Antasari No.36, Bangka, Kec. Mampang Prpt.",
+                    data.address,
                     style: TextStyle(color: Colors.black54),
                   ),
                   SizedBox(height: 10),
@@ -56,8 +58,8 @@ class RiwayatCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(textAlign: TextAlign.center,"Rabu\n26 Februari 2025"),
-                        Text("21.00 - 06.00"),
+                        Text(textAlign: TextAlign.center,data.date),
+                        Text(data.time),
                       ],
                     ),
                   ),

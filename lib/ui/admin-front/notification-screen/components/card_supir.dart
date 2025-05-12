@@ -1,11 +1,12 @@
+import 'package:bersihku/models/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
 
 class CardSupir extends StatelessWidget {
-  final Map<String, String> item;
+    final NotificationModel data;
   final Size size;
 
-  const CardSupir({super.key, required this.item, required this.size});
+  const CardSupir({super.key,required this.size, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CardSupir extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: size.width * 0.07,
-                backgroundImage: AssetImage(item['foto']!),
+                 backgroundImage: AssetImage(data.image),
               ),
               SizedBox(width: 12),
               Expanded(
@@ -35,7 +36,7 @@ class CardSupir extends StatelessWidget {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            item['nama']!,
+                            data.name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
@@ -48,7 +49,7 @@ class CardSupir extends StatelessWidget {
                         Expanded(
                           flex: 3,
                           child: Text(
-                            item['alamat']!,
+                            data.place,
                             style: TextStyle(
                               color: textSecondary,
                               fontWeight: FontWeight.bold,
@@ -61,7 +62,7 @@ class CardSupir extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "Sopir / (${item['plat']})",
+                      data.vehicle,
                       style: TextStyle(
                         color: Colors.grey[700],
                         fontSize: size.width * 0.03,
@@ -135,8 +136,9 @@ class CardSupir extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item['tanggal']!),
-                    Text(item['lokasi']!),
+                    Text("Jam ${data.time}"),
+                    Text(data.date),
+                    Text(data.address),
                   ],
                 ),
               ),

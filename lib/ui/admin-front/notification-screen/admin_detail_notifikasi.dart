@@ -1,11 +1,15 @@
 import 'package:bersihku/ui/admin-front/notification-screen/components/card_supir.dart';
-import 'package:bersihku/ui/admin-front/notification-screen/components/data_supir.dart';
 import 'package:bersihku/ui/admin-front/notification-screen/components/header_notification.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:bersihku/const.dart';
+import 'package:bersihku/controllers/notification_controller.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class DetailNotifikasiAdmin extends StatelessWidget {
-  const DetailNotifikasiAdmin({super.key});
+  DetailNotifikasiAdmin({super.key});
+
+  final NotificationController controller = Get.put(NotificationController());
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +66,8 @@ class DetailNotifikasiAdmin extends StatelessWidget {
                               ),
                               Text(
                                 "Ada 1 pengangkutan terdekat hari ini.",
-                                style:
-                                    TextStyle(fontSize: 13, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.black),
                               ),
                             ],
                           ),
@@ -83,16 +87,45 @@ class DetailNotifikasiAdmin extends StatelessWidget {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(30)),
                     ),
-                    child: ListView.builder(
-                      padding: EdgeInsets.all(size.width * 0.05),
-                      itemCount: dataSupir.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: CardSupir(item: dataSupir[index], size: size),
+                    child: Obx(() {
+                      if (controller.isLoading.value) {
+                        return const Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: LoadingIndicator(
+                              indicatorType: Indicator.ballPulse,
+                              colors: [
+                                Color(0xFF9AE2FF),
+                                Color(0xFFF9E071),
+                                Color(0xFFF29753)
+                              ],
+                              strokeWidth: 2,
+                            ),
+                          ),
                         );
-                      },
-                    ),
+                      }
+
+                      if (controller.notificationList.isEmpty) {
+                        return const Center(
+                          child: Text("Tidak ada notifikasi"),
+                        );
+                      }
+
+                      return ListView.builder(
+                        padding: EdgeInsets.all(size.width * 0.05),
+                        itemCount: controller.notificationList.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: CardSupir(
+                              data: controller.notificationList[index],
+                              size: size,
+                            ),
+                          );
+                        },
+                      );
+                    }),
                   ),
                 ),
               ],

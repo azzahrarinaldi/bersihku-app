@@ -189,20 +189,6 @@ class AdminHistoryScreen extends StatelessWidget {
                                     historyAdminController.filterCardData();
                                   },
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    // handle PDF generation
-                                  },
-                                  child: Text(
-                                    "Generate PDF",
-                                    style: TextStyle(
-                                      color: textSecondary,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: textSecondary,
-                                    ),
-                                  ),
-                                ),
                               ],
                             );
                           } else {

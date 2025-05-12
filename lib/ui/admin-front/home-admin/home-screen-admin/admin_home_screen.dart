@@ -1,4 +1,5 @@
 import 'package:bersihku/const.dart';
+import 'package:bersihku/controllers/riwayat_card_controller.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/components/buttom_navbar.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/components/header.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/components/riwayat_card.dart';
@@ -6,6 +7,7 @@ import 'package:bersihku/ui/admin-front/history-admin/admin_history_screen.dart'
 import 'package:bersihku/ui/admin-front/profile-admin/profile-admin-screen/profile_admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'components/card_menu.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -16,11 +18,12 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
+  final riwayatController = Get.put(RiwayatController());
   int _selectedIndex = 0;
-  bool _showManagementContainer = true; // buat hide/show
+  bool _showManagementContainer = true;
 
   final List<Widget> _widgetOptions = [
-    const AdminHomeScreen(),
+    const AdminHomeScreen(), // Penting: hindari nested instantiation seperti ini
     AdminHistoryScreen(),
     const ProfileScreenAdmin(),
   ];
@@ -34,12 +37,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   void _onScroll(ScrollNotification notification) {
     if (notification is UserScrollNotification) {
       if (notification.direction == ScrollDirection.reverse) {
-        // Scroll ke bawah
         if (_showManagementContainer) {
           setState(() => _showManagementContainer = false);
         }
       } else if (notification.direction == ScrollDirection.forward) {
-        // Scroll ke atas
         if (!_showManagementContainer) {
           setState(() => _showManagementContainer = true);
         }
@@ -74,35 +75,37 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             _onScroll(notification);
                             return true;
                           },
-                          child: ListView(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: screenWidth * 0.05),
-                            children: const [
-                              RiwayatCard(),
-                              RiwayatCard(),
-                              RiwayatCard(),
-                              SizedBox(height: 100),
-                            ],
-                          ),
+                          child: Obx(() {
+                            return ListView.builder(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: screenWidth * 0.05),
+                              itemCount:
+                                  riwayatController.riwayatList.length + 1,
+                              itemBuilder: (context, index) {
+                                if (index < riwayatController.riwayatList.length) {
+                                  final item = riwayatController.riwayatList[index];
+                                  return RiwayatCard(data: item);
+                                } else {
+                                  return const SizedBox(height: 100);
+                                }
+                              },
+                            );
+                          }),
                         ),
                       ),
                     ],
                   ),
                 ),
-                // Ini container putihnya, pakai AnimatedPositioned biar smooth
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
-                  bottom: _showManagementContainer
-                      ? 0
-                      : -300, // kalau hide, turun ke bawah
+                  bottom: _showManagementContainer ? 0 : -300,
                   left: 0,
                   right: 0,
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30)),
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
                     ),
                     padding: const EdgeInsets.all(20),
                     child: Column(

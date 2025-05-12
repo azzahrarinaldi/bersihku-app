@@ -42,7 +42,7 @@ class HeaderSection extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const DetailNotifikasiAdmin(),
+                      builder: (context) => DetailNotifikasiAdmin(),
                     ),
                   );
                 },
