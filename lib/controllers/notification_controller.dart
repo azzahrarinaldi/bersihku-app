@@ -36,6 +36,15 @@ class NotificationController extends GetxController {
           'date': 'Rabu, 26 Februari 2025',
           'time': '09:30',
         },
+        {
+          'image': 'assets/images/profile-person-history.png',
+          'name': 'Siti Rahma',
+          'PlateNumber': 'D 5678 EF',
+          'place': 'Kemang Village Apartment',
+          'address': 'Jl. Pangeran Antasari No.36, Bangka, Kec. Mampang Prpt.',
+          'date': 'Rabu, 26 Februari 2025',
+          'time': '09:30',
+        },
       ];
 
       // Mapping ke model

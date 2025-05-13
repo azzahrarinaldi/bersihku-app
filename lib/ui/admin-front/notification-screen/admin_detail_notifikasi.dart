@@ -50,7 +50,7 @@ class DetailNotifikasiAdmin extends StatelessWidget {
                       ],
                     ),
                     child: Row(
-                      children: const [
+                      children: [
                         Icon(Icons.notifications_active, color: secondaryColor),
                         SizedBox(width: 12),
                         Expanded(
@@ -64,11 +64,13 @@ class DetailNotifikasiAdmin extends StatelessWidget {
                                     fontSize: 16,
                                     color: Colors.black),
                               ),
-                              Text(
-                                "Ada 1 pengangkutan terdekat hari ini.",
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.black),
-                              ),
+                              Obx(() {
+                                return Text(
+                                  "Ada ${controller.notificationList.length} pengangkutan terdekat hari ini.",
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.black),
+                                );
+                              }),
                             ],
                           ),
                         ),
