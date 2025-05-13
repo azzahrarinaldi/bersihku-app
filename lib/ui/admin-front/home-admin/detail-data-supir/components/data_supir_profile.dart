@@ -1,8 +1,11 @@
+import 'package:bersihku/models/data_supir_profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
 
 class DataSupirProfile extends StatelessWidget {
-  const DataSupirProfile({super.key});
+  final DataSupirProfileModel supir;
+
+  const DataSupirProfile({super.key, required this.supir});
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +24,18 @@ class DataSupirProfile extends StatelessWidget {
             backgroundImage: AssetImage('assets/images/profile-laporan-img.png'),
           ),
           const SizedBox(height: 10),
-          const Text(
-            'Hadi Sucipto',
-            style: TextStyle(
+          Text(
+            supir.name,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            '082738394487',
-            style: TextStyle(
+          Text(
+            supir.userWhatsApp,
+            style: const TextStyle(
               fontSize: 16,
               color: Colors.black54,
             ),
@@ -44,9 +47,9 @@ class DataSupirProfile extends StatelessWidget {
               color: const Color(0xFFFFCFAA),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Text(
-              'B 1234 AGZ',
-              style: TextStyle(
+            child: Text(
+              supir.vehicle,
+              style: const TextStyle(
                 color: textSecondary,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,

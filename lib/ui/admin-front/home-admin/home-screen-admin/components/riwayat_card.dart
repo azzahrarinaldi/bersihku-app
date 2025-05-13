@@ -9,6 +9,11 @@ class RiwayatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
+
+    // Ukuran font responsif
+    double baseFontSize = screenWidth * 0.04; // 4% dari lebar layar
+    double smallFontSize = screenWidth * 0.035;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -18,10 +23,11 @@ class RiwayatCard extends StatelessWidget {
             children: [
               Container(width: 2, height: 30, color: Colors.white),
               Container(
-                  width: 12,
-                  height: 12,
-                  decoration: const BoxDecoration(
-                      color: Colors.white, shape: BoxShape.circle)),
+                width: 12,
+                height: 12,
+                decoration: const BoxDecoration(
+                    color: Colors.white, shape: BoxShape.circle),
+              ),
               Container(width: 2, height: 70, color: Colors.white),
             ],
           ),
@@ -40,17 +46,27 @@ class RiwayatCard extends StatelessWidget {
                 children: [
                   Text(
                     data.place,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: baseFontSize,
+                      color: Colors.black,
+                    ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     data.address,
-                    style: TextStyle(color: Colors.black54),
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: smallFontSize,
+                    ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
+                    width: double.infinity,
                     padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.05, vertical: 5),
+                      horizontal: screenWidth * 0.05,
+                      vertical: 5,
+                    ),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey.shade300),
                       borderRadius: BorderRadius.circular(8),
@@ -58,8 +74,15 @@ class RiwayatCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(textAlign: TextAlign.center,data.date),
-                        Text(data.time),
+                        Text(
+                          data.date,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        Text(
+                          data.time,
+                          style: TextStyle(fontSize: 12),
+                        ),
                       ],
                     ),
                   ),

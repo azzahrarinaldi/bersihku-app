@@ -52,7 +52,7 @@ class CardMenu extends StatelessWidget {
                   ),
                   child: Text(
                     buttonText,
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: primaryColor),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: primaryColor, fontSize: 12),
                   ),
                 ),
               ],

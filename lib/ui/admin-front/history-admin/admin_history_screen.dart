@@ -26,7 +26,7 @@ class AdminHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final   historyAdminController = Get.put(HistoryAdminController());
+    final historyAdminController = Get.put(HistoryAdminController());
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
 
