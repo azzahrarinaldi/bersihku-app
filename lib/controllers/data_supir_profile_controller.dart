@@ -16,14 +16,10 @@ class DataSupirProfileController extends GetxController {
   void loadDummyData() {
     supirList.value = [
       DataSupirProfileModel(
+        image: 'assets/images/profile-person-history.png',
         name: 'Budi Setiawan',
         vehicle: 'B 1212 GGH',
         userWhatsApp: '08112223344',
-      ),
-      DataSupirProfileModel(
-        name: 'Siti Aminah',
-        vehicle: 'D 3344 BBA',
-        userWhatsApp: '08998877665',
       ),
     ];
   }

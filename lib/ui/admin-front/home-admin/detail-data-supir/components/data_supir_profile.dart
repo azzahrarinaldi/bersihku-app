@@ -19,9 +19,9 @@ class DataSupirProfile extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 40,
-            backgroundImage: AssetImage('assets/images/profile-laporan-img.png'),
+            backgroundImage: AssetImage(supir.image),
           ),
           const SizedBox(height: 10),
           Text(
