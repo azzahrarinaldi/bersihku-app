@@ -1,13 +1,19 @@
+import 'package:bersihku/bindings/detail_data_supir_binding.dart';
+import 'package:bersihku/bindings/detail_laporan_binding.dart';
 import 'package:bersihku/firebase_options.dart';
-import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
-import 'package:bersihku/ui/auth_wrapper.dart';
-import 'package:bersihku/ui/user-front/home-user/home-screen-user/user_home_screen.dart';
-import 'package:bersihku/ui/splash_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/data-supir/data_supir_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/detail-laporan/detail_laporan_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/admin_home_screen.dart';
+import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/laporan_masuk_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
+import 'package:bersihku/ui/splash_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/home-screen-user/user_home_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/input-form/input_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:bersihku/ui/user-front/home-user/input-form/input_form_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
@@ -29,7 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bersihku',
       theme: ThemeData(
@@ -43,14 +49,17 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialRoute: FirebaseAuth.instance.currentUser == null ? '/' : '/auth-wrapper',
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/auth-wrapper': (context) => AuthWrapper(),
-        '/on-boarding' : (context) => const OnboardingScreen(),
-        '/home-user' : (context) => const UserHomeScreen(),
-        '/home-admin' : (context) => const AdminHomeScreen(),
-        '/input-form' : (context) => const InputFormScreen()
-      },
+      getPages: [
+        GetPage(name: '/', page: () => const SplashScreen()),
+        GetPage(name: '/on-boarding', page: () => const OnboardingScreen()),
+        GetPage(name: '/home-user', page: () => const UserHomeScreen()),
+        GetPage(name: '/home-admin', page: () => const AdminHomeScreen()),
+        GetPage(name: '/input-form', page: () => const InputFormScreen()),
+        GetPage(name: '/detail-data-supir', page: () => DetailDataSupirScreen(), binding: DetailDataSupirBinding()),
+        GetPage(name: '/data-supir', page: () => const DataSupirScreen()),
+        GetPage(name: '/laporan-masuk', page: () => const LaporanMasukScreen()),
+        GetPage(name: '/detail-laporan-masuk', page: () => DetailLaporanMasukScreen(), binding: DetailLaporanBinding()),
+      ],
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'dart:io';
+
+import 'package:bersihku/handler/image_picker_service.dart';
 import 'package:bersihku/services/location_service.dart';
-import 'package:bersihku/ui/user-front/home-user/input-form/components/submit-image/image_picker_logic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart'; // for compute()
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:flutter/foundation.dart'; // for compute()
+
 import 'image_processing.dart';
 
 class UploadImagePlaceholder extends StatefulWidget {
@@ -30,7 +32,7 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
   Future<void> _pickImage() async {
     setState(() => _isLoading = true);
     try {
-      final path = await ImagePickerLogic.pickImage();
+      final path = await ImagePickerServices.pickImage();
       if (path == null || !mounted) return;
 
       final file = File(path);

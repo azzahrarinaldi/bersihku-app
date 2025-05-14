@@ -1,3 +1,4 @@
+import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/auth/login/login_screen.dart';
 import 'package:bersihku/ui/auth/sign-up/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class AuthButton extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => LoginScreen(),
+                builder: (context) => AdminHomeScreen(),
               ),
             );
           },

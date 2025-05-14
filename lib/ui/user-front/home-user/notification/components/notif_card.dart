@@ -19,7 +19,7 @@ class NotificationCard extends StatelessWidget {
     required this.date,
     required this.address,
     required this.notes,
-    this.isNew = false,
+    this.isNew = false
   }) : super(key: key);
 
   @override
