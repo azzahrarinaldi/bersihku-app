@@ -1,3 +1,5 @@
+import 'package:bersihku/controllers/laporan_masuk_controller.dart';
+import 'package:bersihku/models/card_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bersihku/const.dart';
@@ -7,14 +9,22 @@ import 'components/rincian_pengangkutan.dart';
 import 'components/foto_sampah.dart';
 
 class DetailLaporanMasukScreen extends StatelessWidget {
-  final int index;
+  final String id;
 
-  const DetailLaporanMasukScreen({super.key, required this.index});
+  DetailLaporanMasukScreen({Key? key}) : id = Get.arguments.toString(), super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<DetailLaporanController>();
-    final laporan = controller.laporanList[index];
+    final laporanMasukController = Get.find<LaporanMasukController>();
+    final detailLaporanController = Get.find<DetailLaporanController>();
+
+    // Ambil data utama dari card
+    final CardDataModel data = laporanMasukController.filteredList
+    .firstWhere((item) => item.id == id);
+
+    // Filter data detail berdasarkan nama dan tempat
+    final detail = detailLaporanController.laporanList
+    .firstWhereOrNull((laporan) => laporan.id == id);
 
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
@@ -59,14 +69,14 @@ class DetailLaporanMasukScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Laporan ${laporan.name}:",
+                          "Laporan ${data.name}:",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: textPrimary),
                         ),
                         Text(
-                          "1 Laporan",
+                          "${detailLaporanController.getJumlahLaporanByName(data.name)} Laporan",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -104,8 +114,8 @@ class DetailLaporanMasukScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ProfileInfo(
-                        name: laporan.name,
-                        vehicle: laporan.vehicle,
+                        name: data.name,
+                        vehicle: data.vehicle,
                       ),
                       const SizedBox(height: 15),
                       Container(
@@ -119,22 +129,22 @@ class DetailLaporanMasukScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RincianPengangkutan(
-                              place: laporan.place,
-                              address: laporan.address,
-                              time: laporan.time,
-                              weightTotal: laporan.weightTotal,
+                              place: data.place,
+                              address: data.address,
+                              time: data.time,
+                              weightTotal: detail?.weightTotal ?? '0.0',
                             ),
                             const SizedBox(height: 30),
                             FotoSampah(
                               title:
                                   "Foto Sampah Sebelum Diangkat",
-                              imageUrl: laporan.urlFotoSebelum,
+                              imageUrl: detail?.urlFotoSebelum ?? '',
                             ),
                             const SizedBox(height: 30),
                             FotoSampah(
                               title:
                                   "Foto Sampah Sesudah Diangkat",
-                              imageUrl: laporan.urlFotoSesudah,
+                              imageUrl: detail?.urlFotoSesudah ?? '',
                             ),
                           ],
                         ),

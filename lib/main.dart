@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/detail-data-supir', page: () => DetailDataSupirScreen(), binding: DetailDataSupirBinding()),
         GetPage(name: '/data-supir', page: () => const DataSupirScreen()),
         GetPage(name: '/laporan-masuk', page: () => const LaporanMasukScreen()),
-        GetPage(name: '/detail-laporan-masuk', page: () => DetailLaporanMasukScreen(index: Get.arguments as int), binding: DetailLaporanBinding()),
+        GetPage(name: '/detail-laporan-masuk', page: () => DetailLaporanMasukScreen(), binding: DetailLaporanBinding()),
       ],
     );
   }

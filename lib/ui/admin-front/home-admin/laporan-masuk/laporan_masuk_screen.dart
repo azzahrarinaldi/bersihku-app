@@ -83,7 +83,8 @@ class LaporanMasukScreen extends StatelessWidget {
                                     imageAsset:
                                         "assets/images/profile-laporan-img.png",
                                     onTapDetail: () {
-                                      Get.toNamed('/detail-laporan-masuk', arguments: index);
+                                      final selectedId = controller.filteredList[index].id;
+                                      Get.toNamed('/detail-laporan-masuk', arguments: selectedId);
                                     },
                                   ),
                                   const SizedBox(height: 16),

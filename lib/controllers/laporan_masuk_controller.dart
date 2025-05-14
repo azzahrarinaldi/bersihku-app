@@ -12,6 +12,7 @@ class LaporanMasukController extends GetxController {
 
   final List<CardDataModel> allData = [
     CardDataModel(
+      id: "1",
       name: "Joko Priyanto",
       vehicle: "B 1829 POP",
       place: "Mall Artha Gading",
@@ -22,6 +23,7 @@ class LaporanMasukController extends GetxController {
       weight: "1.648",
     ),
     CardDataModel(
+      id: "2",
       name: "Joko Priyanto",
       vehicle: "B 1829 POP",
       place: "Kuningan City",
@@ -32,6 +34,7 @@ class LaporanMasukController extends GetxController {
       weight: "1.648",
     ),
     CardDataModel(
+      id: "3",
       name: "Joko Priyanto",
       vehicle: "B 1829 POP",
       place: "Margo City",

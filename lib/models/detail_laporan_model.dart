@@ -1,4 +1,5 @@
 class DetailLaporanModel {
+  final String id;
   final String name;
   final String vehicle;
   final String place;
@@ -9,6 +10,7 @@ class DetailLaporanModel {
   final String urlFotoSesudah;
 
   DetailLaporanModel({
+    required this.id,
     required this.name,
     required this.vehicle,
     required this.place,
@@ -19,8 +21,9 @@ class DetailLaporanModel {
     required this.urlFotoSesudah,
   });
 
-  factory DetailLaporanModel.fromMap(Map<String, dynamic> map) {
+  factory DetailLaporanModel.fromMap(Map<String, dynamic> map, String id) {
     return DetailLaporanModel(
+      id: id,
       name: map['name'] ?? '',
       vehicle: map['vehicle'] ?? '',
       place: map['place'] ?? '',

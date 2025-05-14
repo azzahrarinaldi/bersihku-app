@@ -1,4 +1,5 @@
 class CardDataModel {
+  final String id;
   final String name;
   final String vehicle;
   final String place;
@@ -9,6 +10,7 @@ class CardDataModel {
   final String weight;
 
   CardDataModel({
+    required this.id,
     required this.name,
     required this.vehicle,
     required this.place,
@@ -20,8 +22,9 @@ class CardDataModel {
   });
 
   // Untuk convert dari Map (misalnya Firebase)
-  factory CardDataModel.fromMap(Map<String, dynamic> map) {
+  factory CardDataModel.fromMap(Map<String, dynamic> map, String id) {
     return CardDataModel(
+      id: id,
       name: map['name'] ?? '',
       vehicle: map['vehicle'] ?? '',
       place: map['place'] ?? '',
@@ -51,6 +54,7 @@ class CardDataModel {
 List<CardDataModel> getDummyCardData() {
   return [
     CardDataModel(
+      id: "1",
       name: "Daily Worker",
       vehicle: "B 1234 CD",
       place: "Area Perumahan",
@@ -61,6 +65,7 @@ List<CardDataModel> getDummyCardData() {
       weight: "0.980",
     ),
     CardDataModel(
+      id: "2",
       name: "Abdul Kadir",
       vehicle: "B 1701 AZS",
       place: "Margo Mall City",
@@ -71,6 +76,7 @@ List<CardDataModel> getDummyCardData() {
       weight: "2.100",
     ),
     CardDataModel(
+      id: "3",
       name: "Joko Priyanto",
       vehicle: "B 1829 POP",
       place: "Kemang Village Apartment",
@@ -81,6 +87,7 @@ List<CardDataModel> getDummyCardData() {
       weight: "1.648",
     ),
     CardDataModel(
+      id: "4",
       name: "Siti Titin",
       vehicle: "B 9090 UIX",
       place: "Cilandak Town Square",
