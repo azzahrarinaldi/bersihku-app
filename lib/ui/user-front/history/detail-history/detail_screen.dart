@@ -26,23 +26,25 @@ class DetailScreenHistory extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                      icon:
+                          const Icon(Icons.arrow_back_ios, color: Colors.white),
                       onPressed: () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 10),
-                    const Text(
-                      'Detail Riwayat', 
-                      style: TextStyle(
-                        color: Colors.white, 
-                        fontSize: 18, 
-                        fontWeight: FontWeight.bold
-                      )
-                    ),
+                    const Text('Detail Riwayat',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Expanded(
-                  child: CardDetailHistory(documentId: documentId)
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 20), 
+                    child: CardDetailHistory(documentId: documentId),
+                  ),
                 ),
               ],
             ),

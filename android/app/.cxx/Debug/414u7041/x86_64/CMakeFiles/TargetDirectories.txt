@@ -1,0 +1,2 @@
+C:/Users/djopr/Documents/RPL_2024/New folder/bersihku-app/android/app/.cxx/Debug/414u7041/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/djopr/Documents/RPL_2024/New folder/bersihku-app/android/app/.cxx/Debug/414u7041/x86_64/CMakeFiles/rebuild_cache.dir
