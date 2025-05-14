@@ -1,6 +1,6 @@
 import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/auth/sign-up/signup_screen.dart';
-import 'package:bersihku/ui/user-front/home-user/user_home_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/home-screen-user/user_home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'components/email_input.dart';

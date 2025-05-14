@@ -1,5 +1,5 @@
 import 'package:bersihku/ui/admin-front/home-admin/admin_home_screen.dart';
-import 'package:bersihku/ui/user-front/home-user/user_home_screen.dart';
+import 'package:bersihku/ui/user-front/home-user/home-screen-user/user_home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class LoginButton extends StatelessWidget {
             ? () async {
                 try {
                   final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: emailController.text.trim(),
+                    email: emailController.text.trim(), //.trim() ngilangin spasi di depan/belakang biar gak error. Contoh: " naila@gmail.com " → jadi "naila@gmail.com"
                     password: passwordController.text.trim(),
                   );
 
@@ -42,7 +42,7 @@ class LoginButton extends StatelessWidget {
                   if (uid != null) {
                     final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-                    if (userDoc.exists) {
+                    if (userDoc.exists) { //disini buat meriksa apakah dokumen yang kita ambil dari firestore itu ada atau tidak
                       final role = userDoc.data()?['role'];
 
                       if (role == 'admin') {

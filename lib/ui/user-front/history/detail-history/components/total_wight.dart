@@ -1,34 +1,31 @@
+import 'package:bersihku/const.dart';
 import 'package:flutter/material.dart';
 
-class TotalWight extends StatefulWidget {
-  const TotalWight({super.key});
+class TotalWight extends StatelessWidget {
+  final String total;
+  const TotalWight({super.key, required this.total});
 
-  @override
-  State<TotalWight> createState() => _TotalWightState();
-}
-
-class _TotalWightState extends State<TotalWight> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "Pengangkutan sampah",
+        const Text(
+          "Pengangkutan sampah", 
           style: TextStyle(
-            fontSize: 10,
-            color: Colors.black,
+            fontSize: 13, 
+            color: textColor, 
             fontWeight: FontWeight.bold
-          ),
+          )
         ),
         Text(
-          "1.648 kg",
+          "$total kg", 
           style: TextStyle(
-            fontSize: 10,
-            color: Colors.black,
+            fontSize: 13, 
+            color: textColor, 
             fontWeight: FontWeight.bold
-          ),
-        )
+          )
+        ),
       ],
     );
   }
