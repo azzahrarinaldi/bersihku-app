@@ -6,16 +6,28 @@ class InputFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black, size: screenWidth * 0.05),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           'Laporan Pengangkutan',
           style: TextStyle(
-              fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
+            fontSize: screenWidth * 0.045,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        titleSpacing: screenWidth * 0.00, 
       ),
-      body: InputFormBody(),
+      body: const InputFormBody(),
     );
   }
 }

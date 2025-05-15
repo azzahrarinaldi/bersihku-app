@@ -8,30 +8,51 @@ class HistoryMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      onSelected: (value) {
-        if (value == 'edit') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => InputFormScreen()
-            ),
-          );
-        }
-        if (value == 'detail') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => DetailScreenHistory(documentId: documentId),
-            ),
-          );
-        }
-      },
-      itemBuilder: (_) => [
-        const PopupMenuItem(value: 'edit', child: Text('Edit', style: TextStyle(fontSize: 12))),
-        const PopupMenuItem(value: 'detail', child: Text('Detail', style: TextStyle(fontSize: 12))),
-      ],
-      icon: const Icon(Icons.more_vert, size: 18, color: Colors.black),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        popupMenuTheme: PopupMenuThemeData(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.grey.shade200, width: 1.2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      child: PopupMenuButton<String>(
+        onSelected: (value) {
+          if (value == 'edit') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const InputFormScreen(),
+              ),
+            );
+          }
+          if (value == 'detail') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => DetailScreenHistory(documentId: documentId),
+              ),
+            );
+          }
+        },
+        itemBuilder: (_) => [
+          const PopupMenuItem(
+            value: 'edit',
+            height: 30,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+            child: Text('Edit', style: TextStyle(fontSize: 12)),
+          ),
+          const PopupMenuItem(
+            value: 'detail',
+            height: 30,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+            child: Text('Detail', style: TextStyle(fontSize: 12)),
+          ),
+        ],
+        icon: const Icon(Icons.more_vert, size: 18, color: Colors.black),
+      ),
     );
   }
 }

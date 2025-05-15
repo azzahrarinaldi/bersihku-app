@@ -77,17 +77,17 @@ class _CardDetailHistoryState extends State<CardDetailHistory> {
     if (isLoading) return const Center(child: CircularProgressIndicator());
     if (data == null) return const Center(child: Text("Data tidak ditemukan"));
 
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Colors.grey.shade300,
-            width: 1,
-          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Colors.grey.shade300,
+          width: 1,
         ),
+      ),
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -118,9 +118,9 @@ class _CardDetailHistoryState extends State<CardDetailHistory> {
                 ),
               ],
             ),
-      
+            
             const SizedBox(height: 12),
-      
+            
             // Alamat & Jadwal
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
