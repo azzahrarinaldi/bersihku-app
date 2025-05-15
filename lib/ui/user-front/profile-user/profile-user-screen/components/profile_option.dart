@@ -1,14 +1,14 @@
-import 'package:bersihku/ui/auth/login/login_screen.dart';
-import 'package:bersihku/ui/user-front/home-user/guide/guide_screen.dart';
-import 'package:bersihku/ui/user-front/profile-user/settings/settings_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bersihku/controller/profile_user_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileOptions extends StatelessWidget {
   const ProfileOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ProfileUserController>();
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -31,23 +31,13 @@ class ProfileOptions extends StatelessWidget {
           _buildOptionTile(
             icon: Icons.settings,
             title: "Pengaturan Akun",
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-            },
+            onTap: () => Get.toNamed('/user-settings'),
           ),
           const Divider(color: Colors.grey, thickness: 0.5, height: 0),
           _buildOptionTile(
             icon: Icons.headphones,
             title: "Bantuan",
-            onTap: () {
-               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HelpGuideScreen()),
-              );
-            },
+            onTap: () => Get.toNamed('/guide'),
           ),
           const Divider(color: Colors.grey, thickness: 0.5, height: 0),
           _buildOptionTile(
@@ -55,12 +45,7 @@ class ProfileOptions extends StatelessWidget {
             title: "Keluar",
             color: Colors.red,
             onTap: () async {
-              await FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()), // ganti dengan halaman login kamu
-                (route) => false,
-              );
+              await controller.logoutAndRedirect();
             },
           ),
         ],

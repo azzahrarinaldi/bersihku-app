@@ -23,7 +23,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     //dasar untuk bernavigasi via bottom nav bar
     const UserHomeScreen(),
     const HistoryScreen(),
-    const ProfileScreen()
+    ProfileScreen()
   ];
 
   void _onItemTapped(int index) {

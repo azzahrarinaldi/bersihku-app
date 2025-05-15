@@ -31,14 +31,6 @@ class AuthService {
     }
   }
 
-  // Logout
-  Future<void> logout() async {
-    await _auth.signOut();
-  }
-
-  // Get current user
-  User? get currentUser => _auth.currentUser;
-
   // Listen to auth changes
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 }
