@@ -1,33 +1,20 @@
 import 'package:bersihku/const.dart';
+import 'package:bersihku/controller/profile_user_controller.dart';
+import 'package:bersihku/models/history_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'history_menu.dart';
 
 class HistoryCard extends StatelessWidget {
-  final String documentId;
-  final String name;
-  final String vehicle;
-  final String place;
-  final String address;
-  final String date;
-  final String time;
-  final String type;
-  final String weight;
+  final HistoryModel history;
 
-  const HistoryCard({
-    super.key,
-    required this.documentId,
-    required this.name,
-    required this.vehicle,
-    required this.place,
-    required this.address,
-    required this.date,
-    required this.time,
-    required this.type,
-    required this.weight,
-  });
+ const HistoryCard({super.key, required this.history});
+  
+  
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProfileUserController());
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(16),
@@ -44,91 +31,101 @@ class HistoryCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Image.asset("assets/images/profile-person-history.png", width: 60),
+                  Obx(() {
+                    final imgUrl = controller.profileImageUrl.value;
+                    return (imgUrl!.isEmpty)
+                        ? Image.asset(
+                            "assets/images/profile-person-history.png",
+                             width: MediaQuery.of(context).size.width * 0.12, 
+                            fit: BoxFit.contain,
+                          )
+                        : CircleAvatar(
+                            radius: MediaQuery.of(context).size.width * 0.06, 
+                            backgroundImage: NetworkImage(imgUrl),
+                          );
+                  }),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name, 
+                        history.name,
                         style: const TextStyle(
-                          fontWeight: FontWeight.bold, 
+                          fontWeight: FontWeight.bold,
                           fontSize: 15,
-                          color: textColor
-                        )
+                          color: textColor,
+                        ),
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        vehicle, 
-                        style: TextStyle(
-                          fontSize: 13, 
-                          color: Colors.grey
-                        )
+                        history.vehicle,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
-              HistoryMenu(documentId: documentId),
+              HistoryMenu(documentId: history.documentId),
             ],
           ),
           const SizedBox(height: 12),
           Text(
-            place, 
+            history.place,
             style: const TextStyle(
-              fontSize: 15, 
+              fontSize: 15,
               fontWeight: FontWeight.w600,
-              color: textColor
-            )
+              color: textColor,
+            ),
           ),
           const SizedBox(height: 9),
           Text(
-            address, 
-            style: const TextStyle(
-              fontSize: 11
-            )
+            history.address,
+            style: const TextStyle(fontSize: 11),
           ),
           const SizedBox(height: 15),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                date,
+                history.date,
                 style: const TextStyle(
-                  fontSize: 12, 
-                  fontWeight: FontWeight.w600
-                )
-              ), 
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               Text(
-                time,
+                history.time,
                 style: const TextStyle(
-                  fontSize: 12, 
-                  fontWeight: FontWeight.w600
-                )
-              )
-            ]
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 18),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                type,
-                style: TextStyle(
-                fontSize: 13, 
-                color: textColor,
-                fontWeight: FontWeight.bold
-              )
-              ), 
+                history.type,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Text(
-                "$weight Kg",
-                style: TextStyle(
-                fontSize: 13, 
-                color: textColor, 
-                fontWeight: FontWeight.bold
-              )
-              )
-            ]
+                "${history.weight} Kg",
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ],
       ),

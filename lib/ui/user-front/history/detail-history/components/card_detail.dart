@@ -1,10 +1,14 @@
 import 'package:bersihku/const.dart';
+import 'package:bersihku/controller/profile_user_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bersihku/ui/user-front/history/detail-history/components/card_image.dart';
 import 'package:bersihku/ui/user-front/history/detail-history/components/notes.dart';
 import 'package:bersihku/ui/user-front/history/detail-history/components/total_wight.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/instance_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -74,6 +78,7 @@ class _CardDetailHistoryState extends State<CardDetailHistory> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProfileUserController());
     if (isLoading) return const Center(child: CircularProgressIndicator());
     if (data == null) return const Center(child: Text("Data tidak ditemukan"));
 
@@ -94,7 +99,19 @@ class _CardDetailHistoryState extends State<CardDetailHistory> {
             // Profil User
             Row(
               children: [
-                Image.asset("assets/images/profile-person-history.png", width: 60),
+                 Obx(() {
+                    final imgUrl = controller.profileImageUrl.value;
+                    return (imgUrl!.isEmpty)
+                        ? Image.asset(
+                            "assets/images/profile-person-history.png",
+                             width: MediaQuery.of(context).size.width * 0.12, 
+                            fit: BoxFit.contain,
+                          )
+                        : CircleAvatar(
+                            radius: MediaQuery.of(context).size.width * 0.06, 
+                            backgroundImage: NetworkImage(imgUrl),
+                          );
+                  }),
                 const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
