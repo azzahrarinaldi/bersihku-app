@@ -1,5 +1,6 @@
 import 'package:bersihku/const.dart';
 import 'package:bersihku/controllers/riwayat_card_controller.dart';
+import 'package:bersihku/controllers/user_controller.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/components/buttom_navbar.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/components/header.dart';
 import 'package:bersihku/ui/admin-front/home-admin/home-screen-admin/components/riwayat_card.dart';
@@ -19,11 +20,13 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final riwayatController = Get.put(RiwayatController());
+  final userController = Get.put(UserController()); // Pastikan diinisialisasi di sini
+
   int _selectedIndex = 0;
   bool _showManagementContainer = true;
 
   final List<Widget> _widgetOptions = [
-    const AdminHomeScreen(), // Penting: hindari nested instantiation seperti ini
+    AdminHomeScreen(),
     AdminHistoryScreen(),
     const ProfileScreenAdmin(),
   ];
@@ -80,7 +83,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: screenWidth * 0.05),
                               itemCount:
-                                  riwayatController.riwayatList.length + 1,
+                                  riwayatController.riwayatList.length,
                               itemBuilder: (context, index) {
                                 if (index < riwayatController.riwayatList.length) {
                                   final item = riwayatController.riwayatList[index];

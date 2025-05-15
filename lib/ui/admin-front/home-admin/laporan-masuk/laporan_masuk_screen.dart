@@ -1,19 +1,19 @@
+// ui/admin-front/home-admin/laporan-masuk/laporan_masuk_screen.dart
 import 'package:bersihku/controllers/laporan_masuk_controller.dart';
+import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/components/rekapan_card.dart';
+import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/components/pengangkutan_card.dart';
+import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/components/dropdown_wilayah.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bersihku/const.dart';
-import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/components/dropdown_wilayah.dart';
-import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/components/pengangkutan_card.dart';
-import 'package:bersihku/ui/admin-front/home-admin/laporan-masuk/components/rekapan_card.dart';
 
 class LaporanMasukScreen extends StatelessWidget {
   const LaporanMasukScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LaporanMasukController());
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
+    final ctrl = Get.put(LaporanMasukController());
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -21,16 +21,16 @@ class LaporanMasukScreen extends StatelessWidget {
         bottom: false,
         child: Column(
           children: [
-            // Header
+            // header
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05, vertical: 15),
+                horizontal: screenWidth * 0.05,
+                vertical: 15,
+              ),
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
+                    onPressed: Get.back,
                     icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                   ),
                   const Text(
@@ -40,63 +40,67 @@ class LaporanMasukScreen extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
 
-            // Rekapan Card
+            // rekapan
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: RekapanCard(),
             ),
-
             const SizedBox(height: 24),
 
-            // Wilayah dropdown dan list
+            // wilayah + list
             Expanded(
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.05, vertical: 20),
+                  horizontal: screenWidth * 0.05,
+                  vertical: 20,
+                ),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
                 ),
-                child: Obx(() => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        DropdownWilayah(
-                          selectedWilayah: controller.selectedWilayah.value,
-                          wilayahList: controller.wilayahList,
-                          onChanged: controller.updateWilayah,
+                child: Obx(
+                  () => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DropdownWilayah(
+                        selectedWilayah: ctrl.selectedWilayah.value,
+                        wilayahList: ctrl.wilayahList,
+                        onChanged: ctrl.updateWilayah,
+                      ),
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: ctrl.filteredList.length,
+                          itemBuilder: (c, i) {
+                            final item = ctrl.filteredList[i];
+                            return Column(
+                              children: [
+                                PengangkutanCard(
+                                  data: item,
+                                  onTapDetail: () {
+                                    Get.toNamed(
+                                      '/detail-laporan-masuk',
+                                      arguments: item.id,
+                                    );
+                                  },
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            );
+                          },
                         ),
-                        const SizedBox(height: 16),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: controller.filteredList.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  PengangkutanCard(
-                                    data: controller.filteredList[index],
-                                    imageAsset:
-                                        "assets/images/profile-laporan-img.png",
-                                    onTapDetail: () {
-                                      final selectedId = controller.filteredList[index].id;
-                                      Get.toNamed('/detail-laporan-masuk', arguments: selectedId);
-                                    },
-                                  ),
-                                  const SizedBox(height: 16),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

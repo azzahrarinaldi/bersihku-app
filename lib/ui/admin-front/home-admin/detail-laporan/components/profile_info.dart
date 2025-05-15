@@ -4,13 +4,19 @@ import 'package:bersihku/const.dart';
 class ProfileInfo extends StatelessWidget {
   final String name;
   final String vehicle;
+  final String profilePicture;
 
-  const ProfileInfo({super.key, required this.name, required this.vehicle});
+  const ProfileInfo({
+    super.key,
+    required this.name,
+    required this.vehicle,
+    required this.profilePicture,
+  });
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
 
     return Column(
       children: [
@@ -23,8 +29,11 @@ class ProfileInfo extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.green, width: 3),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/profile-laporan-img.png'),
+                image: DecorationImage(
+                  image: profilePicture.isNotEmpty
+                      ? NetworkImage(profilePicture)
+                      : const AssetImage('assets/images/profile-laporan-img.png')
+                          as ImageProvider,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -43,10 +52,10 @@ class ProfileInfo extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           name,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
-            color: Colors.black
+            color: Colors.black,
           ),
         ),
         const SizedBox(height: 8),
@@ -59,14 +68,15 @@ class ProfileInfo extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 5),
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05, vertical: 5),
               decoration: BoxDecoration(
-                color: Color(0xFFFFCFAA),
+                color: const Color(0xFFFFCFAA),
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Text(
                 vehicle,
-                style: TextStyle(
+                style: const TextStyle(
                   color: textSecondary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,

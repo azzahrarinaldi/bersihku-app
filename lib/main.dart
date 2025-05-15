@@ -15,6 +15,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +28,12 @@ void main() async {
 
   // Inisialisasi Google Sign-In
   await GoogleSignIn().isSignedIn(); // Ini untuk memastikan plugin Google Sign-In terdeteksi
+
+  // 1) muat semua simbol tanggal/waktu untuk locale 'id'
+  await initializeDateFormatting('id', null);
+
+  // 2) set default locale intl ke 'id'
+  Intl.defaultLocale = 'id';
 
   runApp(const MyApp());
 }
