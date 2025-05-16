@@ -1,10 +1,9 @@
-import 'package:bersihku/models/card_data_model.dart';
+import 'package:bersihku/models/detail_laporan_model.dart';
 import 'package:flutter/material.dart';
 import 'admin_history_card.dart';
 
 class AdminHistoryList extends StatelessWidget {
-  final List<CardDataModel> data;
-
+  final List<DetailLaporanModel> data;
   const AdminHistoryList({super.key, required this.data});
 
   @override
@@ -17,17 +16,10 @@ class AdminHistoryList extends StatelessWidget {
         ),
       );
     }
-
-    return ListView.builder(
+    return ListView.separated(
       itemCount: data.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            AdminHistoryCard(data: data[index]),
-            const SizedBox(height: 15),
-          ],
-        );
-      },
+      separatorBuilder: (_, __) => const SizedBox(height: 15),
+      itemBuilder: (_, i) => AdminHistoryCard(data: data[i]),
     );
   }
 }

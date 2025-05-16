@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AdminHistoryScreen extends StatelessWidget {
-  AdminHistoryScreen({super.key});
-
+  AdminHistoryScreen({Key? key}) : super(key: key);
 
   final List<String> bulanList = [
     "Januari",
@@ -26,12 +25,10 @@ class AdminHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final historyAdminController = Get.put(HistoryAdminController());
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
+    final ctrl = Get.put(HistoryAdminController());
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      
       backgroundColor: primaryColor,
       body: Container(
         decoration: const BoxDecoration(
@@ -44,6 +41,7 @@ class AdminHistoryScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Title
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.05,
@@ -58,6 +56,7 @@ class AdminHistoryScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              // Search
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: Container(
@@ -70,140 +69,75 @@ class AdminHistoryScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          child: TextField(
-                        onChanged: (value) {
-                          historyAdminController.searchQuery.value = value;
-                          historyAdminController.filterCardData();
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Cari Riwayat..",
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(color: Colors.white),
+                        child: TextField(
+                          onChanged: (v) {
+                            ctrl.searchQuery.value = v;
+                            ctrl.filterCardData();
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "Cari Riwayat..",
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(color: Colors.white),
+                          ),
+                          style: const TextStyle(color: Colors.white),
                         ),
-                        style: TextStyle(color: Colors.white),
-                      )),
-                      Icon(Icons.search, color: Colors.white),
+                      ),
+                      const Icon(Icons.search, color: Colors.white),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 16),
+              // Toggle Harian / Bulanan
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    Expanded(
-                      child: Obx(() {
-                        return GestureDetector(
-                          onTap: () {
-                            historyAdminController.isDaily.value = true;
-                            historyAdminController.filterCardData();
-                          },
-                          child: Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: historyAdminController.isDaily.value
-                                  ? const Color(0xFFFDD835)
-                                  : Colors.white.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Laporan Harian",
-                                style: TextStyle(
-                                  color: historyAdminController.isDaily.value
-                                      ? Colors.black87
-                                      : Colors.white,
-                                  fontWeight: historyAdminController.isDaily.value
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
+                    Expanded(child: _buildToggleButton(ctrl, true, "Laporan Harian")),
                     const SizedBox(width: 10),
-                    Expanded(
-                      child: Obx(() {
-                        return GestureDetector(
-                          onTap: () {
-                            historyAdminController.isDaily.value = false;
-                            historyAdminController.filterCardData();
-                          },
-                          child: Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: !historyAdminController.isDaily.value
-                                  ? const Color(0xFFFDD835)
-                                  : Colors.white.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Laporan Bulanan",
-                                style: TextStyle(
-                                  color: !historyAdminController.isDaily.value
-                                      ? Colors.black87
-                                      : Colors.white,
-                                  fontWeight: !historyAdminController.isDaily.value
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
+                    Expanded(child: _buildToggleButton(ctrl, false, "Laporan Bulanan")),
                   ],
                 ),
               ),
               const SizedBox(height: 16),
+              // Content list
               Expanded(
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,  // <- tambahkan ini
                       children: [
                         Obx(() {
-                          if (!historyAdminController.isDaily.value) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                DropdownBulan(
-                                  selectedBulan:
-                                      historyAdminController.selectedBulan.value,
+                          if (!ctrl.isDaily.value) {
+                            return Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),  // geser 8px dari kiri
+                                child: DropdownBulan(
+                                  selectedBulan: ctrl.selectedBulan.value,
                                   bulanList: bulanList,
-                                  onChanged: (newBulan) {
-                                    historyAdminController.selectedBulan.value =
-                                        newBulan;
-                                    historyAdminController.filterCardData();
+                                  onChanged: (newVal) {
+                                    ctrl.selectedBulan.value = newVal;
+                                    ctrl.filterCardData();
                                   },
                                 ),
-                              ],
+                              ),
                             );
-                          } else {
-                            return const SizedBox.shrink();
                           }
+                          return const SizedBox.shrink();
                         }),
                         const SizedBox(height: 16),
                         Expanded(
-                          child: GetX<HistoryAdminController>(
-                            builder: (controller) {
-                              return AdminHistoryList(
-                                data: controller.filteredCardList.toList(),
-                              );
-                            },
-                          ),
+                          child: Obx(() {
+                            return AdminHistoryList(
+                              data: ctrl.filteredLaporanList.toList(),
+                            );
+                          }),
                         ),
                       ],
                     ),
@@ -215,5 +149,33 @@ class AdminHistoryScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildToggleButton(HistoryAdminController ctrl, bool daily, String label) {
+    return Obx(() {
+      final sel = ctrl.isDaily.value == daily;
+      return GestureDetector(
+        onTap: () {
+          ctrl.isDaily.value = daily;
+          ctrl.filterCardData();
+        },
+        child: Container(
+          height: 40,
+          decoration: BoxDecoration(
+            color: sel ? const Color(0xFFFDD835) : Colors.white.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: sel ? Colors.black87 : Colors.white,
+                fontWeight: sel ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ),
+        ),
+      );
+    });
   }
 }

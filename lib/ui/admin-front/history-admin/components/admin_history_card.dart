@@ -1,28 +1,29 @@
-import 'package:bersihku/models/card_data_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:bersihku/models/detail_laporan_model.dart';
 
 class AdminHistoryCard extends StatelessWidget {
-  final CardDataModel data;
+  final DetailLaporanModel data;
 
-  const AdminHistoryCard({super.key, required this.data});
+  const AdminHistoryCard({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final dateStr = DateFormat('EEEE, d MMMM yyyy', 'id').format(data.createdAt);
+    final timeStr = DateFormat('HH.mm', 'id').format(data.createdAt);
+
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.grey.shade300,
-          width: 1,
-        ),
+        border: Border.all(color: Colors.grey.shade300, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 4),
+            padding: const EdgeInsets.only(top: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -32,55 +33,62 @@ class AdminHistoryCard extends StatelessWidget {
                       "assets/images/profile-laporan-img.png",
                       width: 60,
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.name,
-                          style: TextStyle(
+                          data.name,  // <-- sekarang pasti ada
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Text(
                           data.vehicle,
-                          style: TextStyle(fontSize: 12, color: Colors.black54),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.black54,
+                          ),
                         ),
                       ],
                     ),
                   ],
                 ),
+                // tetap kosong di kanan
               ],
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Text(
             data.place,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 9),
-          Text(data.address, style: TextStyle(fontSize: 12, color: Colors.black)),
-          SizedBox(height: 9),
+          const SizedBox(height: 9),
+          Text(
+            data.address,
+            style: const TextStyle(fontSize: 12, color: Colors.black),
+          ),
+          const SizedBox(height: 9),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(data.date, style: TextStyle(fontSize: 12, color: Colors.black)),
-              Text(data.time, style: TextStyle(fontSize: 12, color: Colors.black)),
+              Text(dateStr, style: const TextStyle(fontSize: 12, color: Colors.black)),
+              Text(timeStr, style: const TextStyle(fontSize: 12, color: Colors.black)),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                data.type,
+              const Text(
+                "Pengangkutan Sampah",
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.black,
@@ -88,8 +96,8 @@ class AdminHistoryCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "${data.weight} Kg",
-                style: TextStyle(
+                "${data.formattedWeight} Kg",
+                style: const TextStyle(
                   fontSize: 12,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
