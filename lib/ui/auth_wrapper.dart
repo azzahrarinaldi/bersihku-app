@@ -14,44 +14,49 @@ class AuthWrapper extends StatefulWidget {
 
 class _AuthWrapperState extends State<AuthWrapper> {
   @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
+Widget build(BuildContext context) {
+  return StreamBuilder<User?>(
+    stream: FirebaseAuth.instance.authStateChanges(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
 
-        if (snapshot.hasData) {
-          String userId = FirebaseAuth.instance.currentUser!.uid;
+      if (snapshot.hasData) {
+        String userId = FirebaseAuth.instance.currentUser!.uid;
 
-          return FutureBuilder<DocumentSnapshot>(
-            future: FirebaseFirestore.instance.collection('users').doc(userId).get(),
-            builder: (context, userSnapshot) {
-              if (userSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              }
+        return FutureBuilder<DocumentSnapshot>(
+          future: FirebaseFirestore.instance.collection('users').doc(userId).get(),
+          builder: (context, userSnapshot) {
+            if (userSnapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-              if (userSnapshot.hasData && userSnapshot.data != null) {
-                var userData = userSnapshot.data!.data() as Map<String, dynamic>;
-                String role = userData['role'];
+            if (userSnapshot.hasError) {
+              return Center(child: Text('Terjadi kesalahan: ${userSnapshot.error}'));
+            }
 
-                // Arahkan ke halaman yang sesuai berdasarkan role
-                if (role == 'admin') {
-                  return AdminHomeScreen();
-                } else {
-                  return UserHomeScreen();
-                }
+            if (userSnapshot.hasData &&
+                userSnapshot.data != null &&
+                userSnapshot.data!.data() != null) {
+              var userData = userSnapshot.data!.data() as Map<String, dynamic>;
+              String role = userData['role'] ?? '';
+
+              if (role == 'admin') {
+                return const AdminHomeScreen();
               } else {
-                return Center(child: Text('Data user tidak ditemukan.'));
+                return const UserHomeScreen();
               }
-            },
-          );
-        } else {
-          // Jika tidak ada user yang login, arahkan ke Onboarding Screen atau Login
-          return LoginScreen(); // Ganti ke login screen jika perlu
-        }
-      },
-    );
-  }
+            } else {
+              return const Center(child: Text('Data user tidak ditemukan.'));
+            }
+          },
+        );
+      } else {
+        return const LoginScreen();
+      }
+    },
+  );
+}
+
 }

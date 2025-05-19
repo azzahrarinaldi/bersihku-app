@@ -12,34 +12,50 @@ class UserSettingsScreen extends StatelessWidget {
   void _showImagePickerOptions(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (_) {
-        return SafeArea(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+          ),
           child: Wrap(
             children: [
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Ambil dari Kamera'),
+                leading: const Icon(Icons.camera_alt, color: Colors.black87),
+                title: const Text(
+                  'Ambil dari Kamera',
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   controller.pickImage(ImageSource.camera);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Pilih dari Galeri'),
+                leading: const Icon(Icons.photo_library, color: Colors.black87),
+                title: const Text(
+                  'Pilih dari Galeri',
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   controller.pickImage(ImageSource.gallery);
                 },
               ),
               ListTile(
-              leading: Icon(Icons.delete, color: Colors.red,),
-              title: Text('Hapus Foto', style: TextStyle(color: Colors.red),),
-              onTap: () async {
-                Navigator.pop(context);
-                await controller.deleteProfileImage();
-              },
-            ),
+                leading: const Icon(Icons.delete, color: Colors.red),
+                title: const Text(
+                  'Hapus Foto',
+                  style: TextStyle(fontSize: 16, color: Colors.red),
+                ),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await controller.deleteProfileImage();
+                },
+              ),
             ],
           ),
         );

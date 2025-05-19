@@ -33,10 +33,10 @@ class UserSettingController extends GetxController {
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
       final url = doc.data()?['profile_picture'] ?? '';
       profileImageUrl.value =
-          url.isNotEmpty ? url : 'assets/images/profile-person-history.png';
+          url.isNotEmpty ? url : '';
     } catch (e) {
       print("Error: $e");
-      profileImageUrl.value = 'assets/images/profile-person-history.png';
+      profileImageUrl.value = '';
     }
   }
 
@@ -152,7 +152,7 @@ class UserSettingController extends GetxController {
       });
 
       // Set default gambar lokal
-      profileImageUrl.value = 'assets/images/profile-person-history.png';
+      profileImageUrl.value = 'profile_images/default_profile.jpg';
 
       Get.snackbar(
         "Sukses",
