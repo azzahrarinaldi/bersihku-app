@@ -135,4 +135,63 @@ class UserSettingController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  Future<void> deleteProfileImage() async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) return;
+
+      // Hapus file dari Firebase Storage
+      final ref =
+          FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
+      await ref.delete();
+
+      // Update Firestore (hapus URL)
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'profile_picture': '',
+      });
+
+      // Set default gambar lokal
+      profileImageUrl.value = 'assets/images/profile-person-history.png';
+
+      Get.snackbar(
+        "Sukses",
+        "Foto profil berhasil dihapus",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: const Color(0xFF4EBAE5),
+        colorText: Colors.white,
+        borderRadius: 10,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+        boxShadows: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        duration: const Duration(seconds: 3),
+      );
+    } catch (e) {
+      print("Delete Error: $e");
+      Get.snackbar(
+        "Gagal",
+        "Tidak bisa menghapus foto: $e",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: const Color(0xFF4EBAE5),
+        colorText: Colors.white,
+        borderRadius: 10,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+        boxShadows: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      );
+    }
+  }
 }
+
+

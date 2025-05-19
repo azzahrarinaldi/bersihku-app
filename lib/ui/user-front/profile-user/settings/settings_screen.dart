@@ -32,6 +32,14 @@ class UserSettingsScreen extends StatelessWidget {
                   controller.pickImage(ImageSource.gallery);
                 },
               ),
+              ListTile(
+              leading: Icon(Icons.delete, color: Colors.red,),
+              title: Text('Hapus Foto', style: TextStyle(color: Colors.red),),
+              onTap: () async {
+                Navigator.pop(context);
+                await controller.deleteProfileImage();
+              },
+            ),
             ],
           ),
         );
