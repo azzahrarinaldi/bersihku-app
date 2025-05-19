@@ -1,6 +1,8 @@
+import 'package:bersihku/controller/notification_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:bersihku/const.dart';
 import 'package:bersihku/ui/user-front/home-user/notification/components/notif_card.dart';
-import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -10,6 +12,8 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final notifController = Get.put(NotificationController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,28 +35,30 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Header
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Row(
                     children: [
                       IconButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back_ios, color: Colors.white,)
-                        ),
-                      Text(
+                        icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                      ),
+                      const Text(
                         "Detail Notifikasi",
                         style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
                 ),
-            
-                // Info atas (TETAP di background putih)
+
+                // Info atas (kotak putih)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Container(
@@ -64,16 +70,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.notifications_active,
-                            color: Colors.orange),
-                            SizedBox(width: 10,),
+                        const Icon(Icons.notifications_active, color: Colors.orange),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 "Notifikasi Baru",
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               Text(
                                 "Ada 1 pengangkutan terdekat hari ini.",
@@ -86,59 +94,35 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ),
                   ),
                 ),
-            
+
                 const SizedBox(height: 30),
-            
-                // Expanded scroll area
+
+                // Area scroll notifikasi
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(20),
                       ),
                     ),
-                    child: ListView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18),
-                      children: [
-                        NotificationCard(
-                          profileImage: "assets/images/profile.png",
-                          name: "Hadi Sucipto",
-                          roleAndPlate: "Sopir / (B889N)",
-                          location: "Kemang Village Apartment",
-                          date: "Rabu, 26 Februari 2025",
-                          address:
-                              "Jl. Pangeran Antasari No.36, Bangka, Kec. Mampang Prpt.",
-                          notes:
-                              "Ini adalah contoh catatan yang dikasih Admin kepada Supir...",
-                          isNew: true,
-                        ),
-                        NotificationCard(
-                          profileImage: "assets/images/profile.png",
-                          name: "Hadi Sucipto",
-                          roleAndPlate: "Sopir / (B889N)",
-                          location: "Kemang Village Apartment",
-                          date: "Rabu, 26 Februari 2025",
-                          address:
-                              "Jl. Pangeran Antasari No.36, Bangka, Kec. Mampang Prpt.",
-                          notes:
-                              "Ini adalah contoh catatan yang dikasih Admin kepada Supir...",
-                        ),
-                        NotificationCard(
-                          profileImage: "assets/images/profile.png",
-                          name: "Hadi Sucipto",
-                          roleAndPlate: "Sopir / (B889N)",
-                          location: "Kemang Village Apartment",
-                          date: "Rabu, 26 Februari 2025",
-                          address:
-                              "Jl. Pangeran Antasari No.36, Bangka, Kec. Mampang Prpt.",
-                          notes:
-                              "Ini adalah contoh catatan yang dikasih Admin kepada Supir...",
-                        ),
-                      ],
-                    ),
+                    child: Obx(() {
+                      if (notifController.notifications.isEmpty) {
+                        return const Center(
+                          child: Text("Belum ada notifikasi"),
+                        );
+                      }
+                      return ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        itemCount: notifController.notifications.length,
+                        itemBuilder: (context, index) {
+                          return NotificationCard(
+                            data: notifController.notifications[index],
+                          );
+                        },
+                      );
+                    }),
                   ),
                 ),
               ],

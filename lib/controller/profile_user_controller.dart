@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfileUserController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
+   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   var user = Rxn<UserModel>();
   var profileImageUrl = RxnString();
@@ -54,7 +56,14 @@ class ProfileUserController extends GetxController {
 
   // Logout
   Future<void> logoutAndRedirect() async {
-  await _auth.signOut();
-  Get.offAll(() => const LoginScreen());
-}
+    try {
+      // Logout dari Google SignIn juga
+      await _googleSignIn.signOut();
+    } catch (e) {
+      print('Error signing out from Google: $e');
+    }
+    
+    await _auth.signOut();
+    Get.offAll(() => const LoginScreen());
+  }
 }

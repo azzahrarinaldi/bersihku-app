@@ -26,11 +26,11 @@ class ProfileScreen extends StatelessWidget {
           child: Obx(() {
             final userData = controller.user.value;
             final profileImage = controller.profileImageUrl.value;
-          
+
             if (userData == null) {
               return const Center(child: CircularProgressIndicator());
             }
-          
+
             return Column(
               children: [
                 Padding(

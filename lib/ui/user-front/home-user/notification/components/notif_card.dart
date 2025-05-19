@@ -1,26 +1,10 @@
+import 'package:bersihku/models/notification_model.dart';
 import 'package:flutter/material.dart';
 
 class NotificationCard extends StatelessWidget {
-  final String profileImage;
-  final String name;
-  final String roleAndPlate;
-  final String location;
-  final String date;
-  final String address;
-  final String notes;
-  final bool isNew;
+  final NotificationModel data;
 
-  const NotificationCard({
-    Key? key,
-    required this.profileImage,
-    required this.name,
-    required this.roleAndPlate,
-    required this.location,
-    required this.date,
-    required this.address,
-    required this.notes,
-    this.isNew = false,
-  }) : super(key: key);
+  const NotificationCard({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +26,7 @@ class NotificationCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 24,
-                backgroundImage: AssetImage(profileImage),
+                backgroundImage: AssetImage(data.profileImage),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -50,26 +34,26 @@ class NotificationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      data.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: Colors.black
+                        color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 4), // jarak kecil
+                    const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          roleAndPlate,
+                          data.roleAndPlate,
                           style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 12,
                           ),
                         ),
                         Text(
-                          location,
+                          data.location,
                           style: const TextStyle(
                             color: Colors.orange,
                             fontWeight: FontWeight.bold,
@@ -84,30 +68,36 @@ class NotificationCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0), 
+          const Padding(
+            padding: EdgeInsets.only(left: 8.0),
             child: Text(
               "Pengangkutan terakhir",
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: Colors.black),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                color: Colors.black,
+              ),
             ),
           ),
           const SizedBox(height: 4),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0), 
-            child: Text(date, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              data.date,
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
+            ),
           ),
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Text(address,
-                style: const TextStyle(color: Colors.black87, fontSize: 12)),
+            child: Text(
+              data.address,
+              style: const TextStyle(color: Colors.black87, fontSize: 12),
+            ),
           ),
           const SizedBox(height: 12),
           Padding(
-             padding: const EdgeInsets.only(left: 8.0, right:  8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.all(12),
@@ -116,9 +106,9 @@ class NotificationCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0), // Menjorokkan teks notes
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  notes,
+                  data.notes,
                   style: const TextStyle(color: Colors.black54),
                 ),
               ),

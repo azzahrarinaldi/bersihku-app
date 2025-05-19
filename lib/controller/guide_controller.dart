@@ -43,23 +43,18 @@ class GuideController extends GetxController {
       "width": "150",
     },
     {
-      "text": "9. Di sini terdapat history/pengangkutan terbaru",
-      "imagePath": "assets/images/history-card.png",
-      "width": "150",
-    },
-    {
-      "text": "10. Tentunya di Dashboard ada Navigation Bar, yg berisi Home(Beranda), History, Profile",
+      "text": "9. Tentunya di Dashboard ada Navigation Bar, yg berisi Home(Beranda), History, Profile",
       "imagePath": "assets/images/bottom-nav-bar-image.png",
       "width": "200",
     },
     {
-      "text": "11. Di History berisi history pengangkutan sampah user mulai dari yg terbaru sampai beberapa bulan lalu",
-      "imagePath": "assets/images/history-card.png",
+      "text": "10. Di History berisi history pengangkutan sampah user mulai dari yg terbaru sampai beberapa bulan lalu",
+      "imagePath": "assets/images/history-card (2).png",
       "width": "150",
     },
     {
-      "text": "12. Di sini terdapat history/pengangkutan terbaru",
-      "imagePath": "assets/images/history-card.png",
+      "text": "11. Di Profile berisi biodata diri seperti nama, email,dll. Tentu nya kita bisa mengubah biodata kita",
+      "imagePath": "assets/images/profile-screen.png",
       "width": "150",
     },
   ];
