@@ -1,4 +1,3 @@
-import 'package:bersihku/const.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/user_home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +8,8 @@ class SuccesScreen extends StatefulWidget {
   State<SuccesScreen> createState() => _SuccesScreenState();
 }
 
-class _SuccesScreenState extends State<SuccesScreen> with TickerProviderStateMixin {
+class _SuccesScreenState extends State<SuccesScreen>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -43,18 +43,14 @@ class _SuccesScreenState extends State<SuccesScreen> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: screenWidth * 0.06,
-            vertical: 20,
-          ),
+        child: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AnimatedBuilder(
                 animation: _animation,

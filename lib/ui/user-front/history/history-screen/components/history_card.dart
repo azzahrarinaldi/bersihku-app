@@ -9,8 +9,6 @@ class HistoryCard extends StatelessWidget {
   final HistoryModel history;
 
  const HistoryCard({super.key, required this.history});
-  
-  
 
   @override
   Widget build(BuildContext context) {

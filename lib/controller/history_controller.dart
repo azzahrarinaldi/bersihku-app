@@ -10,7 +10,6 @@ class HistoryController extends GetxController {
   RxString userName = 'Pengguna'.obs;
   RxString userImage = ''.obs;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -19,14 +18,24 @@ class HistoryController extends GetxController {
     fetchHistory();
   }
 
-  void fetchUserData() async {
+  void fetchUserData() {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
-    final snapshot = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    final data = snapshot.data();
 
-    userName.value = data?['name'] ?? 'Pengguna';
-    userImage.value = data?['profile_picture'] ?? '';
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .listen((snapshot) {
+      final data = snapshot.data();
+      if (data != null) {
+        userName.value = data['name'] ?? 'Pengguna';
+        userImage.value = data['profile_picture'] ?? '';
+
+        // Update ulang history biar name-nya ikut berubah
+        fetchHistory();
+      }
+    });
   }
 
   void fetchHistory() {

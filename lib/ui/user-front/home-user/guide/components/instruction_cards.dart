@@ -28,14 +28,11 @@ class InstructionCards extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Center(
                 child: Image.asset(
                   instruction["imagePath"]!,
-                  width: double.tryParse(
-                      instruction["width"] ?? "100"), 
+                  width: double.tryParse(instruction["width"] ?? "100"),
                 ),
               ),
             ],

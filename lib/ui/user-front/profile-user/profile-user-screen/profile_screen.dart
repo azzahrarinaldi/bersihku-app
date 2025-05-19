@@ -44,16 +44,19 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(height: 30),
                       Align(
                         alignment: Alignment.topCenter,
-                        child: (profileImage == null || profileImage.isEmpty)
-                            ? Image.asset(
-                                "assets/images/profile-person-history.png",
-                                width: screenWidth * 0.2,
-                                fit: BoxFit.contain,
-                              )
-                            : CircleAvatar(
-                                radius: screenWidth * 0.1,
-                                backgroundImage: NetworkImage(profileImage),
-                              ),
+                        child: CircleAvatar(
+                          radius: screenWidth * 0.1,
+                          backgroundColor: Colors.grey[300],
+                          backgroundImage:
+                              (profileImage != null && profileImage.isNotEmpty)
+                                  ? NetworkImage(profileImage)
+                                  : null,
+                          child: (profileImage == null || profileImage.isEmpty)
+                              ? Icon(Icons.person,
+                                  size: screenWidth * 0.1,
+                                  color: Colors.grey[600])
+                              : null,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       Text(

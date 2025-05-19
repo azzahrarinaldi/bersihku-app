@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
+import 'package:bersihku/controller/user_setting_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FormSettingsScreen extends StatefulWidget {
   const FormSettingsScreen({super.key});
@@ -11,68 +11,12 @@ class FormSettingsScreen extends StatefulWidget {
 }
 
 class _FormSettingsScreenState extends State<FormSettingsScreen> {
-  bool _obscurePassword = true;
-
-  final TextEditingController _nameController  = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  bool _loading = false;
+  final controller = Get.find<UserSettingController>();
 
   @override
   void initState() {
     super.initState();
-    _loadUserProfile();
-  }
-
-  Future<void> _loadUserProfile() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
-
-    final doc = await FirebaseFirestore.instance
-      .collection('users')
-      .doc(user.uid)
-      .get();
-
-    if (!doc.exists) return;
-    final data = doc.data()!;
-
-    setState(() {
-      _nameController.text     = data['name']  ?? '';
-      _phoneController.text    = data['phone'] ?? '';
-      _emailController.text    = data['email'] ?? '';
-      // password biasanya gak disimpan plaintext di Firestore
-    });
-  }
-
-  Future<void> _saveProfile() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
-
-    setState(() => _loading = true);
-
-    try {
-      await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .update({
-          'name': _nameController.text.trim(),
-          'phone': _phoneController.text.trim(),
-          'email': _emailController.text.trim(),
-          // kalau perlu update password mesti pakai FirebaseAuth.updatePassword
-        });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profil berhasil diperbarui')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saat menyimpan: $e')),
-      );
-    } finally {
-      setState(() => _loading = false);
-    }
+    controller.loadUserProfile(); // panggil sekali saat widget mulai
   }
 
   InputDecoration buildInputDecoration(IconData icon) {
@@ -94,67 +38,77 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Nama", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _nameController,
-          decoration: buildInputDecoration(Icons.person),
-        ),
-        const SizedBox(height: 20),
-        const Text("No. Telepon", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _phoneController,
-          keyboardType: TextInputType.phone,
-          decoration: buildInputDecoration(Icons.phone),
-        ),
-        const SizedBox(height: 20),
-        const Text("Email", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _emailController,
-          keyboardType: TextInputType.emailAddress,
-          decoration: buildInputDecoration(Icons.email_rounded),
-        ),
-        const SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text("Kata Sandi", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            Text("Ganti Kata Sandi", style: TextStyle(fontSize: 14, color: textPrimary, fontWeight: FontWeight.w600)),
-          ],
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _passwordController,
-          obscureText: _obscurePassword,
-          decoration: buildInputDecoration(Icons.lock).copyWith(
-            suffixIcon: IconButton(
-              icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
-              onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
-            ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Nama", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          TextField(
+            controller: controller.nameController,
+            decoration: buildInputDecoration(Icons.person),
           ),
-        ),
-        const SizedBox(height: 80),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: thirdColor,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-            ),
-            onPressed: _loading ? null : _saveProfile,
-            child: _loading
-              ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-              : const Text("Submit", style: TextStyle(color: Colors.white, fontSize: 16)),
+          const SizedBox(height: 20),
+          const Text("No. Telepon", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          TextField(
+            controller: controller.phoneController,
+            keyboardType: TextInputType.phone,
+            decoration: buildInputDecoration(Icons.phone),
           ),
-        ),
-      ],
+          const SizedBox(height: 20),
+          const Text("Email", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          TextField(
+            controller: controller.emailController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: buildInputDecoration(Icons.email_rounded),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Kata Sandi", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              GestureDetector(
+                onTap: () {
+                  // TODO: Navigasi ke screen ganti password
+                },
+                child: const Text("Ganti Kata Sandi", style: TextStyle(fontSize: 14, color: textPrimary, fontWeight: FontWeight.w600)),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Obx(() => TextField(
+            controller: controller.passwordController,
+            obscureText: controller.obscurePassword.value,
+            decoration: buildInputDecoration(Icons.lock).copyWith(
+              suffixIcon: IconButton(
+                icon: Icon(controller.obscurePassword.value ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
+                onPressed: () {
+                  controller.obscurePassword.value = !controller.obscurePassword.value;
+                },
+              ),
+            ),
+          )),
+          const SizedBox(height: 80),
+          SizedBox(
+            width: double.infinity,
+            child: Obx(() => ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: thirdColor,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
+              ),
+              onPressed: controller.isLoading.value ? null : controller.saveUserProfile,
+              child: controller.isLoading.value
+                  ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                  : const Text("Submit", style: TextStyle(color: Colors.white, fontSize: 16)),
+            )),
+          ),
+        ],
+      ),
     );
   }
 }

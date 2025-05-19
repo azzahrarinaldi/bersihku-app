@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/on-boarding', page: () => const OnboardingScreen()),
         GetPage(name: '/home-user', page: () => const UserHomeScreen()),
         GetPage(name: '/input-form', page: () => const InputFormScreen()),
-        GetPage(name: '/user-settings', page: () => const SettingsScreen()),
-        GetPage(name: '/guide', page: () => const HelpGuideScreen()),
+        GetPage(name: '/user-settings', page: () => UserSettingsScreen()),
+        GetPage(name: '/guide', page: () => HelpGuideScreen()),
       ],
     );
   }

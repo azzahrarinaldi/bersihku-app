@@ -1,5 +1,4 @@
 import 'package:bersihku/ui/user-front/history/detail-history/detail_screen.dart';
-import 'package:bersihku/ui/user-front/home-user/input-form/input_form_screen.dart';
 import 'package:flutter/material.dart';
 
 class HistoryMenu extends StatelessWidget {
@@ -20,14 +19,6 @@ class HistoryMenu extends StatelessWidget {
       ),
       child: PopupMenuButton<String>(
         onSelected: (value) {
-          if (value == 'edit') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const InputFormScreen(),
-              ),
-            );
-          }
           if (value == 'detail') {
             Navigator.push(
               context,
@@ -38,12 +29,6 @@ class HistoryMenu extends StatelessWidget {
           }
         },
         itemBuilder: (_) => [
-          const PopupMenuItem(
-            value: 'edit',
-            height: 30,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-            child: Text('Edit', style: TextStyle(fontSize: 12)),
-          ),
           const PopupMenuItem(
             value: 'detail',
             height: 30,
