@@ -12,13 +12,12 @@ class DataSupirScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
 
-    // Create controller instance
     final DriverController driverController = Get.put(DriverController());
 
     return Scaffold(
       backgroundColor: secondaryColor,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/orange-pattern.png"),
             fit: BoxFit.cover,
@@ -34,11 +33,8 @@ class DataSupirScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon:
-                          const Icon(Icons.arrow_back_ios, color: Colors.white),
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                     ),
                     const SizedBox(width: 5),
                     const Text(
@@ -59,14 +55,10 @@ class DataSupirScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth * 0.05, vertical: 20),
                   decoration: const BoxDecoration(color: Colors.white),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 16),
-                        // Use GetX to listen to driver list changes
-                        Obx(() {
-                          return ListView.separated(
+                  child: Obx(() {
+                    return driverController.drivers.isEmpty
+                        ? const Center(child: Text("Belum ada data supir."))
+                        : ListView.separated(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: driverController.drivers.length,
@@ -76,8 +68,6 @@ class DataSupirScreen extends StatelessWidget {
                               final driver = driverController.drivers[index];
                               return DataSupirCard(
                                 driver: driver,
-                                imageAsset:
-                                    "assets/images/profile-laporan-img.png",
                                 onTapDetail: () {
                                   Navigator.pushNamed(
                                       context, '/detail-data-supir');
@@ -85,10 +75,7 @@ class DataSupirScreen extends StatelessWidget {
                               );
                             },
                           );
-                        }),
-                      ],
-                    ),
-                  ),
+                  }),
                 ),
               ),
             ],

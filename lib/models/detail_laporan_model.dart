@@ -53,7 +53,7 @@ class DetailLaporanModel {
       name: map['name'] ?? '',
       profilePicture: map['profile_picture'] ?? '',
       vehicle: map['plat_nomor'] ?? '',
-      place: map['lokasi'] ?? '',
+      place: map['lokasi']?.toString() ?? '',
       address: map['alamat'] ?? '',
       createdAt: createdAt,
       weightTotal: weightTotal,

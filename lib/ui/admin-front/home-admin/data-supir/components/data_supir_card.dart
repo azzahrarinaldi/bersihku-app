@@ -1,24 +1,70 @@
-import 'package:bersihku/models/data_supir_model.dart';
-import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
+import 'package:bersihku/models/detail_laporan_model.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DataSupirCard extends StatelessWidget {
-  final DriverModel driver;
-  final String imageAsset;
+  final DetailLaporanModel driver;
   final VoidCallback? onTapDetail;
 
   const DataSupirCard({
     super.key,
     required this.driver,
-    required this.imageAsset,
     this.onTapDetail,
   });
 
+  String formatDate(DateTime date) =>
+      DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(date);
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
+    // JIKA BELUM ADA LAPORAN
+    if (driver.id.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade200),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 24,
+              backgroundImage: driver.profilePicture.isNotEmpty
+                  ? NetworkImage(driver.profilePicture)
+                  : const AssetImage('assets/images/profile-laporan-img.png')
+                      as ImageProvider,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    driver.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Belum ada laporan',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
 
+    // JIKA ADA LAPORAN TERAKHIR
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -28,28 +74,33 @@ class DataSupirCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header row
+          // header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(imageAsset),
-                    radius: 20,
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(driver.name,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
-                      Text(driver.vehicle, style: const TextStyle(color: Colors.grey)),
-                    ],
-                  ),
-                ],
-              ),
+              Row(children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: driver.profilePicture.isNotEmpty
+                      ? NetworkImage(driver.profilePicture)
+                      : const AssetImage(
+                              'assets/images/profile-laporan-img.png')
+                          as ImageProvider,
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(driver.name,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black)),
+                    Text(driver.vehicle,
+                        style: const TextStyle(color: Colors.grey)),
+                  ],
+                ),
+              ]),
               GestureDetector(
                 onTap: onTapDetail,
                 child: const Text(
@@ -64,13 +115,20 @@ class DataSupirCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          Text(driver.place,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black)),
-          const SizedBox(height: 12),
+
+          const SizedBox(height: 18),
+          const Text(
+            "Pengangkutan Terakhir",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                color: Colors.black),
+          ),
+          const SizedBox(height: 18),
+
           Container(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 5),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(8),
@@ -78,23 +136,19 @@ class DataSupirCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Text(formatDate(driver.createdAt)),
                 Text(
-                  "${_getDayFromDate(driver.date)}\n${driver.date}",
-                  textAlign: TextAlign.center,
+                  driver.place.isNotEmpty
+                      ? driver.place
+                      : 'Tidak diketahui',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                Text(driver.time),
               ],
             ),
           ),
         ],
       ),
     );
-  }
-
-  // Helper function to extract day name if needed
-  String _getDayFromDate(String dateStr) {
-    // Dummy logic. Replace this with actual parsing if needed
-    // E.g., "26 Februari 2025" => "Rabu"
-    return "Hari";
   }
 }
