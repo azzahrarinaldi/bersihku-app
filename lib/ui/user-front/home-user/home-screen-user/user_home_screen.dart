@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bersihku/controller/user_home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';  // Pastikan ini sudah diimpor
 import 'package:bersihku/ui/user-front/history/history-screen/history_screen.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/bottom_navbar.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/contraints.dart';
@@ -8,6 +7,7 @@ import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/gui
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/report.dart';
 import 'package:bersihku/ui/user-front/home-user/notification/notification_screen.dart';
 import 'package:bersihku/ui/user-front/profile-user/profile-user-screen/profile_screen.dart';
+import 'package:get/get.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
@@ -15,6 +15,8 @@ class UserHomeScreen extends StatefulWidget {
   @override
   State<UserHomeScreen> createState() => _UserHomeScreenState();
 }
+
+final UserHomeController userHomeController = Get.put(UserHomeController());
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   int _selectedIndex = 0;
@@ -57,63 +59,51 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      StreamBuilder<DocumentSnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(FirebaseAuth.instance.currentUser?.uid) // Ambil user ID dari Firebase Authentication
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return const Center(child: CircularProgressIndicator());
-                          }
+                      Obx(
+                        () {
+                          final userName = userHomeController.user.value.name ??
+                              "User"; // Ambil user ID dari Firebase Authentication
 
-                          if (snapshot.hasData && snapshot.data != null) {
-                            var userDoc = snapshot.data!;
-                            String userName = userDoc['name'] ?? "User"; // Ambil nama dari Firestore
-
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Hai, $userName 👋🏻", // Menggunakan userName yang diambil dari Firebase
-                                      style: TextStyle(
-                                        fontSize: 22,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hai, $userName 👋🏻", // Menggunakan userName yang diambil dari Firebase
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    const Text(
-                                      "Siap menjemput sampah hari ini?",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    // Gantilah dengan tujuan screen yang ingin kamu tuju
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const NotificationScreen()),
-                                    );
-                                  },
-                                  child: Image.asset(
-                                    "assets/icons/non-active-notification.png",
-                                    width: 40,
-                                    height: 40,
                                   ),
-                                )
-                              ],
-                            );
-                          } else {
-                            return const Center(child: Text("Data tidak ditemukan"));
-                          }
+                                  const Text(
+                                    "Siap menjemput sampah hari ini?",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const NotificationScreen()),
+                                  );
+                                },
+                                child: Image.asset(
+                                  "assets/icons/non-active-notification.png",
+                                  width: 40,
+                                  height: 40,
+                                ),
+                              )
+                            ],
+                          );
                         },
                       ),
                       SizedBox(height: screenWidth * 0.06),
@@ -136,7 +126,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 ),
               ),
             )
-          : _widgetOptions[_selectedIndex], //titik dua itu adalah repersentasi dari ternari operator di flutter, tampilkan widget berdasarkan index
+          : _widgetOptions[
+              _selectedIndex], //titik dua itu adalah repersentasi dari ternari operator di flutter, tampilkan widget berdasarkan index
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,

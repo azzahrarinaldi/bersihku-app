@@ -15,12 +15,12 @@ class NotesDetailHistory extends StatelessWidget {
             fontSize: 13, 
             fontWeight: FontWeight.bold, 
             color: Colors.black
-          )
+          ),
         ),
         const SizedBox(height: 10),
         Container(
           height: 150,
-          width: 480,
+          width: double.infinity,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: Colors.grey[200],
@@ -28,7 +28,7 @@ class NotesDetailHistory extends StatelessWidget {
           ),
           child: Text(
             note.isNotEmpty ? note : "Tidak ada catatan.", 
-            style: TextStyle(fontSize: 13)
+            style: const TextStyle(fontSize: 13),
           ),
         ),
       ],

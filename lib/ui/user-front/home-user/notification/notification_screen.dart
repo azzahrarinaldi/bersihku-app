@@ -32,6 +32,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
           // Konten utama
           SafeArea(
+            bottom: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

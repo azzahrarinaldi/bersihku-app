@@ -60,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        userData.name,
+                        userData.name!,
                         style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        userData.email,
+                        userData.email!,
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.white,

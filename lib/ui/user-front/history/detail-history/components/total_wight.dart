@@ -7,24 +7,26 @@ class TotalWight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final displayTotal = total.isNotEmpty ? total : "0.00";
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text(
-          "Pengangkutan sampah", 
+          "Pengangkutan Sampah",
           style: TextStyle(
-            fontSize: 13, 
-            color: textColor, 
-            fontWeight: FontWeight.bold
-          )
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
         ),
         Text(
-          "$total kg", 
-          style: TextStyle(
-            fontSize: 13, 
-            color: textColor, 
-            fontWeight: FontWeight.bold
-          )
+          "$displayTotal Kg",
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
         ),
       ],
     );

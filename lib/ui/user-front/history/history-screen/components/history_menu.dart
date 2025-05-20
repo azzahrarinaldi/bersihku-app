@@ -1,5 +1,6 @@
 import 'package:bersihku/ui/user-front/history/detail-history/detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HistoryMenu extends StatelessWidget {
   final String documentId;
@@ -20,12 +21,7 @@ class HistoryMenu extends StatelessWidget {
       child: PopupMenuButton<String>(
         onSelected: (value) {
           if (value == 'detail') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => DetailScreenHistory(documentId: documentId),
-              ),
-            );
+            Get.to(() => DetailScreenHistory.withTag(documentId));
           }
         },
         itemBuilder: (_) => [
