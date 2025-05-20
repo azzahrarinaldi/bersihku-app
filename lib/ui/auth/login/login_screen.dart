@@ -71,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       const Text("Belum punya akun? "),
                       GestureDetector(
-                        onTap: () => Get.to(() => const RegisterScreen()),
+                        onTap: () => Get.to(() => RegisterScreen()),
                         child: const Text("Buat Akun", style: TextStyle(color: Colors.blue)),
                       ),
                     ],

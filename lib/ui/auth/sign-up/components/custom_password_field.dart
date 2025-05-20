@@ -4,16 +4,18 @@ class CustomPasswordField extends StatelessWidget {
   final TextEditingController controller;
   final bool isPasswordVisible;
   final VoidCallback setPasswordVisible;
-  final FormFieldValidator<String>? validator;  // Add validator parameter
-  final FocusNode passwordFocusNode;  // Add FocusNode parameter
+  final FormFieldValidator<String>? validator;
+  final FocusNode passwordFocusNode;
+  final void Function(String)? onChanged;
 
   const CustomPasswordField({
     super.key,
     required this.controller,
     required this.isPasswordVisible,
     required this.setPasswordVisible,
-    this.validator,  // Accept the validator parameter
-    required this.passwordFocusNode,  // Accept the FocusNode
+    this.validator,
+    required this.passwordFocusNode,
+    this.onChanged,  
   });
 
   @override
@@ -23,7 +25,8 @@ class CustomPasswordField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: !isPasswordVisible,
-        focusNode: passwordFocusNode,  // Set FocusNode here
+        focusNode: passwordFocusNode,
+        onChanged: onChanged,  
         decoration: InputDecoration(
           hintText: 'Password',
           hintStyle: const TextStyle(fontSize: 14, color: Color(0xFF9E9E9E)),
@@ -36,9 +39,12 @@ class CustomPasswordField extends StatelessWidget {
           filled: true,
           fillColor: const Color(0xFFF5F7FA),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
+          ),
         ),
-        validator: validator,  // Use the validator parameter
+        validator: validator,
       ),
     );
   }
