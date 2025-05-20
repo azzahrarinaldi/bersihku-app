@@ -1,5 +1,6 @@
+// ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart
+
 import 'package:bersihku/controllers/detail_data_supir_controller.dart';
-import 'package:bersihku/controllers/data_supir_profile_controller.dart'; // Import controller untuk data profile
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/components/data_supir_header.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/components/data_supir_profile.dart';
 import 'package:bersihku/ui/admin-front/home-admin/detail-data-supir/components/laporan_item.dart';
@@ -12,12 +13,10 @@ class DetailDataSupirScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
+    final supirId = Get.arguments.toString();
+    final ctrl = Get.put(DetailDataSupirController(supirId));
+    final w = MediaQuery.of(context).size.width;
 
-    // Ambil controller untuk detail data supir dan data profile supir
-     final controller = Get.put(DetailDataSupirController());
-    final profileController = Get.put(DataSupirProfileController()); 
     return Scaffold(
       backgroundColor: primaryColor,
       body: Container(
@@ -32,33 +31,42 @@ class DetailDataSupirScreen extends StatelessWidget {
           child: Column(
             children: [
               const DataSupirHeader(),
+
+              // — Profile Supir —
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                padding: EdgeInsets.symmetric(horizontal: w * 0.05),
                 child: Obx(() {
-                  // Pastikan ada data supir yang bisa ditampilkan dari profileController
-                  if (profileController.supirList.isEmpty) {
-                    return const Center(child: Text('Tidak ada data supir.'));
+                  if (ctrl.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
                   }
-                  // Menampilkan profile pertama dari supir
-                  return DataSupirProfile(supir: profileController.supirList[0]);
+                  if (ctrl.profile.value == null) {
+                    return const Center(child: Text("Profil tidak ditemukan"));
+                  }
+                  return DataSupirProfile(data: ctrl.profile.value!);
                 }),
               ),
+
               const SizedBox(height: 24),
+
+              // — List Laporan —
               Expanded(
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.05,
+                    horizontal: w * 0.05,
                     vertical: 20,
                   ),
                   decoration: const BoxDecoration(color: Colors.white),
                   child: Obx(() {
+                    if (ctrl.isLoading.value) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (ctrl.laporanList.isEmpty) {
+                      return const Center(child: Text('Belum ada laporan.'));
+                    }
                     return ListView.builder(
-                      itemCount: controller.laporanList.length,
-                      itemBuilder: (context, index) {
-                        final laporan = controller.laporanList[index];
-                        return LaporanItem(laporan: laporan);
-                      },
+                      itemCount: ctrl.laporanList.length,
+                      itemBuilder: (_, i) => LaporanItem(data: ctrl.laporanList[i]),
                     );
                   }),
                 ),

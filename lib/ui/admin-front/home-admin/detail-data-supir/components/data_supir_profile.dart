@@ -1,11 +1,13 @@
-import 'package:bersihku/models/data_supir_profile_model.dart';
+// data_supir_profile.dart
+
+import 'package:bersihku/models/detail_data_supir_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
 
 class DataSupirProfile extends StatelessWidget {
-  final DataSupirProfileModel supir;
+  final DetailDataSupirModel data;
 
-  const DataSupirProfile({super.key, required this.supir});
+  const DataSupirProfile({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +23,24 @@ class DataSupirProfile extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 40,
-            backgroundImage: AssetImage(supir.image),
+            backgroundImage: data.profilePicture.isNotEmpty
+                ? NetworkImage(data.profilePicture)
+                : const AssetImage(
+                    'assets/images/profile-laporan-img.png',
+                  ) as ImageProvider,
           ),
           const SizedBox(height: 10),
           Text(
-            supir.name,
+            data.name,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.black
+              color: Colors.black,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            supir.userWhatsApp,
+            data.phone,
             style: const TextStyle(
               fontSize: 16,
               color: Colors.black54,
@@ -42,13 +48,16 @@ class DataSupirProfile extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
             decoration: BoxDecoration(
               color: const Color(0xFFFFCFAA),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              supir.vehicle,
+              data.vehicle,
               style: const TextStyle(
                 color: textSecondary,
                 fontWeight: FontWeight.bold,

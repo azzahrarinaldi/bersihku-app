@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailLaporanModel {
   final String id;
+  final String userId; 
   final String name;
   final String profilePicture;
   final String vehicle;
@@ -14,6 +15,7 @@ class DetailLaporanModel {
 
   DetailLaporanModel({
     required this.id,
+    required this.userId, 
     required this.name,
     required this.profilePicture,
     required this.vehicle,
@@ -26,7 +28,7 @@ class DetailLaporanModel {
   });
 
   factory DetailLaporanModel.fromMap(Map<String, dynamic> map, String id) {
-    // parse created_at: Timestamp atau String
+    // createdAt & weight parsing seperti biasa
     late DateTime createdAt;
     final rawDate = map['created_at'];
     if (rawDate is Timestamp) {
@@ -37,7 +39,6 @@ class DetailLaporanModel {
       createdAt = DateTime.now();
     }
 
-    // parse berat_keseluruhan: num atau String
     late double weightTotal;
     final rawWeight = map['berat_keseluruhan'];
     if (rawWeight is num) {
@@ -50,6 +51,7 @@ class DetailLaporanModel {
 
     return DetailLaporanModel(
       id: id,
+      userId: map['userId'] ?? '',
       name: map['name'] ?? '',
       profilePicture: map['profile_picture'] ?? '',
       vehicle: map['plat_nomor'] ?? '',
@@ -74,12 +76,11 @@ class DetailLaporanModel {
         'images_kering': imagesKering,
       };
 
-  // Tambahin getter di bawah ini yaa
   String get formattedWeight {
     if (weightTotal % 1 == 0) {
       return weightTotal.toInt().toString();
     } else {
-      return weightTotal.toStringAsFixed(2); // kamu bisa ubah ke 1 atau 0 kalau mau
+      return weightTotal.toStringAsFixed(2);
     }
   }
 }

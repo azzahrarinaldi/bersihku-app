@@ -5,24 +5,22 @@ class DataSupirHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.05, 
+        horizontal: screenWidth * 0.05,
         vertical: 15,
       ),
       child: Row(
         children: [
           IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           ),
           const SizedBox(width: 5),
           const Text(
-            'Detail Hadi Sucipto',
+            'Detail Data Supir',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,

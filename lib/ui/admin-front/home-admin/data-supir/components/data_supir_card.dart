@@ -18,7 +18,6 @@ class DataSupirCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // JIKA BELUM ADA LAPORAN
     if (driver.id.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(14),
@@ -64,7 +63,6 @@ class DataSupirCard extends StatelessWidget {
       );
     }
 
-    // JIKA ADA LAPORAN TERAKHIR
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -74,7 +72,7 @@ class DataSupirCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // header
+          // Header supir
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -102,7 +100,13 @@ class DataSupirCard extends StatelessWidget {
                 ),
               ]),
               GestureDetector(
-                onTap: onTapDetail,
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/detail-data-supir',
+                    arguments: driver.userId,
+                  );
+                },
                 child: const Text(
                   "Lihat Detail",
                   style: TextStyle(

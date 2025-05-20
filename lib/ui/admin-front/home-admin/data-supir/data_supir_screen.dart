@@ -12,7 +12,7 @@ class DataSupirScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double screenWidth = size.width;
 
-    final DriverController driverController = Get.put(DriverController());
+    final DataSupirController driverController = Get.put(DataSupirController());
 
     return Scaffold(
       backgroundColor: secondaryColor,
@@ -56,21 +56,23 @@ class DataSupirScreen extends StatelessWidget {
                       horizontal: screenWidth * 0.05, vertical: 20),
                   decoration: const BoxDecoration(color: Colors.white),
                   child: Obx(() {
-                    return driverController.drivers.isEmpty
+                    final list = driverController.drivers;
+                    return list.isEmpty
                         ? const Center(child: Text("Belum ada data supir."))
                         : ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: driverController.drivers.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 16),
-                            itemBuilder: (context, index) {
-                              final driver = driverController.drivers[index];
+                            itemCount: list.length,
+                            separatorBuilder: (c, i) => const SizedBox(height: 16),
+                            itemBuilder: (c, i) {
+                              final driver = list[i];
                               return DataSupirCard(
                                 driver: driver,
                                 onTapDetail: () {
+                                  // Kirim id supir ke detail screen
                                   Navigator.pushNamed(
-                                      context, '/detail-data-supir');
+                                    context,
+                                    '/detail-data-supir',
+                                    arguments: driver.id,
+                                  );
                                 },
                               );
                             },

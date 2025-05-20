@@ -1,16 +1,19 @@
+// components/laporan_item.dart
+
 import 'package:bersihku/models/detail_data_supir_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bersihku/const.dart';
+import 'package:intl/intl.dart';
 
 class LaporanItem extends StatelessWidget {
-  final DriverDetailModel laporan;
-
-  const LaporanItem({super.key, required this.laporan});
+  final DetailDataSupirModel data;
+  const LaporanItem({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
+    final w = MediaQuery.of(context).size.width;
+    final date = DateFormat('EEEE, d MMMM yyyy', 'id').format(data.createdAt);
+    final time = DateFormat('HH:mm').format(data.createdAt);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -24,49 +27,38 @@ class LaporanItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            laporan.place,
+            data.place, 
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 18, 
               fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
+              color: textColor
+            )
           ),
           const SizedBox(height: 8),
           Text(
-            laporan.address,
+            data.address, 
             style: const TextStyle(
-              fontSize: 14,
-              color: Colors.black54,
-            ),
+              fontSize: 14, 
+              color: Colors.black54
+            )
           ),
           const SizedBox(height: 16),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: w * 0.07, vertical: 11),
             decoration: BoxDecoration(
-              color: Colors.white,
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    const Text('Tanggal', style: TextStyle(color: Colors.black54)),
-                    Text(
-                      laporan.date,
-                      style: const TextStyle(fontSize: 14, color: Colors.black87),
-                    ),
-                  ],
+                Text(
+                  date, 
+                  style: const TextStyle(fontSize: 14)
                 ),
-                Column(
-                  children: [
-                    const Text('Jam', style: TextStyle(color: Colors.black54)),
-                    Text(
-                      laporan.time,
-                      style: const TextStyle(fontSize: 14, color: Colors.black87),
-                    ),
-                  ],
+                Text(
+                  time, 
+                  style: const TextStyle(fontSize: 14)
                 ),
               ],
             ),
@@ -78,18 +70,16 @@ class LaporanItem extends StatelessWidget {
               const Text(
                 'Pengangkutan Sampah',
                 style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: textSecondary,
-                ),
+                  fontWeight: FontWeight.bold, 
+                  color: textSecondary
+                )
               ),
               Text(
-                   "${laporan.weight} Kg",
+                '${data.formattedWeight} Kg',
                 style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: textSecondary,
-                ),
+                  fontWeight: FontWeight.bold, 
+                  color: textSecondary
+                )
               ),
             ],
           ),
