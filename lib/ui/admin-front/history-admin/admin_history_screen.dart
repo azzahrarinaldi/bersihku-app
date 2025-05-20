@@ -2,6 +2,7 @@ import 'package:bersihku/const.dart';
 import 'package:bersihku/controllers/history_admin_controller.dart';
 import 'package:bersihku/ui/admin-front/history-admin/components/admin_history_list.dart';
 import 'package:bersihku/ui/admin-front/history-admin/components/dropdown_bulan.dart';
+import 'package:bersihku/ui/admin-front/history-admin/components/dropdown_wilayah_history.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -93,55 +94,94 @@ class AdminHistoryScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    Expanded(child: _buildToggleButton(ctrl, true, "Laporan Harian")),
+                    Expanded(
+                        child:
+                            _buildToggleButton(ctrl, true, "Laporan Harian")),
                     const SizedBox(width: 10),
-                    Expanded(child: _buildToggleButton(ctrl, false, "Laporan Bulanan")),
+                    Expanded(
+                        child:
+                            _buildToggleButton(ctrl, false, "Laporan Bulanan")),
                   ],
                 ),
               ),
               const SizedBox(height: 16),
-              // Content list
+              // Content list + filter dropdowns
               Expanded(
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20)),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,  // <- tambahkan ini
-                      children: [
-                        Obx(() {
-                          if (!ctrl.isDaily.value) {
-                            return Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),  // geser 8px dari kiri
-                                child: DropdownBulan(
-                                  selectedBulan: ctrl.selectedBulan.value,
-                                  bulanList: bulanList,
-                                  onChanged: (newVal) {
-                                    ctrl.selectedBulan.value = newVal;
-                                    ctrl.filterCardData();
-                                  },
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(() {
+                            if (!ctrl.isDaily.value) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "Generate PDF",
+                                      style: TextStyle(
+                                        color: textSecondary,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: secondaryColor,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              ),
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        }),
-                        const SizedBox(height: 16),
-                        Expanded(
-                          child: Obx(() {
-                            return AdminHistoryList(
-                              data: ctrl.filteredLaporanList.toList(),
-                            );
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
                           }),
-                        ),
-                      ],
-                    ),
-                  ),
+                          if (!ctrl.isDaily.value)
+                            const SizedBox(height: 0)
+                          else
+                            const SizedBox.shrink(),
+                          Obx(() {
+                            if (!ctrl.isDaily.value) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  DropdownBulan(
+                                    selectedBulan: ctrl.selectedBulan.value,
+                                    bulanList: bulanList,
+                                    onChanged: (newVal) {
+                                      ctrl.selectedBulan.value = newVal;
+                                      ctrl.filterCardData();
+                                    },
+                                  ),
+                                  DropDownWilayahHistory(
+                                    selectedWilayah: ctrl.selectedWilayah.value,
+                                    wilayahList: ctrl.wilayahList.toList(),
+                                    onChanged: (newVal) {
+                                      ctrl.updateWilayah(newVal);
+                                    },
+                                  ),
+                                ],
+                              );
+                            }
+                            return const SizedBox.shrink();
+                          }),
+                          const SizedBox(height: 16),
+                          Expanded(
+                            child: Obx(() {
+                              return AdminHistoryList(
+                                data: ctrl.filteredLaporanList.toList(),
+                              );
+                            }),
+                          ),
+                        ],
+                      )),
                 ),
               ),
             ],
@@ -151,7 +191,8 @@ class AdminHistoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildToggleButton(HistoryAdminController ctrl, bool daily, String label) {
+  Widget _buildToggleButton(
+      HistoryAdminController ctrl, bool daily, String label) {
     return Obx(() {
       final sel = ctrl.isDaily.value == daily;
       return GestureDetector(
@@ -162,7 +203,8 @@ class AdminHistoryScreen extends StatelessWidget {
         child: Container(
           height: 40,
           decoration: BoxDecoration(
-            color: sel ? const Color(0xFFFDD835) : Colors.white.withOpacity(0.3),
+            color:
+                sel ? const Color(0xFFFDD835) : Colors.white.withOpacity(0.3),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
