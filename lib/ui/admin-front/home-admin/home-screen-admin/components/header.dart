@@ -1,6 +1,5 @@
 import 'package:bersihku/const.dart';
 import 'package:bersihku/controllers/user_controller.dart';
-import 'package:bersihku/ui/admin-front/notification-screen/admin_detail_notifikasi.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,21 +39,6 @@ class HeaderSection extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailNotifikasiAdmin(),
-                    ),
-                  );
-                },
-                child: Image.asset(
-                  "assets/icons/non-active-notification.png",
-                  width: 40,
-                  height: 40,
-                ),
               ),
             ],
           ),

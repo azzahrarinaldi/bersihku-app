@@ -9,6 +9,8 @@ class DetailLaporanModel {
   final String place;
   final String address;
   final DateTime createdAt;
+  final double weightBasah;
+  final double weightKering;
   final double weightTotal;
   final List<String> imagesBasah;
   final List<String> imagesKering;
@@ -22,6 +24,8 @@ class DetailLaporanModel {
     required this.place,
     required this.address,
     required this.createdAt,
+    required this.weightBasah,
+    required this.weightKering,
     required this.weightTotal,
     required this.imagesBasah,
     required this.imagesKering,
@@ -49,6 +53,28 @@ class DetailLaporanModel {
       weightTotal = 0;
     }
 
+    // parse berat basah
+    double weightBasah;
+    final rb = map['berat_basah'];
+    if (rb is num) {
+      weightBasah = rb.toDouble();
+    } else if (rb is String) {
+      weightBasah = double.tryParse(rb) ?? 0;
+    } else {
+      weightBasah = 0; // default
+    }
+
+    // parse berat kering
+    double weightKering;
+    final rk = map['berat_kering'];
+    if (rk is num) {
+      weightKering = rk.toDouble();
+    } else if (rk is String) {
+      weightKering = double.tryParse(rk) ?? 0;
+    } else {
+      weightKering = 0; // default
+    }
+
     return DetailLaporanModel(
       id: id,
       userId: map['userId'] ?? '',
@@ -58,6 +84,8 @@ class DetailLaporanModel {
       place: map['lokasi']?.toString() ?? '',
       address: map['alamat'] ?? '',
       createdAt: createdAt,
+      weightBasah: weightBasah,
+      weightKering: weightKering,
       weightTotal: weightTotal,
       imagesBasah: List<String>.from(map['images_basah'] ?? []),
       imagesKering: List<String>.from(map['images_kering'] ?? []),
@@ -71,6 +99,8 @@ class DetailLaporanModel {
         'lokasi': place,
         'alamat': address,
         'created_at': createdAt.toIso8601String(),
+        'berat_basah': weightBasah,
+        'berat_kering': weightKering,
         'berat_keseluruhan': weightTotal,
         'images_basah': imagesBasah,
         'images_kering': imagesKering,
@@ -81,6 +111,22 @@ class DetailLaporanModel {
       return weightTotal.toInt().toString();
     } else {
       return weightTotal.toStringAsFixed(2);
+    }
+  }
+
+  String get formattedWeightBasah {
+    if (weightBasah % 1 == 0) {
+      return weightBasah.toInt().toString();
+    } else {
+      return weightBasah.toStringAsFixed(2);
+    }
+  }
+
+  String get formattedWeightKering {
+    if (weightKering % 1 == 0) {
+      return weightKering.toInt().toString();
+    } else {
+      return weightKering.toStringAsFixed(2);
     }
   }
 }

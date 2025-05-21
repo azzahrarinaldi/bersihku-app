@@ -17,7 +17,6 @@ class DropDownWilayahHistory extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        width: 220,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
@@ -25,23 +24,23 @@ class DropDownWilayahHistory extends StatelessWidget {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
+            isExpanded: true,
             value: selectedWilayah.isEmpty ? null : selectedWilayah,
             hint: const Text(
               "Pilih Wilayah",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: 15,
                 color: Colors.black,
               ),
             ),
-            icon: const Icon(Icons.arrow_drop_down, size: 20),
+            icon: const Icon(Icons.arrow_drop_down, size: 25),
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
             dropdownColor: Colors.white,
-            isExpanded: true,
             items: wilayahList.map((String wilayah) {
               return DropdownMenuItem<String>(
                 value: wilayah,
