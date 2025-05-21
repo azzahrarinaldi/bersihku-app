@@ -118,15 +118,19 @@ class UserSettingsScreen extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.asset(
-                              profileImageUrl,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          );
+                        : Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[300],
+                        ),
+                        child: Icon(
+                          Icons.person,
+                          size: 50,
+                          color: Colors.grey[600],
+                        ),
+                      );
               }),
               SizedBox(height: 10),
               InkWell(

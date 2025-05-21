@@ -8,7 +8,7 @@ import 'history_menu.dart';
 class HistoryCard extends StatelessWidget {
   final HistoryModel history;
 
- const HistoryCard({super.key, required this.history});
+  const HistoryCard({super.key, required this.history});
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +30,24 @@ class HistoryCard extends StatelessWidget {
               Row(
                 children: [
                   Obx(() {
-                    final imgUrl = controller.profileImageUrl.value;
-                    return (imgUrl!.isEmpty)
-                        ? Image.asset(
-                            "assets/images/profile-person-history.png",
-                             width: MediaQuery.of(context).size.width * 0.12, 
-                            fit: BoxFit.contain,
-                          )
-                        : CircleAvatar(
-                            radius: MediaQuery.of(context).size.width * 0.06, 
-                            backgroundImage: NetworkImage(imgUrl),
-                          );
+                    final profileImage = controller.profileImageUrl.value;
+                    final screenWidth = MediaQuery.of(context).size.width;
+
+                    return CircleAvatar(
+                      radius: screenWidth * 0.06,
+                      backgroundColor: Colors.grey[300],
+                      backgroundImage:
+                          (profileImage != null && profileImage.isNotEmpty)
+                              ? NetworkImage(profileImage)
+                              : null,
+                      child: (profileImage == null || profileImage.isEmpty)
+                          ? Icon(
+                              Icons.person,
+                              size: screenWidth * 0.090,
+                              color: Colors.grey,
+                            )
+                          : null,
+                    );
                   }),
                   const SizedBox(width: 10),
                   Column(
