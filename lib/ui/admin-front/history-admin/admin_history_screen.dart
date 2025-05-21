@@ -196,30 +196,6 @@ class AdminHistoryScreen extends StatelessWidget {
               ],
             ),
           ),
-
-          // 🌑 Fullscreen loading overlay (termasuk nav bar)
-          Obx(() => pdfCtrl.isGenerating.value
-              ? Positioned.fill(
-                  child: Container(
-                    color: Colors.black54,
-                    child: Center(
-                      child: SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: LoadingIndicator(
-                          indicatorType: Indicator.ballPulse,
-                          colors: [
-                            Color(0xFF9AE2FF),
-                            Color(0xFFF9E071),
-                            Color(0xFFF29753),
-                          ],
-                          strokeWidth: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink()),
         ],
       ),
     );
