@@ -172,6 +172,7 @@ class AdminHistoryScreen extends StatelessWidget {
                                 child: const Text(
                                   'Generate PDF',
                                   style: TextStyle(
+                                    color: Color(0xFFF29753),
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
                                   ),
