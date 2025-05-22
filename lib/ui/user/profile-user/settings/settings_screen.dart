@@ -2,10 +2,10 @@ import 'package:bersihku/controller/user_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'components/form_settings_admin.dart';
+import 'package:bersihku/ui/user/profile-user/settings/components/form_settings.dart';
 
-class SettingsAdminScreen extends StatelessWidget {
-  SettingsAdminScreen({super.key});
+class UserSettingsScreen extends StatelessWidget {
+  UserSettingsScreen({super.key});
 
   final UserSettingController controller = Get.put(UserSettingController());
 
@@ -87,7 +87,8 @@ class SettingsAdminScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06, vertical: 15),
+          padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.06, vertical: 15),
           child: Column(
             children: [
               Obx(() {
@@ -118,23 +119,23 @@ class SettingsAdminScreen extends StatelessWidget {
                             ),
                           )
                         : Container(
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.grey[300],
-                            ),
-                            child: Icon(
-                              Icons.person,
-                              size: 50,
-                              color: Colors.grey[600],
-                            ),
-                          );
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[300],
+                        ),
+                        child: Icon(
+                          Icons.person,
+                          size: 50,
+                          color: Colors.grey[600],
+                        ),
+                      );
               }),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               InkWell(
                 onTap: () => _showImagePickerOptions(context),
-                child: const Text(
+                child: Text(
                   "Edit Foto",
                   style: TextStyle(
                     fontSize: 16,
@@ -146,8 +147,8 @@ class SettingsAdminScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              FormSettingsAdminScreen(),
+              SizedBox(height: 10),
+              FormSettingsScreen(),
             ],
           ),
         ),

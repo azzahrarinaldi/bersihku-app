@@ -1,5 +1,3 @@
-// ui/admin-front/home-admin/detail-data-supir/detail_data_supir_screen.dart
-
 import 'package:bersihku/controller/detail_data_supir_controller.dart';
 import 'package:bersihku/ui/admin/home-admin/detail-data-supir/components/data_supir_header.dart';
 import 'package:bersihku/ui/admin/home-admin/detail-data-supir/components/data_supir_profile.dart';

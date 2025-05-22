@@ -6,11 +6,12 @@ import 'package:bersihku/ui/admin/home-admin/detail-data-supir/detail_data_supir
 import 'package:bersihku/ui/admin/home-admin/detail-laporan/detail_laporan_screen.dart';
 import 'package:bersihku/ui/admin/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin/home-admin/laporan-masuk/laporan_masuk_screen.dart';
+import 'package:bersihku/ui/admin/profile-admin/settings/settings_admin_screen.dart';
 import 'package:bersihku/ui/auth_wrapper.dart';
-import 'package:bersihku/ui/user-front/home-user/guide/guide_screen.dart';
-import 'package:bersihku/ui/user-front/home-user/home-screen-user/user_home_screen.dart';
-import 'package:bersihku/ui/user-front/home-user/input-form/input_form_screen.dart';
-import 'package:bersihku/ui/user-front/profile-user/settings/settings_screen.dart';
+import 'package:bersihku/ui/user/home-user/guide/guide_screen.dart';
+import 'package:bersihku/ui/user/home-user/home-screen-user/user_home_screen.dart';
+import 'package:bersihku/ui/user/home-user/input-form/input_form_screen.dart';
+import 'package:bersihku/ui/user/profile-user/settings/settings_screen.dart';
 import 'package:bersihku/ui/splash_screen.dart';
 import 'package:bersihku/ui/on-boarding/onboarding_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/on-boarding', page: () => const OnboardingScreen()),
         GetPage(name: '/home-user', page: () => const UserHomeScreen()),
         GetPage(name: '/user-settings', page: () => UserSettingsScreen()),
+        GetPage(name: '/admin-settings', page: () => SettingsAdminScreen()),
         GetPage(name: '/guide', page: () => HelpGuideScreen()),
         GetPage(name: '/home-admin', page: () => const AdminHomeScreen()),
         GetPage(name: '/input-form', page: () => const InputFormScreen()),

@@ -20,13 +20,13 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final riwayatController = Get.put(RiwayatController());
-  final userController = Get.put(UserController()); // Pastikan diinisialisasi di sini
+  final userController = Get.put(UserController());
 
   int _selectedIndex = 0;
   bool _showManagementContainer = true;
 
   final List<Widget> _widgetOptions = [
-    AdminHomeScreen(),
+    const AdminHomeScreen(),
     AdminHistoryScreen(),
     ProfileScreenAdmin(),
   ];
@@ -79,19 +79,25 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             return true;
                           },
                           child: Obx(() {
-                            return ListView.builder(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: screenWidth * 0.05),
-                              itemCount:
-                                  riwayatController.riwayatList.length,
-                              itemBuilder: (context, index) {
-                                if (index < riwayatController.riwayatList.length) {
-                                  final item = riwayatController.riwayatList[index];
-                                  return RiwayatCard(data: item);
-                                } else {
-                                  return const SizedBox(height: 100);
-                                }
-                              },
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 75),
+                              child: ListView.builder(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                itemCount:
+                                    riwayatController.riwayatList.length,
+                                itemBuilder: (context, index) {
+                                  final item =
+                                      riwayatController.riwayatList[index];
+                                  return RiwayatCard(
+                                    data: item,
+                                    isFirst: index == 0,
+                                    isLast: index ==
+                                        riwayatController.riwayatList.length -
+                                            1,
+                                  );
+                                },
+                              ),
                             );
                           }),
                         ),
@@ -99,6 +105,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     ],
                   ),
                 ),
+                // ANIMATED CONTAINER
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
@@ -108,9 +115,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(30)),
                     ),
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -127,7 +135,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         CardMenu(
                           title: "Cek Laporan Masuk",
                           subtitle: "Lihat laporan yang perlu dicek sekarang!",
@@ -158,6 +166,25 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     ),
                   ),
                 ),
+
+                // FLOATING ACTION BUTTON POSISI MANUAL
+                if (_selectedIndex == 0 && !_showManagementContainer)
+                  Positioned(
+                    bottom: 30,
+                    right: 20,
+                    child: FloatingActionButton(
+                      backgroundColor: primaryColor,
+                      elevation: 0,
+                      mini: true,
+                      onPressed: () {
+                        setState(() {
+                          _showManagementContainer = true;
+                        });
+                      },
+                      child: const Icon(Icons.keyboard_arrow_up,
+                          color: Colors.white),
+                    ),
+                  ),
               ],
             )
           : _widgetOptions[_selectedIndex],
@@ -165,19 +192,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
-      floatingActionButton: _selectedIndex == 0 && !_showManagementContainer
-          ? FloatingActionButton(
-              backgroundColor: primaryColor,
-              elevation: 0,
-              mini: true,
-              onPressed: () {
-                setState(() {
-                  _showManagementContainer = true;
-                });
-              },
-              child: const Icon(Icons.keyboard_arrow_up, color: Colors.white),
-            )
-          : null,
     );
   }
 }

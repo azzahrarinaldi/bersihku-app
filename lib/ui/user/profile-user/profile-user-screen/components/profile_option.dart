@@ -2,8 +2,8 @@ import 'package:bersihku/controller/profile_user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileOption extends StatelessWidget {
-  const ProfileOption({super.key});
+class ProfileOptionsUser extends StatelessWidget {
+  const ProfileOptionsUser({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +31,17 @@ class ProfileOption extends StatelessWidget {
           _buildOptionTile(
             icon: Icons.settings,
             title: "Pengaturan Akun",
-            onTap: () {
-              Get.toNamed('/admin-settings');
-            },
+            onTap: () => Get.toNamed('/user-settings'),
           ),
           const Divider(color: Colors.grey, thickness: 0.5, height: 0),
+
+          _buildOptionTile(
+            icon: Icons.help_outline,
+            title: "Bantuan",
+            onTap: () => Get.toNamed('/guide'),
+          ),
+          const Divider(color: Colors.grey, thickness: 0.5, height: 0),
+
           _buildOptionTile(
             icon: Icons.logout,
             title: "Keluar",

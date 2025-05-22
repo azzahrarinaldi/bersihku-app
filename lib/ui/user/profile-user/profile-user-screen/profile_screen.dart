@@ -1,10 +1,11 @@
 import 'package:bersihku/controller/profile_user_controller.dart';
-import 'package:bersihku/ui/admin/profile-admin/profile-admin-screen/components/profile_option.dart';
+import 'package:bersihku/ui/user/profile-user/profile-user-screen/components/profile_option.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
 
-class ProfileScreenAdmin extends StatelessWidget {
-  ProfileScreenAdmin({super.key});
+class ProfileScreen extends StatelessWidget {
+  ProfileScreen({super.key});
 
   final controller = Get.put(ProfileUserController());
 
@@ -62,7 +63,6 @@ class ProfileScreenAdmin extends StatelessWidget {
                         userData.name!,
                         style: const TextStyle(
                           fontSize: 18,
-                          fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
@@ -79,7 +79,7 @@ class ProfileScreenAdmin extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Expanded(
-                  child: ProfileOption(),
+                  child: ProfileOptionsUser(),
                 ),
               ],
             );
