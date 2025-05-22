@@ -1,0 +1,2 @@
+/Users/mac/bersihku-app/android/app/.cxx/Debug/5b3y2g5c/x86_64/CMakeFiles/edit_cache.dir
+/Users/mac/bersihku-app/android/app/.cxx/Debug/5b3y2g5c/x86_64/CMakeFiles/rebuild_cache.dir

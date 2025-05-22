@@ -33,13 +33,14 @@ class ProfileOptions extends StatelessWidget {
             title: "Pengaturan Akun",
             onTap: () => Get.toNamed('/user-settings'),
           ),
-          const Divider(color: Colors.grey, thickness: 0.5, height: 0),
+           const Divider(color: Colors.grey, thickness: 0.5, height: 0),
           _buildOptionTile(
-            icon: Icons.headphones,
-            title: "Bantuan",
-            onTap: () => Get.toNamed('/guide'),
+            icon: Icons.settings,
+            title: "Pengaturan Akun",
+            onTap: () => Get.toNamed('/user-settings'),
           ),
-          const Divider(color: Colors.grey, thickness: 0.5, height: 0),
+           const Divider(color: Colors.grey, thickness: 0.5, height: 0),
+        
           _buildOptionTile(
             icon: Icons.logout,
             title: "Keluar",

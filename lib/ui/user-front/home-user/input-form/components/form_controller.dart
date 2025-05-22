@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:bersihku/ui/user-front/succes-screen/succes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:bersihku/ui/user-front/succes-screen/succes_screen.dart';
 
 class InputFormController {
   final formKey = GlobalKey<FormState>();

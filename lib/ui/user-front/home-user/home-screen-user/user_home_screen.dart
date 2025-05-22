@@ -1,12 +1,11 @@
 import 'package:bersihku/controller/user_home_controller.dart';
-import 'package:flutter/material.dart';
 import 'package:bersihku/ui/user-front/history/history-screen/history_screen.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/bottom_navbar.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/contraints.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/guide.dart';
 import 'package:bersihku/ui/user-front/home-user/home-screen-user/components/report.dart';
-import 'package:bersihku/ui/user-front/home-user/notification/notification_screen.dart';
 import 'package:bersihku/ui/user-front/profile-user/profile-user-screen/profile_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserHomeScreen extends StatefulWidget {
@@ -61,7 +60,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     children: [
                       Obx(
                         () {
-                          final userName = userHomeController.user.value.name ??
+                          final userName = userHomeController.user.value!.name??
                               "User"; // Ambil user ID dari Firebase Authentication
 
                           return Row(
@@ -87,21 +86,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   ),
                                 ],
                               ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const NotificationScreen()),
-                                  );
-                                },
-                                child: Image.asset(
-                                  "assets/icons/non-active-notification.png",
-                                  width: 40,
-                                  height: 40,
-                                ),
-                              )
                             ],
                           );
                         },

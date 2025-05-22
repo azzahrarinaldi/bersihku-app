@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class UserHomeController extends GetxController {
-  var user = UserModel().obs;
+  var user = Rx<UserModel?>(null);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -18,7 +18,11 @@ class UserHomeController extends GetxController {
     final uid = _auth.currentUser?.uid;
     if (uid != null) {
       _firestore.collection('users').doc(uid).snapshots().listen((doc) {
-        user.value = UserModel.fromMap(uid, doc.data());
+        if (doc.data() != null) {
+          user.value = UserModel.fromMap(uid, doc.data());
+        } else {
+          user.value = null;
+        }
       });
     }
   }

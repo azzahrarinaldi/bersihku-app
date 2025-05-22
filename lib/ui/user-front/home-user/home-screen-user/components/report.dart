@@ -51,7 +51,7 @@ class Report extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            InputFormScreen(), // Ganti dengan screen yang ingin dituju
+                            InputFormScreen() // Ganti dengan screen yang ingin dituju
                       ),
                     );
                   },

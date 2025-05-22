@@ -52,7 +52,7 @@ class RegisterController extends GetxController {
           'created_at': FieldValue.serverTimestamp(),
         });
         
-         await FirebaseAuth.instance.signOut();
+       
 
         Get.snackbar('Sukses', 'Registrasi berhasil! Silakan login.',
             snackPosition: SnackPosition.TOP, backgroundColor: Colors.green, colorText: Colors.white);
