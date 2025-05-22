@@ -9,7 +9,7 @@ import 'components/dropdown_wilayah_history.dart';
 import 'components/admin_history_list.dart';
 
 class AdminHistoryScreen extends StatelessWidget {
-  AdminHistoryScreen({Key? key}) : super(key: key);
+  const AdminHistoryScreen({super.key});
 
   final List<String> bulanList = const [
     'Januari','Februari','Maret','April','Mei','Juni',
