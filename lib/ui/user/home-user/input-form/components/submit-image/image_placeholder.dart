@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bersihku/handler/image_picker_service.dart';
+import 'package:bersihku/handler/image_picker_services.dart';
 import 'package:bersihku/services/location_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart'; // for compute()

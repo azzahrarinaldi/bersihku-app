@@ -54,13 +54,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     child: HistoryCard(history: histories.first),
                   ),
                 ] else
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'Belum ada data laporan',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+                  const SizedBox(height: 50),
 
                 Expanded(
                   child: Container(

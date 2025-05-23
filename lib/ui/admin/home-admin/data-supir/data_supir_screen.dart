@@ -9,10 +9,9 @@ class DataSupirScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double screenWidth = size.width;
-
-    final DataSupirController driverController = Get.put(DataSupirController());
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final driverController = Get.put(DataSupirController());
 
     return Scaffold(
       backgroundColor: secondaryColor,
@@ -29,7 +28,9 @@ class DataSupirScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.05, vertical: 15),
+                  horizontal: screenWidth * 0.05,
+                  vertical: 15,
+                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -53,30 +54,32 @@ class DataSupirScreen extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.05, vertical: 20),
+                    horizontal: screenWidth * 0.05,
+                    vertical: 20,
+                  ),
                   decoration: const BoxDecoration(color: Colors.white),
                   child: Obx(() {
                     final list = driverController.drivers;
-                    return list.isEmpty
-                        ? const Center(child: Text("Belum ada data supir."))
-                        : ListView.separated(
-                            itemCount: list.length,
-                            separatorBuilder: (c, i) => const SizedBox(height: 16),
-                            itemBuilder: (c, i) {
-                              final driver = list[i];
-                              return DataSupirCard(
-                                driver: driver,
-                                onTapDetail: () {
-                                  // Kirim id supir ke detail screen
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/detail-data-supir',
-                                    arguments: driver.id,
-                                  );
-                                },
-                              );
-                            },
-                          );
+                    if (list.isEmpty) {
+                      return const Center(child: Text("Belum ada data supir."));
+                    }
+                    return ListView.separated(
+                      itemCount: list.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 16),
+                      itemBuilder: (_, i) {
+                        final driver = list[i];
+                        return DataSupirCard(
+                          driver: driver,
+                          onTapDetail: () {
+                            // PENTING: kita kirim userId, bukan docId
+                            Get.toNamed(
+                              '/detail-data-supir',
+                              arguments: driver.userId,
+                            );
+                          },
+                        );
+                      },
+                    );
                   }),
                 ),
               ),

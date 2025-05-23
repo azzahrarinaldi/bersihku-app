@@ -73,12 +73,19 @@ class HistoryAdminController extends GetxController {
     final wilayahFilter = selectedWilayah.value;
 
     final hasil = allLaporan.where((lap) {
-      if (!daily) {
-        final bulanLap =
-            DateFormat('MMMM', 'id').format(lap.createdAt).toLowerCase();
+      if (daily) {
+        final now = DateTime.now();
+        final isSameDay = lap.createdAt.year == now.year &&
+            lap.createdAt.month == now.month &&
+            lap.createdAt.day == now.day;
+        if (!isSameDay) return false;
+      } else {
+        final bulanLap = DateFormat('MMMM', 'id').format(lap.createdAt).toLowerCase();
         if (bulanLap != bulanFilter) return false;
       }
+
       if (wilayahFilter != 'Semua' && lap.place != wilayahFilter) return false;
+
       final teks = '${lap.name} ${lap.place}'.toLowerCase();
       return teks.contains(q);
     }).toList();

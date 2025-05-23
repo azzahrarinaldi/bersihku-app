@@ -1,5 +1,6 @@
 import 'package:bersihku/const.dart';
 import 'package:bersihku/controller/user_setting_controller.dart';
+import 'package:bersihku/ui/user/profile-user/settings/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,14 +44,26 @@ class _FormSettingsAdminScreenState extends State<FormSettingsAdminScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Nama", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const Text(
+            "Nama", 
+            style: TextStyle(
+              fontSize: 16, 
+              fontWeight: FontWeight.bold
+              )
+          ),
           const SizedBox(height: 8),
           TextField(
             controller: controller.nameController,
             decoration: buildInputDecoration(Icons.person),
           ),
           const SizedBox(height: 20),
-          const Text("No. Telepon", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const Text(
+            "No. Telepon", 
+            style: TextStyle(
+              fontSize: 16, 
+              fontWeight: FontWeight.bold
+            )
+          ),
           const SizedBox(height: 8),
           TextField(
             controller: controller.phoneController,
@@ -58,7 +71,13 @@ class _FormSettingsAdminScreenState extends State<FormSettingsAdminScreen> {
             decoration: buildInputDecoration(Icons.phone),
           ),
           const SizedBox(height: 20),
-          const Text("Email", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const Text(
+            "Email", 
+            style: TextStyle(
+              fontSize: 16, 
+              fontWeight: FontWeight.bold
+            )
+          ),
           const SizedBox(height: 8),
           TextField(
             controller: controller.emailController,
@@ -67,36 +86,30 @@ class _FormSettingsAdminScreenState extends State<FormSettingsAdminScreen> {
           ),
           const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Kata Sandi", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              GestureDetector(
-                onTap: () {
-                  // Bisa navigasi ke screen ganti password kalau mau
-                },
-                child: const Text(
-                  "Ganti Kata Sandi",
-                  style: TextStyle(fontSize: 14, color: textPrimary, fontWeight: FontWeight.w600),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "Kata Sandi", 
+              style: TextStyle(
+                fontSize: 16, 
+                fontWeight: FontWeight.bold
+              )
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => const ChangePasswordScreen());
+              },
+              child: const Text(
+                "Ganti Kata Sandi",
+                style: TextStyle(
+                  fontSize: 14, 
+                  color: textPrimary, 
+                  fontWeight: FontWeight.w600
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Obx(() => TextField(
-            obscureText: controller.obscurePassword.value,
-            controller: controller.passwordController,
-            decoration: buildInputDecoration(Icons.lock).copyWith(
-              suffixIcon: IconButton(
-                icon: Icon(
-                  controller.obscurePassword.value ? Icons.visibility_off : Icons.visibility,
-                  color: Colors.grey,
-                ),
-                onPressed: () {
-                  controller.obscurePassword.value = !controller.obscurePassword.value;
-                },
               ),
             ),
-          )),
+          ],
+        ),
           const SizedBox(height: 80),
           SizedBox(
             width: double.infinity,
@@ -114,7 +127,13 @@ class _FormSettingsAdminScreenState extends State<FormSettingsAdminScreen> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                     )
-                  : const Text("Submit", style: TextStyle(color: Colors.white, fontSize: 16)),
+                  : const Text(
+                    "Submit", 
+                    style: TextStyle(
+                      color: Colors.white, 
+                      fontSize: 16
+                    )
+                  ),
             )),
           ),
         ],

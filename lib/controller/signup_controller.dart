@@ -32,39 +32,54 @@ class RegisterController extends GetxController {
   Future<void> registerUser() async {
     if (!isFormValid.value) {
       Get.snackbar('Error', 'Form tidak valid, cek inputan kamu',
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white);
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
       return;
     }
 
     try {
-      final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final cred = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
       final user = cred.user;
       if (user != null) {
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        // Simpan data user + password ke Firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .set({
           'email': emailController.text.trim(),
+          'password': passwordController.text.trim(),
           'name': nameController.text.trim(),
           'phone': phoneController.text.trim(),
           'role': 'user',
           'created_at': FieldValue.serverTimestamp(),
         });
-        
-         await FirebaseAuth.instance.signOut();
+
+        // Logout setelah register agar user login manual
+        await FirebaseAuth.instance.signOut();
 
         Get.snackbar('Sukses', 'Registrasi berhasil! Silakan login.',
-            snackPosition: SnackPosition.TOP, backgroundColor: Colors.green, colorText: Colors.white);
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.green,
+            colorText: Colors.white);
 
-        Get.offAll(() => LoginScreen()); 
+        Get.offAll(() => const LoginScreen());
       }
     } on FirebaseAuthException catch (e) {
       Get.snackbar('Registrasi gagal', e.message ?? 'Error saat registrasi',
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white);
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     } catch (e) {
       Get.snackbar('Error', e.toString(),
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white);
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
 
@@ -73,7 +88,9 @@ class RegisterController extends GetxController {
       final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         Get.snackbar('Batal', 'Login dengan Google dibatalkan',
-            snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white);
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
         return;
       }
 
@@ -83,16 +100,21 @@ class RegisterController extends GetxController {
         idToken: googleAuth.idToken,
       );
 
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       final user = userCredential.user;
 
       if (user != null) {
-        final userDoc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+        final userDoc = FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid);
         final snapshot = await userDoc.get();
 
         if (!snapshot.exists) {
           await userDoc.set({
             'email': user.email ?? '',
+            // Google sign-in tidak punya password
+            'password': '',
             'name': user.displayName ?? '',
             'phone': user.phoneNumber ?? '',
             'role': 'user',
@@ -100,14 +122,21 @@ class RegisterController extends GetxController {
           });
         }
 
-        Get.snackbar('Sukses', 'Berhasil daftar/login dengan Google!',
-            snackPosition: SnackPosition.TOP, backgroundColor: Colors.green, colorText: Colors.white);
+        Get.snackbar(
+          'Sukses',
+          'Berhasil daftar/login dengan Google!',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
 
         Get.offAllNamed('/login');
       }
     } catch (e) {
       Get.snackbar('Gagal login Google', e.toString(),
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white);
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
 

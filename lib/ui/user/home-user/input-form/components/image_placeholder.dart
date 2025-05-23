@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:bersihku/services/location_service.dart';
-import 'package:bersihku/ui/user/home-user/input-form/components/submit-image/image_picker_logic.dart';
-import 'package:bersihku/ui/user/home-user/input-form/components/submit-image/image_processing.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart'; // compute()
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:flutter/foundation.dart'; // for compute()
+import 'package:image/image.dart' as img;
+import 'package:bersihku/ui/user/home-user/input-form/components/submit-image/image_picker_logic.dart';
 
 class UploadImagePlaceholder extends StatefulWidget {
   final String title;
@@ -40,11 +41,18 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
       final timestamp =
           '${_twoDigits(now.day)}-${_twoDigits(now.month)}-${now.year} ${_twoDigits(now.hour)}:${_twoDigits(now.minute)}:${_twoDigits(now.second)}';
 
-      final user = FirebaseAuth.instance.currentUser;
-      final petugas = user?.displayName ?? '[Unknown]';
+      // Ambil nama petugas dari Firestore, bukan displayName
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .get();
+      final petugas = doc.data()?['name'] ?? '[Unknown]';
+
       final lokasi = await LocationService.getLocationText();
 
-      final result = await compute(processImageInIsolate, {
+      // Proses stamping di isolate
+      final result = await compute(_processImage, {
         'raw': raw,
         'timestamp': timestamp,
         'petugas': petugas,
@@ -52,23 +60,66 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
         'path': path,
       });
 
-      final filename = result['filename'];
-      final bytes = result['bytes'];
+      final filename = result['filename'] as String;
+      final bytes = result['bytes'] as List<int>;
 
       final outPath = '${file.parent.path}/$filename';
-      final outFile = await File(outPath).writeAsBytes(bytes);
+      await File(outPath).writeAsBytes(bytes);
 
       setState(() {
-        _imagePaths.add({'path': outFile.path, 'timestamp': now.toIso8601String()});
-        _isLoading = false;
+        _imagePaths.add({
+          'path': outPath,
+          'timestamp': now.toIso8601String(),
+        });
       });
-
       widget.onImagesChanged(_imagePaths);
     } catch (e, st) {
       debugPrint('Error in _pickImage: $e');
       debugPrint(st.toString());
-      setState(() => _isLoading = false);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  static Future<Map<String, dynamic>> _processImage(
+      Map<String, dynamic> args) async {
+    final raw = args['raw'] as List<int>;
+    final timestamp = args['timestamp'] as String;
+    final petugas = args['petugas'] as String;
+    final lokasi = args['lokasi'] as String;
+    final path = args['path'] as String;
+
+    img.Image? image = img.decodeImage(Uint8List.fromList(raw));
+    if (image == null) throw 'Gagal decode gambar';
+
+    final font = img.arial_48;
+    final color = img.getColor(0, 255, 0);
+    const pad = 40;
+    final lineHeight = font.lineHeight + 2;
+    final baseY = image.height - pad - lineHeight * 4;
+
+    img.drawString(image, font, pad, baseY + lineHeight * 0, timestamp, color: color);
+    img.drawString(image, font, pad, baseY + lineHeight * 1, petugas, color: color);
+
+    String loc1 = lokasi.length > 50 ? lokasi.substring(0, 50) + '...' : lokasi;
+    String loc2 = lokasi.length > 100 ? lokasi.substring(50, 100) + '...' : '';
+
+    img.drawString(image, font, pad, baseY + lineHeight * 2, loc1, color: color);
+    if (loc2.isNotEmpty) {
+      img.drawString(image, font, pad, baseY + lineHeight * 3, loc2, color: color);
+    }
+
+    List<int> compressed;
+    int quality = 85;
+    do {
+      compressed = img.encodeJpg(image, quality: quality);
+      quality -= 5;
+    } while (compressed.length > 300 * 1024 && quality > 10);
+
+    return {
+      'bytes': compressed,
+      'filename': 'stamped_${path.split('/').last}',
+    };
   }
 
   String _twoDigits(int v) => v.toString().padLeft(2, '0');

@@ -39,22 +39,14 @@ class DataSupirCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    driver.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Text(driver.name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black)),
                   const SizedBox(height: 4),
-                  const Text(
-                    'Belum ada laporan',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    ),
-                  ),
+                  const Text('Belum ada laporan',
+                      style: TextStyle(color: Colors.grey, fontSize: 14)),
                 ],
               ),
             ),
@@ -72,7 +64,7 @@ class DataSupirCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header supir
+          // Header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -100,13 +92,7 @@ class DataSupirCard extends StatelessWidget {
                 ),
               ]),
               GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/detail-data-supir',
-                    arguments: driver.userId,
-                  );
-                },
+                onTap: onTapDetail,
                 child: const Text(
                   "Lihat Detail",
                   style: TextStyle(
@@ -121,15 +107,12 @@ class DataSupirCard extends StatelessWidget {
           ),
 
           const SizedBox(height: 18),
-          const Text(
-            "Pengangkutan Terakhir",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-                color: Colors.black),
-          ),
+          const Text("Pengangkutan Terakhir",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           const SizedBox(height: 18),
 
+          // tanggal & tempat dengan Expanded + ellipsis
           Container(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -137,19 +120,27 @@ class DataSupirCard extends StatelessWidget {
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(formatDate(driver.createdAt)),
-                Text(
-                  driver.place.isNotEmpty
-                      ? driver.place
-                      : 'Tidak diketahui',
+            child: Row(children: [
+              Expanded(
+                flex: 2,
+                child: Text(formatDate(driver.createdAt),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 14)),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 1,
+                child: Text(
+                  driver.place.isNotEmpty ? driver.place : 'Tidak diketahui',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-              ],
-            ),
+              ),
+            ]),
           ),
         ],
       ),

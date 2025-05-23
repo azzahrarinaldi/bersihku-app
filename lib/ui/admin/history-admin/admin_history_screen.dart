@@ -175,6 +175,7 @@ class AdminHistoryScreen extends StatelessWidget {
                                     color: Color(0xFFF29753),
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
+                                    decorationColor: Color(0xFFF29753),
                                   ),
                                 ),
                               ),

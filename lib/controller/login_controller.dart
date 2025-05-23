@@ -24,15 +24,18 @@ class LoginController extends GetxController {
         emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
   }
 
+  void clearForm() {
+    emailController.clear();
+    passwordController.clear();
+  }
+
   void login() async {
     final email = emailController.text.trim();
     final password = passwordController.text;
 
     try {
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
 
       final uid = userCredential.user?.uid;
       if (uid != null) {
@@ -41,14 +44,28 @@ class LoginController extends GetxController {
 
         if (userDoc.exists) {
           final role = userDoc.data()?['role'];
+
+          // ✅ Tampilkan Snackbar sukses
+          Get.snackbar(
+            'Sukses',
+            'Berhasil login',
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.white,
+            colorText: Colors.black,
+          );
+
           if (role == 'admin') {
             Get.offAll(() => const AdminHomeScreen());
           } else {
             Get.offAll(() => const UserHomeScreen());
           }
         } else {
-          Get.snackbar("Error", "User data not found",
-              backgroundColor: Colors.red, colorText: Colors.white);
+          Get.snackbar(
+            "Error",
+            "User data not found",
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -58,8 +75,12 @@ class LoginController extends GetxController {
       } else if (e.code == 'wrong-password') {
         errorMsg = 'Password salah';
       }
-      Get.snackbar("Error", errorMsg,
-          backgroundColor: Colors.red, colorText: Colors.white);
+      Get.snackbar(
+        "Error",
+        errorMsg,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
 
@@ -84,19 +105,35 @@ class LoginController extends GetxController {
 
         if (userDoc.exists) {
           final role = userDoc.data()?['role'];
+
+          // ✅ Tampilkan Snackbar sukses
+          Get.snackbar(
+            'Sukses',
+            'Berhasil login dengan Google',
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.white,
+            colorText: Colors.black,
+          );
+
           if (role == 'admin') {
             Get.offAll(() => const AdminHomeScreen());
           } else {
             Get.offAll(() => const UserHomeScreen());
           }
         } else {
-          Get.snackbar("Error", "User data not found",
-               colorText: Colors.black);
+          Get.snackbar(
+            "Error",
+            "User data not found",
+            colorText: Colors.black,
+          );
         }
       }
     } catch (e) {
-      Get.snackbar("Google Sign-In Error", e.toString(),
-          colorText: Colors.black);
+      Get.snackbar(
+        "Google Sign-In Error",
+        e.toString(),
+        colorText: Colors.black,
+      );
     }
   }
 }

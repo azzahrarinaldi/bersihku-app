@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 import 'package:bersihku/models/detail_laporan_model.dart';
@@ -23,7 +24,9 @@ class PdfGeneratorController extends GetxController {
       Get.snackbar(
         'Oops',
         'Switch ke Laporan Bulanan dan pilih wilayah dulu',
-        snackPosition: SnackPosition.BOTTOM,
+         snackPosition: SnackPosition.TOP,        
+         backgroundColor: Colors.white,        
+         colorText: Colors.black,
       );
       return;
     }

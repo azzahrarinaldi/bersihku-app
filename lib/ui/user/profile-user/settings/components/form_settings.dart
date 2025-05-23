@@ -1,5 +1,6 @@
 import 'package:bersihku/const.dart';
 import 'package:bersihku/controller/user_setting_controller.dart';
+import 'package:bersihku/ui/user/profile-user/settings/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -67,30 +68,20 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
           ),
           const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Kata Sandi", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              GestureDetector(
-                onTap: () {
-                  // TODO: Navigasi ke screen ganti password
-                },
-                child: const Text("Ganti Kata Sandi", style: TextStyle(fontSize: 14, color: textPrimary, fontWeight: FontWeight.w600)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Obx(() => TextField(
-            controller: controller.passwordController,
-            obscureText: controller.obscurePassword.value,
-            decoration: buildInputDecoration(Icons.lock).copyWith(
-              suffixIcon: IconButton(
-                icon: Icon(controller.obscurePassword.value ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
-                onPressed: () {
-                  controller.obscurePassword.value = !controller.obscurePassword.value;
-                },
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text("Kata Sandi", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            TextButton(
+              onPressed: () {
+                Get.to(() => const ChangePasswordScreen());
+              },
+              child: const Text(
+                "Ganti Kata Sandi",
+                style: TextStyle(fontSize: 14, color: textPrimary, fontWeight: FontWeight.w600),
               ),
             ),
-          )),
+          ],
+        ),
           const SizedBox(height: 80),
           SizedBox(
             width: double.infinity,

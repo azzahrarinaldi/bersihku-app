@@ -7,12 +7,31 @@ import 'package:bersihku/ui/auth/login/components/social_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  late final LoginController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (Get.isRegistered<LoginController>()) {
+      Get.delete<LoginController>();
+    }
+
+    controller = Get.put(LoginController());
+
+    controller.clearForm(); // Kosongkan inputan saat layar dibuka
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -37,26 +56,24 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   const Text(
                     "Masuk Akun",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 26, 
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                   const SizedBox(height: 24),
                   EmailInput(controller: controller.emailController),
                   const SizedBox(height: 16),
                   PasswordInput(controller: controller.passwordController),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text("Lupa kata sandi?", style: TextStyle(color: Colors.blue)),
-                    ),
-                  ),
+                  const SizedBox(height: 20),
                   Obx(() => LoginButton(
                         isFormFilled: controller.isFormFilled.value,
                         onPressed: controller.login,
                       )),
                   const SizedBox(height: 20),
-                  const Center(child: Text("Atau masuk dengan:", style: TextStyle(fontSize: 14))),
+                  const Center(
+                    child: Text("Atau masuk dengan:", style: TextStyle(fontSize: 14))
+                  ),
                   const SizedBox(height: 20),
                   Center(
                     child: SocialButton(
@@ -71,8 +88,11 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       const Text("Belum punya akun? "),
                       GestureDetector(
-                        onTap: () => Get.to(() => RegisterScreen()),
-                        child: const Text("Buat Akun", style: TextStyle(color: Colors.blue)),
+                        onTap: () => Get.to(() => const RegisterScreen()),
+                        child: const Text(
+                          "Buat Akun", 
+                          style: TextStyle(color: Colors.blue)
+                        ),
                       ),
                     ],
                   ),

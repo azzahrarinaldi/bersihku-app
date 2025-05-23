@@ -87,7 +87,7 @@ class SettingsAdminScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03, vertical: 15),
           child: Column(
             children: [
               Obx(() {

@@ -1,16 +1,18 @@
 import 'dart:io';
+import 'package:bersihku/ui/admin/profile-admin/profile-admin-screen/profile_admin_screen.dart';
+import 'package:bersihku/ui/user/profile-user/profile-user-screen/profile_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserSettingController extends GetxController {
   final Rx<File?> imageFile = Rx<File?>(null);
   final RxString profileImageUrl = ''.obs;
 
-  final ImagePicker picker = ImagePicker();
+  final picker = ImagePicker();
 
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -20,22 +22,25 @@ class UserSettingController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxBool obscurePassword = true.obs;
 
+  String role = 'user'; // default
+
   @override
   void onInit() {
     super.onInit();
     fetchProfileImage();
+    loadUserProfile();
   }
 
   Future<void> fetchProfileImage() async {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
-      final doc =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      final url = doc.data()?['profile_picture'] ?? '';
-      profileImageUrl.value =
-          url.isNotEmpty ? url : '';
-    } catch (e) {
-      print("Error: $e");
+      if (uid == null) return;
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .get();
+      profileImageUrl.value = doc.data()?['profile_picture'] ?? '';
+    } catch (_) {
       profileImageUrl.value = '';
     }
   }
@@ -51,17 +56,18 @@ class UserSettingController extends GetxController {
   Future<void> uploadImage() async {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
-      final ref =
-          FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
+      if (uid == null || imageFile.value == null) return;
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('profile_pictures/$uid.jpg');
       await ref.putFile(imageFile.value!);
       final url = await ref.getDownloadURL();
-      await FirebaseFirestore.instance.collection('users').doc(uid).update({
-        'profile_picture': url,
-      });
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .update({'profile_picture': url});
       profileImageUrl.value = url;
-    } catch (e) {
-      print("Upload Error: $e");
-    }
+    } catch (_) {}
   }
 
   Future<void> loadUserProfile() async {
@@ -72,14 +78,15 @@ class UserSettingController extends GetxController {
         .collection('users')
         .doc(user.uid)
         .get();
-
     if (!doc.exists) return;
     final data = doc.data()!;
 
     nameController.text = data['name'] ?? '';
     phoneController.text = data['phone'] ?? '';
     emailController.text = data['email'] ?? '';
-    // Password tidak diambil
+    passwordController.clear();
+
+    role = data['role'] ?? 'user';
   }
 
   Future<void> saveUserProfile() async {
@@ -88,51 +95,65 @@ class UserSettingController extends GetxController {
 
     isLoading.value = true;
     try {
+      final newName = nameController.text.trim();
+      final newPhone = phoneController.text.trim();
+      final newEmail = emailController.text.trim();
+      final newPassword = passwordController.text.trim();
+
+      // Update Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
           .update({
-        'name': nameController.text.trim(),
-        'phone': phoneController.text.trim(),
-        'email': emailController.text.trim(),
+        'name': newName,
+        'phone': newPhone,
+        'email': newEmail,
       });
 
+      // Update Auth if needed
+      if (newPassword.isNotEmpty) {
+        await user.updatePassword(newPassword);
+      }
+      if (user.email != newEmail) {
+        await user.updateEmail(newEmail);
+      }
+
       Get.snackbar(
-        "Sukses",
-        "Profil berhasil diperbarui",
+        'Sukses',
+        'Profil berhasil diperbarui',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: const Color(0xFF4EBAE5),
-        colorText: Colors.white,
-        borderRadius: 10,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-        boxShadows: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        icon: const Icon(Icons.check_circle, color: Colors.white),
-        duration: const Duration(seconds: 3),
+        backgroundColor: Colors.white,
+        colorText: Colors.black,
+      );
+
+      // Redirect based on role
+      if (role == 'admin') {
+        Get.offAll(() => ProfileScreenAdmin());
+      } else {
+        Get.offAll(() => ProfileScreen());
+      }
+    } on FirebaseAuthException catch (e) {
+      final msg = e.code == 'requires-recent-login'
+        ? 'Silakan login ulang untuk mengubah data.'
+        : e.message ?? 'Error Auth';
+      Get.snackbar(
+        'Error', 
+        msg,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white
       );
     } catch (e) {
       Get.snackbar(
-        "Error", "Gagal menyimpan profil: $e",
+        'Error',
+        'Gagal menyimpan profil: $e',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: const Color(0xFF4EBAE5),
+        backgroundColor: Colors.red,
         colorText: Colors.white,
-        borderRadius: 10,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-        boxShadows: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
       );
     } finally {
       isLoading.value = false;
+      passwordController.clear();
     }
   }
 
@@ -140,55 +161,29 @@ class UserSettingController extends GetxController {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       if (uid == null) return;
-
-      // Hapus file dari Firebase Storage
-      final ref =
-          FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('profile_pictures/$uid.jpg');
       await ref.delete();
-
-      // Update Firestore (hapus URL)
-      await FirebaseFirestore.instance.collection('users').doc(uid).update({
-        'profile_picture': '',
-      });
-
-      // Set default gambar lokal
-      profileImageUrl.value = 'profile_images/default_profile.jpg';
-
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .update({'profile_picture': ''});
+      profileImageUrl.value = '';
       Get.snackbar(
-        "Sukses",
-        "Foto profil berhasil dihapus",
+        'Sukses', 
+        'Foto profil berhasil dihapus',
         snackPosition: SnackPosition.TOP,
         backgroundColor: const Color(0xFF4EBAE5),
-        colorText: Colors.white,
-        borderRadius: 10,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-        boxShadows: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        icon: const Icon(Icons.check_circle, color: Colors.white),
-        duration: const Duration(seconds: 3),
+        colorText: Colors.white
       );
     } catch (e) {
-      print("Delete Error: $e");
       Get.snackbar(
-        "Gagal",
-        "Tidak bisa menghapus foto: $e",
+        'Error', 
+        'Tidak bisa menghapus foto: $e',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: const Color(0xFF4EBAE5),
-        colorText: Colors.white,
-        borderRadius: 10,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-        boxShadows: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        backgroundColor: Colors.red,
+        colorText: Colors.white
       );
     }
   }
