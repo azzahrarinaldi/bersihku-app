@@ -35,10 +35,8 @@ class UserSettingController extends GetxController {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       if (uid == null) return;
-      final doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .get();
+      final doc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       profileImageUrl.value = doc.data()?['profile_picture'] ?? '';
     } catch (_) {
       profileImageUrl.value = '';
@@ -57,9 +55,8 @@ class UserSettingController extends GetxController {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       if (uid == null || imageFile.value == null) return;
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child('profile_pictures/$uid.jpg');
+      final ref =
+          FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
       await ref.putFile(imageFile.value!);
       final url = await ref.getDownloadURL();
       await FirebaseFirestore.instance
@@ -128,21 +125,18 @@ class UserSettingController extends GetxController {
 
       // Redirect based on role
       if (role == 'admin') {
-        Get.offAll(() => ProfileScreenAdmin());
+        Get.off(() => ProfileScreenAdmin());
       } else {
-        Get.offAll(() => ProfileScreen());
+        Get.off(() => ProfileScreen());
       }
     } on FirebaseAuthException catch (e) {
       final msg = e.code == 'requires-recent-login'
-        ? 'Silakan login ulang untuk mengubah data.'
-        : e.message ?? 'Error Auth';
-      Get.snackbar(
-        'Error', 
-        msg,
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
-        colorText: Colors.white
-      );
+          ? 'Silakan login ulang untuk mengubah data.'
+          : e.message ?? 'Error Auth';
+      Get.snackbar('Error', msg,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -161,30 +155,23 @@ class UserSettingController extends GetxController {
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
       if (uid == null) return;
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child('profile_pictures/$uid.jpg');
+      final ref =
+          FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
       await ref.delete();
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .update({'profile_picture': ''});
       profileImageUrl.value = '';
-      Get.snackbar(
-        'Sukses', 
-        'Foto profil berhasil dihapus',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: const Color(0xFF4EBAE5),
-        colorText: Colors.white
-      );
+      Get.snackbar('Sukses', 'Foto profil berhasil dihapus',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: const Color(0xFF4EBAE5),
+          colorText: Colors.white);
     } catch (e) {
-      Get.snackbar(
-        'Error', 
-        'Tidak bisa menghapus foto: $e',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
-        colorText: Colors.white
-      );
+      Get.snackbar('Error', 'Tidak bisa menghapus foto: $e',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
 }

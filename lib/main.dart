@@ -6,6 +6,7 @@ import 'package:bersihku/ui/admin/home-admin/detail-data-supir/detail_data_supir
 import 'package:bersihku/ui/admin/home-admin/detail-laporan/detail_laporan_screen.dart';
 import 'package:bersihku/ui/admin/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin/home-admin/laporan-masuk/laporan_masuk_screen.dart';
+import 'package:bersihku/ui/admin/profile-admin/profile-admin-screen/profile_admin_screen.dart';
 import 'package:bersihku/ui/admin/profile-admin/settings/settings_admin_screen.dart';
 import 'package:bersihku/ui/auth_wrapper.dart';
 import 'package:bersihku/ui/user/home-user/guide/guide_screen.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/user-settings', page: () => UserSettingsScreen()),
         GetPage(name: '/admin-settings', page: () => SettingsAdminScreen()),
         GetPage(name: '/guide', page: () => HelpGuideScreen()),
+        GetPage(name: '/profile-admin', page: () => ProfileScreenAdmin()),
         GetPage(name: '/home-admin', page: () => const AdminHomeScreen()),
         GetPage(name: '/input-form', page: () => const InputFormScreen()),
         GetPage(name: '/detail-data-supir', page: () => DetailDataSupirScreen(), binding: DetailDataSupirBinding()),

@@ -9,11 +9,13 @@ import 'package:bersihku/const.dart';
 
 class CardDetailHistory extends StatelessWidget {
   final String documentId;
-  const CardDetailHistory({Key? key, required this.documentId}) : super(key: key);
+  const CardDetailHistory({Key? key, required this.documentId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HistoryDetailController>(tag: documentId); // ambil berdasarkan tag
+    final controller = Get.find<HistoryDetailController>(
+        tag: documentId); // ambil berdasarkan tag
     final profileController = Get.find<ProfileUserController>();
 
     return Obx(() {
@@ -42,16 +44,21 @@ class CardDetailHistory extends StatelessWidget {
                 children: [
                   Obx(() {
                     final imgUrl = profileController.profileImageUrl.value;
-                    return (imgUrl == null || imgUrl.isEmpty)
-                        ? Image.asset(
-                            "assets/images/profile-person-history.png",
-                            width: MediaQuery.of(context).size.width * 0.12,
-                            fit: BoxFit.contain,
-                          )
-                        : CircleAvatar(
-                            radius: MediaQuery.of(context).size.width * 0.06,
-                            backgroundImage: NetworkImage(imgUrl),
-                          );
+                    return CircleAvatar(
+                      radius: MediaQuery.of(context).size.width * 0.06,
+                      backgroundColor:
+                        Colors.grey[300],
+                      backgroundImage: (imgUrl.isEmpty)
+                          ? null 
+                          : NetworkImage(imgUrl),
+                      child: (imgUrl.isEmpty)
+                          ? Icon(
+                              Icons.person,
+                              size: MediaQuery.of(context).size.width * 0.090,
+                              color: Colors.grey,
+                            )
+                          : null, 
+                    );
                   }),
                   const SizedBox(width: 10),
                   Column(
@@ -59,11 +66,15 @@ class CardDetailHistory extends StatelessWidget {
                     children: [
                       Text(
                         data.name,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: textColor),
                       ),
                       Text(
                         data.platNomor,
-                        style: const TextStyle(fontSize: 13, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 13, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -77,7 +88,10 @@ class CardDetailHistory extends StatelessWidget {
                 children: [
                   Text(
                     data.lokasi,
-                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: textColor),
+                    style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: textColor),
                   ),
                   const SizedBox(height: 9),
                   Text(
@@ -88,8 +102,12 @@ class CardDetailHistory extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(data.tanggal, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                      Text(data.waktu, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                      Text(data.tanggal,
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w600)),
+                      Text(data.waktu,
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w600)),
                     ],
                   ),
                   const SizedBox(height: 20),

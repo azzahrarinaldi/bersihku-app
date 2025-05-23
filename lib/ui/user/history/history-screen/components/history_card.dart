@@ -37,10 +37,10 @@ class HistoryCard extends StatelessWidget {
                       radius: screenWidth * 0.06,
                       backgroundColor: Colors.grey[300],
                       backgroundImage:
-                          (profileImage != null && profileImage.isNotEmpty)
+                          (profileImage.isNotEmpty)
                               ? NetworkImage(profileImage)
                               : null,
-                      child: (profileImage == null || profileImage.isEmpty)
+                      child: (profileImage.isEmpty)
                           ? Icon(
                               Icons.person,
                               size: screenWidth * 0.090,
