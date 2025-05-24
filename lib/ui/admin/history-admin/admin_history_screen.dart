@@ -9,7 +9,7 @@ import 'components/dropdown_wilayah_history.dart';
 import 'components/admin_history_list.dart';
 
 class AdminHistoryScreen extends StatelessWidget {
-  AdminHistoryScreen({Key? key}) : super(key: key);
+  const AdminHistoryScreen({super.key});
 
   final List<String> bulanList = const [
     'Januari','Februari','Maret','April','Mei','Juni',
@@ -81,7 +81,7 @@ class AdminHistoryScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                // 📊 Toggle Harian / Bulanan
+                //Toggle Harian / Bulanan
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -95,7 +95,7 @@ class AdminHistoryScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                // 🗂 Konten putih: dropdown, button, list
+                //Konten putih: dropdown, button, list
                 Expanded(
                   child: Container(
                     decoration: const BoxDecoration(
@@ -187,8 +187,8 @@ class AdminHistoryScreen extends StatelessWidget {
                           // List Riwayat
                           Expanded(
                             child: Obx(() => AdminHistoryList(
-                                  data: historyCtrl.filteredLaporanList.toList(),
-                                )),
+                              data: historyCtrl.filteredLaporanList.toList(),
+                            )),
                           ),
                         ],
                       ),

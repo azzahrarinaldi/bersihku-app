@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
 
 class PdfGeneratorController extends GetxController {
-  /// Flag untuk menandai saat PDF sedang diproses
+  // Untuk menandai saat PDF sedang diproses
   final RxBool isGenerating = false.obs;
 
   Future<void> generatePdfFile({
@@ -23,38 +23,35 @@ class PdfGeneratorController extends GetxController {
     if (isDaily || selectedWilayah == 'Semua') {
       Get.snackbar(
         'Oops',
-        'Switch ke Laporan Bulanan dan pilih wilayah dulu',
-         snackPosition: SnackPosition.TOP,        
-         backgroundColor: Colors.white,        
-         colorText: Colors.black,
+        'Ganti ke Laporan Bulanan dan pilih wilayah dulu',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.white,
+        colorText: Colors.black,
       );
       return;
     }
 
     try {
-      // Aktifkan loading indicator
-      isGenerating.value = true;
+      isGenerating.value = true; 
 
-      // 1. Hitung total semua sampah
+      // 1. Hitung total berat sampah (basah + kering)
       final totalSemua = laporanList
-          .map((d) => d.weightBasah + d.weightKering)
-          .fold<double>(0, (sum, w) => sum + w);
+        .map((d) => d.weightBasah + d.weightKering)
+        .fold<double>(0, (sum, w) => sum + w);
+      
       final formattedTotalSemua = totalSemua % 1 == 0
-          ? totalSemua.toInt().toString()
-          : totalSemua.toStringAsFixed(2);
+        ? totalSemua.toInt().toString()
+        : totalSemua.toStringAsFixed(2);
 
-      // 2. Siapkan dokumen PDF
+      // 2. Buat dokumen PDF baru
       final pdf = pw.Document();
       final dfTgl = DateFormat('d MMM yyyy', 'id');
-
-      // 3. Load logo dari asset
-      final rawLogo = await rootBundle.load('assets/images/logo.png');
+      final rawLogo = await rootBundle.load('assets/images/logo.png'); 
       final logoImage = pw.MemoryImage(rawLogo.buffer.asUint8List());
-
-      // 4. Pre–fetch gambar
       final gambarBasahList = <List<pw.MemoryImage>>[];
       final gambarKeringList = <List<pw.MemoryImage>>[];
-      for (var d in laporanList) {
+
+      for (var d in laporanList) { 
         final basah = await Future.wait(
           d.imagesBasah.map((url) async {
             final res = await http.get(Uri.parse(url));
@@ -71,11 +68,12 @@ class PdfGeneratorController extends GetxController {
         gambarKeringList.add(kering);
       }
 
-      // 5. Bangun page PDF landscape
+      // 5. Tambahkan halaman MultiPage (landscape A4)
       pdf.addPage(
         pw.MultiPage(
           pageFormat: PdfPageFormat.a4.landscape,
           build: (_) => [
+            // HEADER: judul, info wilayah & bulan, total berat, dan logo
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
@@ -99,6 +97,7 @@ class PdfGeneratorController extends GetxController {
               ],
             ),
             pw.SizedBox(height: 16),
+            // TABEL: header row + data rows
             pw.Table(
               border: pw.TableBorder.all(color: PdfColors.grey),
               defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
@@ -114,7 +113,7 @@ class PdfGeneratorController extends GetxController {
                 8: pw.FlexColumnWidth(2),
               },
               children: [
-                // HEADER ROW
+                // Baris HEADER dengan warna background abu-abu
                 pw.TableRow(
                   decoration: pw.BoxDecoration(color: PdfColors.grey300),
                   children: [
@@ -138,75 +137,65 @@ class PdfGeneratorController extends GetxController {
                     );
                   }).toList(),
                 ),
-                // DATA ROWS
+                // Baris DATA: looping sesuai jumlah laporan
                 for (var i = 0; i < laporanList.length; i++)
                   pw.TableRow(
                     children: [
+                      // Kolom NO
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
-                        child: pw.Text('${i + 1}',
-                            textAlign: pw.TextAlign.center),
+                        child: pw.Text('${i + 1}', textAlign: pw.TextAlign.center),
                       ),
+                      // Kolom TGL
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
-                        child: pw.Text(dfTgl.format(laporanList[i].createdAt),
-                            textAlign: pw.TextAlign.center),
+                        child: pw.Text(dfTgl.format(laporanList[i].createdAt), textAlign: pw.TextAlign.center),
                       ),
+                      // Kolom NAMA
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
-                        child: pw.Text(laporanList[i].name,
-                            textAlign: pw.TextAlign.center),
+                        child: pw.Text(laporanList[i].name, textAlign: pw.TextAlign.center),
                       ),
+                      // Kolom total basah
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
-                        child: pw.Text(
-                            '${laporanList[i].formattedWeightBasah} kg',
-                            textAlign: pw.TextAlign.center),
+                        child: pw.Text('${laporanList[i].formattedWeightBasah} kg', textAlign: pw.TextAlign.center),
                       ),
+                      // Gambar basah sebelum
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
                         child: pw.Container(
                           height: 60,
-                          child: pw.Image(
-                            gambarBasahList[i][0],
-                            fit: pw.BoxFit.cover,
-                          ),
+                          child: pw.Image(gambarBasahList[i][0], fit: pw.BoxFit.cover),
                         ),
                       ),
+                      // Gambar basah sesudah
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
                         child: pw.Container(
                           height: 60,
-                          child: pw.Image(
-                            gambarBasahList[i][1],
-                            fit: pw.BoxFit.cover,
-                          ),
+                          child: pw.Image(gambarBasahList[i][1], fit: pw.BoxFit.cover),
                         ),
                       ),
+                      // Kolom total kering
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
-                        child: pw.Text(
-                            '${laporanList[i].formattedWeightKering} kg',
-                            textAlign: pw.TextAlign.center),
+                        child: pw.Text('${laporanList[i].formattedWeightKering} kg', textAlign: pw.TextAlign.center),
                       ),
+                      // Gambar kering sebelum
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
                         child: pw.Container(
                           height: 60,
-                          child: pw.Image(
-                            gambarKeringList[i][0],
-                            fit: pw.BoxFit.cover,
-                          ),
+                          child: pw.Image(gambarKeringList[i][0], fit: pw.BoxFit.cover),
                         ),
                       ),
+                      // Gambar kering sesudah
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
                         child: pw.Container(
                           height: 60,
-                          child: pw.Image(
-                            gambarKeringList[i][1],
-                            fit: pw.BoxFit.cover,
-                          ),
+                          child: pw.Image(gambarKeringList[i][1], fit: pw.BoxFit.cover),
                         ),
                       ),
                     ],
@@ -217,26 +206,26 @@ class PdfGeneratorController extends GetxController {
         ),
       );
 
-      // 6. Simpan & buka PDF dengan nama timestamp
+      // 6. Simpan file PDF ke direktori aplikasi dan buka
       final dir = await getApplicationDocumentsDirectory();
-
-      // ** HANYA BAGIAN INI YANG DIUBAH: **
       final safeRegion = selectedWilayah.replaceAll(' ', '_');
-      final fileName =
-          'Laporan_Pengangkutan_Sampah_${safeRegion}_$selectedBulan.pdf';
+      final fileName = 'Laporan_Pengangkutan_Sampah_${safeRegion}_$selectedBulan.pdf';
       final outFile = File('${dir.path}/$fileName');
 
+      // Tulis data PDF ke file
       await outFile.writeAsBytes(await pdf.save());
 
+      // Buka file PDF secara otomatis
       await OpenFile.open(outFile.path);
     } catch (e) {
+      // Jika ada kesalahan saat generate atau simpan
       Get.snackbar(
         'Error',
-        'Gagal generate atau simpan PDF: $e',
+        'Gagal generate atau simpan PDF: \$e',
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
-      // Matikan loading indicator
+      // Matikan loading indicator meski sukses atau error
       isGenerating.value = false;
     }
   }
