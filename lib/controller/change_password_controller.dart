@@ -1,6 +1,4 @@
 // lib/controller/change_password_controller.dart
-
-import 'package:bersihku/const.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +81,7 @@ class ChangePasswordController extends GetxController {
         'Sukses',
         'Password berhasil diubah',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: primaryColor,
+        backgroundColor: Color.fromARGB(255, 22, 192, 113),
         colorText: Colors.white,
       );
 

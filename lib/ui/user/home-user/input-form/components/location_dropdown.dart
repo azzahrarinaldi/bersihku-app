@@ -31,8 +31,10 @@ class _LocationDropdownState extends State<LocationDropdown> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DropdownButtonFormField<String>(
+          dropdownColor: Colors.white,
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(7)),
+            focusColor: Colors.white
           ),
           items: locationMap.keys.map((lokasi) {
             return DropdownMenuItem(

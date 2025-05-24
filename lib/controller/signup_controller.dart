@@ -65,7 +65,7 @@ class RegisterController extends GetxController {
 
         Get.snackbar('Sukses', 'Registrasi berhasil! Silakan login.',
             snackPosition: SnackPosition.TOP,
-            backgroundColor: Colors.green,
+            backgroundColor: Color.fromARGB(255, 22, 192, 113),
             colorText: Colors.white);
 
         Get.offAll(() => const LoginScreen());
@@ -126,11 +126,12 @@ class RegisterController extends GetxController {
           'Sukses',
           'Berhasil daftar/login dengan Google!',
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green,
+          backgroundColor: Color.fromARGB(255, 22, 192, 113),
           colorText: Colors.white,
         );
 
-        Get.offAllNamed('/login');
+        Get.offAll(() => const LoginScreen());
+
       }
     } catch (e) {
       Get.snackbar('Gagal login Google', e.toString(),

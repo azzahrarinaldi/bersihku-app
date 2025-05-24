@@ -50,8 +50,8 @@ class LoginController extends GetxController {
             'Sukses',
             'Berhasil login',
             snackPosition: SnackPosition.TOP,
-            backgroundColor: Colors.white,
-            colorText: Colors.black,
+            backgroundColor: Color.fromARGB(255, 22, 192, 113),
+            colorText: Colors.white
           );
 
           if (role == 'admin') {
@@ -111,8 +111,8 @@ class LoginController extends GetxController {
             'Sukses',
             'Berhasil login dengan Google',
             snackPosition: SnackPosition.TOP,
-            backgroundColor: Colors.white,
-            colorText: Colors.black,
+            backgroundColor: Color.fromARGB(255, 22, 192, 113),
+            colorText: Colors.white,
           );
 
           if (role == 'admin') {
