@@ -130,7 +130,7 @@ class RegisterController extends GetxController {
           colorText: Colors.white,
         );
 
-        Get.offAll(() => const LoginScreen());
+        Get.offAllNamed('/login');
 
       }
     } catch (e) {

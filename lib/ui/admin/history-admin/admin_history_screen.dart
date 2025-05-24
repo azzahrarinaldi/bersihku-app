@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:bersihku/ui/admin/history-admin/components/toggle_button_reprt.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -14,8 +15,18 @@ class AdminHistoryScreen extends StatelessWidget {
   const AdminHistoryScreen({super.key});
 
   final List<String> bulanList = const [
-    'Januari','Februari','Maret','April','Mei','Juni',
-    'Juli','Agustus','September','Oktober','November','Desember'
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
   ];
 
   @override
@@ -88,13 +99,20 @@ class AdminHistoryScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      Expanded(child: _buildToggleButton(historyCtrl, true, 'Laporan Harian')),
+                      Expanded(
+                          child: ToggleButtonReport(
+                              ctrl: historyCtrl,
+                              daily: true,
+                              label: 'Laporan Harian')),
                       const SizedBox(width: 10),
-                      Expanded(child: _buildToggleButton(historyCtrl, false, 'Laporan Bulanan')),
+                      Expanded(
+                          child: ToggleButtonReport(
+                              ctrl: historyCtrl,
+                              daily: false,
+                              label: 'Laporan Bulanan')),
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 16),
 
                 // 🗂 Konten putih: dropdown, button, list
@@ -102,7 +120,8 @@ class AdminHistoryScreen extends StatelessWidget {
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(20),
@@ -117,7 +136,8 @@ class AdminHistoryScreen extends StatelessWidget {
                                   Expanded(
                                     flex: 1,
                                     child: DropdownBulan(
-                                      selectedBulan: historyCtrl.selectedBulan.value,
+                                      selectedBulan:
+                                          historyCtrl.selectedBulan.value,
                                       bulanList: bulanList,
                                       onChanged: (v) {
                                         historyCtrl.selectedBulan.value = v;
@@ -129,9 +149,12 @@ class AdminHistoryScreen extends StatelessWidget {
                                   Expanded(
                                     flex: 2,
                                     child: DropDownWilayahHistory(
-                                      selectedWilayah: historyCtrl.selectedWilayah.value,
-                                      wilayahList: historyCtrl.wilayahList.toList(),
-                                      onChanged: (v) => historyCtrl.updateWilayah(v),
+                                      selectedWilayah:
+                                          historyCtrl.selectedWilayah.value,
+                                      wilayahList:
+                                          historyCtrl.wilayahList.toList(),
+                                      onChanged: (v) =>
+                                          historyCtrl.updateWilayah(v),
                                     ),
                                   ),
                                 ],
@@ -144,7 +167,8 @@ class AdminHistoryScreen extends StatelessWidget {
 
                           // Generate PDF / Loading
                           Obx(() {
-                            if (historyCtrl.isDaily.value) return const SizedBox.shrink();
+                            if (historyCtrl.isDaily.value)
+                              return const SizedBox.shrink();
                             if (pdfCtrl.isGenerating.value) {
                               return Center(
                                 child: SizedBox(
@@ -166,9 +190,12 @@ class AdminHistoryScreen extends StatelessWidget {
                               alignment: Alignment.centerRight,
                               child: TextButton(
                                 onPressed: () => pdfCtrl.generatePdfFile(
-                                  laporanList: historyCtrl.filteredLaporanList.toList(),
-                                  selectedBulan: historyCtrl.selectedBulan.value,
-                                  selectedWilayah: historyCtrl.selectedWilayah.value,
+                                  laporanList:
+                                      historyCtrl.filteredLaporanList.toList(),
+                                  selectedBulan:
+                                      historyCtrl.selectedBulan.value,
+                                  selectedWilayah:
+                                      historyCtrl.selectedWilayah.value,
                                   isDaily: historyCtrl.isDaily.value,
                                 ),
                                 child: const Text(
@@ -189,7 +216,8 @@ class AdminHistoryScreen extends StatelessWidget {
                           // List Riwayat
                           Expanded(
                             child: Obx(() => AdminHistoryList(
-                                  data: historyCtrl.filteredLaporanList.toList(),
+                                  data:
+                                      historyCtrl.filteredLaporanList.toList(),
                                 )),
                           ),
                         ],
@@ -220,7 +248,8 @@ class AdminHistoryScreen extends StatelessWidget {
         child: Container(
           height: 40,
           decoration: BoxDecoration(
-            color: sel ? const Color(0xFFFDD835) : Colors.white.withOpacity(0.3),
+            color:
+                sel ? const Color(0xFFFDD835) : Colors.white.withOpacity(0.3),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
