@@ -108,7 +108,7 @@ class PdfGeneratorController extends GetxController {
                 2: pw.FlexColumnWidth(1.4),
                 3: pw.FlexColumnWidth(0.8),
                 4: pw.FlexColumnWidth(2),
-                5: pw.FlexColumnWidth(),
+                5: pw.FlexColumnWidth(2),
                 6: pw.FlexColumnWidth(0.8),
                 7: pw.FlexColumnWidth(2),
                 8: pw.FlexColumnWidth(2),
