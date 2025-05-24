@@ -15,7 +15,8 @@ class AdminHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // format tanggal & waktu
-    final formattedDate = DateFormat('EEEE, d MMMM yyyy', 'id').format(data.createdAt);
+    final formattedDate =
+        DateFormat('EEEE, d MMMM yyyy', 'id').format(data.createdAt);
     final formattedTime = DateFormat('HH:mm', 'id').format(data.createdAt);
 
     return Container(
@@ -33,10 +34,17 @@ class AdminHistoryCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 20,
+                backgroundColor: Colors.grey[300],
                 backgroundImage: data.profilePicture.isNotEmpty
                     ? NetworkImage(data.profilePicture)
-                    : const AssetImage('assets/images/profile-laporan-img.png')
-                        as ImageProvider,
+                    : null,
+                child: data.profilePicture.isEmpty
+                    ? Icon(
+                        Icons.person,
+                        size: 20,
+                        color: Colors.grey[600],
+                      )
+                    : null,
               ),
               const SizedBox(width: 10),
               Column(
@@ -95,8 +103,10 @@ class AdminHistoryCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(formattedDate, style: const TextStyle(fontSize: 12, color: textColor)),
-                Text(formattedTime,  style: const TextStyle(fontSize: 12, color: textColor)),
+                Text(formattedDate,
+                    style: const TextStyle(fontSize: 12, color: textColor)),
+                Text(formattedTime,
+                    style: const TextStyle(fontSize: 12, color: textColor)),
               ],
             ),
           ),
@@ -113,14 +123,11 @@ class AdminHistoryCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-              "Total Sampah Basah", 
-                style: TextStyle(
-                  fontSize: 12, 
-                  fontWeight: FontWeight.w600, 
-                  color: Colors.black
-                )
-              ),
+              const Text("Total Sampah Basah",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black)),
               Text(
                 '${data.formattedWeightBasah} Kg',
                 style: const TextStyle(
@@ -135,14 +142,11 @@ class AdminHistoryCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-              "Total Sampah Kering", 
-                style: TextStyle(
-                  fontSize: 12, 
-                  fontWeight: FontWeight.w600, 
-                  color: Colors.black
-                )
-              ),
+              const Text("Total Sampah Kering",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black)),
               Text(
                 '${data.formattedWeightKering} Kg',
                 style: const TextStyle(
