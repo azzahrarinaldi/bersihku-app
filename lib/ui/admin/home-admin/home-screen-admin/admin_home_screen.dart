@@ -80,7 +80,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           },
                           child: Obx(() {
                             return Padding(
-                              padding: const EdgeInsets.only(bottom: 75),
+                              padding: const EdgeInsets.only(bottom: 100),
                               child: ListView.builder(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
