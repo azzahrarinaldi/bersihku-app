@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bersihku/ui/admin/home-admin/home-screen-admin/admin_home_screen.dart';
 import 'package:bersihku/ui/admin/profile-admin/profile-admin-screen/profile_admin_screen.dart';
 import 'package:bersihku/ui/user/profile-user/profile-user-screen/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -125,9 +126,9 @@ class UserSettingController extends GetxController {
 
       // Redirect based on role
       if (role == 'admin') {
-        Get.off(() => ProfileScreenAdmin());
+        Get.off(() => AdminHomeScreen());
       } else {
-        Get.off(() => ProfileScreen());
+        Get.off(() => AdminHomeScreen());
       }
     } on FirebaseAuthException catch (e) {
       final msg = e.code == 'requires-recent-login'
