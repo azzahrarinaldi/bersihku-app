@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     Future.delayed(Duration(seconds: 4), () { 
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/on-boarding');
     });
   }

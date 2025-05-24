@@ -20,8 +20,8 @@ Future<Map<String, dynamic>> processImageInIsolate(Map<String, dynamic> args) as
   img.drawString(image, font, pad, baseY + lineHeight * 0, timestamp, color: color);
   img.drawString(image, font, pad, baseY + lineHeight * 1, petugas, color: color);
 
-  String locationLine1 = lokasi.length > 50 ? lokasi.substring(0, 50) + '...' : lokasi;
-  String locationLine2 = lokasi.length > 100 ? lokasi.substring(50, 100) + '...' : '';
+  String locationLine1 = lokasi.length > 50 ? '${lokasi.substring(0, 50)}...' : lokasi;
+  String locationLine2 = lokasi.length > 100 ? '${lokasi.substring(50, 100)}...' : '';
 
   img.drawString(image, font, pad, baseY + lineHeight * 2, locationLine1, color: color);
   if (locationLine2.isNotEmpty) {

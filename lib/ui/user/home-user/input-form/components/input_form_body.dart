@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:bersihku/const.dart';
 import 'package:bersihku/ui/user/home-user/input-form/components/form_field_row.dart';

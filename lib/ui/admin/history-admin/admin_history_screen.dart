@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -9,7 +11,7 @@ import 'components/dropdown_wilayah_history.dart';
 import 'components/admin_history_list.dart';
 
 class AdminHistoryScreen extends StatelessWidget {
-  AdminHistoryScreen({Key? key}) : super(key: key);
+  const AdminHistoryScreen({super.key});
 
   final List<String> bulanList = const [
     'Januari','Februari','Maret','April','Mei','Juni',

@@ -19,6 +19,7 @@ class AdminBottomNavBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
+          // ignore: deprecated_member_use
           top: BorderSide(color: Colors.grey.withOpacity(0.2)),
         )
       ),

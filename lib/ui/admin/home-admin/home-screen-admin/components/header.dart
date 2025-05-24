@@ -48,6 +48,7 @@ class HeaderSection extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: Colors.white.withOpacity(0.6),
             ),
             child: Text(

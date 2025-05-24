@@ -19,6 +19,7 @@ class ProfileOption extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.1),
             spreadRadius: 3,
             blurRadius: 30,

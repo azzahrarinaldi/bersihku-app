@@ -12,7 +12,6 @@ class AuthService {
       );
       return result.user;
     } catch (e) {
-      print("Register error: $e");
       return null;
     }
   }
@@ -26,7 +25,6 @@ class AuthService {
       );
       return result.user;
     } catch (e) {
-      print("Login error: $e");
       return null;
     }
   }

@@ -112,6 +112,7 @@ class UserSettingController extends GetxController {
         await user.updatePassword(newPassword);
       }
       if (user.email != newEmail) {
+        // ignore: deprecated_member_use
         await user.updateEmail(newEmail);
       }
 

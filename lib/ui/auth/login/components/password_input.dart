@@ -6,6 +6,7 @@ class PasswordInput extends StatefulWidget {
   const PasswordInput({super.key, required this.controller});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PasswordInputState createState() => _PasswordInputState();
 }
 

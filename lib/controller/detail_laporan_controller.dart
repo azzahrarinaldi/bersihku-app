@@ -35,6 +35,7 @@ class DetailLaporanController extends GetxController {
       }
       laporanList.assignAll(temp);
     } catch (e, st) {
+      // ignore: avoid_print
       print('Error fetchData DetailLaporanController: $e\n$st');
     }
   }

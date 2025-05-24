@@ -75,8 +75,6 @@ class DetailDataSupirController extends GetxController {
         );
       }
 
-    } catch (e) {
-      print("Error @DetailDataSupirController: $e");
     } finally {
       isLoading.value = false;
     }

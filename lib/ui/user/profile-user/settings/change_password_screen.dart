@@ -24,8 +24,11 @@ class ChangePasswordScreen extends StatelessWidget {
                 color: Colors.grey,
               ),
               onPressed: () {
-                if (obscure == c.obscureOld) c.toggleObscureOld();
-                else if (obscure == c.obscureNew) c.toggleObscureNew();
+                if (obscure == c.obscureOld) {
+                  c.toggleObscureOld();
+                // ignore: curly_braces_in_flow_control_structures
+                } else if (obscure == c.obscureNew) c.toggleObscureNew();
+                // ignore: curly_braces_in_flow_control_structures
                 else c.toggleObscureConfirm();
               },
             )),

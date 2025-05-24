@@ -23,7 +23,7 @@ class FieldWithLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextInputFormatter _plateFormatter = TextInputFormatter.withFunction(
+    final TextInputFormatter plateFormatter = TextInputFormatter.withFunction(
       (oldValue, newValue) {
         if (isPlate) {
           String cleaned =
@@ -75,7 +75,7 @@ class FieldWithLabel extends StatelessWidget {
                 textCapitalization: isPlate
                     ? TextCapitalization.characters
                     : TextCapitalization.none,
-                inputFormatters: isPlate ? [_plateFormatter] : [],
+                inputFormatters: isPlate ? [plateFormatter] : [],
                 keyboardType: isPlate
                     ? TextInputType.text
                     : const TextInputType.numberWithOptions(decimal: true),

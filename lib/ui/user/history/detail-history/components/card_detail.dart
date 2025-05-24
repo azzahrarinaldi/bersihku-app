@@ -9,8 +9,7 @@ import 'package:bersihku/const.dart';
 
 class CardDetailHistory extends StatelessWidget {
   final String documentId;
-  const CardDetailHistory({Key? key, required this.documentId})
-      : super(key: key);
+  const CardDetailHistory({super.key, required this.documentId});
 
   @override
   Widget build(BuildContext context) {

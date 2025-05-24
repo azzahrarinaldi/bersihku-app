@@ -21,11 +21,12 @@ class UploadImagePlaceholder extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _UploadImagePlaceholderState createState() => _UploadImagePlaceholderState();
 }
 
 class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
-  List<Map<String, String>> _imagePaths = [];
+  final List<Map<String, String>> _imagePaths = [];
   bool _isLoading = false;
 
   Future<void> _pickImage() async {

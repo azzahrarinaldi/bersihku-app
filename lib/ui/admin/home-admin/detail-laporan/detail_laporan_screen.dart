@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:bersihku/controller/laporan_masuk_controller.dart';
 import 'package:bersihku/controller/detail_laporan_controller.dart';
 import 'package:bersihku/models/detail_laporan_model.dart';

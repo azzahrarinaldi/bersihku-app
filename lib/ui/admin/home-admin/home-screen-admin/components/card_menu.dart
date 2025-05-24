@@ -25,6 +25,7 @@ class CardMenu extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
+        // ignore: deprecated_member_use
         border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1),
       ),
       child: Row(

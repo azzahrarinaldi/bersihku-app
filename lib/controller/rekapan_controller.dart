@@ -52,7 +52,6 @@ class RekapanController extends GetxController {
     } catch (e) {
       totalBerat.value = 0.0;
       wilayahTerbanyak.value = 'Error';
-      print('Error di fetchData Rekapan: $e');
     }
   }
 }

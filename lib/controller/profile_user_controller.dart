@@ -123,6 +123,7 @@ class ProfileUserController extends GetxController {
         await userAuth.updatePassword(newPassword);
       }
       if (userAuth.email != newEmail) {
+        // ignore: deprecated_member_use
         await userAuth.updateEmail(newEmail);
       }
 

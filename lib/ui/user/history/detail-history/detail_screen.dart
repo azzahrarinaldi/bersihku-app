@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class DetailScreenHistory extends StatelessWidget {
   final String documentId;
-  DetailScreenHistory({Key? key, required this.documentId, required this.tagId}) : super(key: key);
+  const DetailScreenHistory({super.key, required this.documentId, required this.tagId});
 
   // Pasang controller dengan tag unik
   final String tagId;

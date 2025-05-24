@@ -39,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false, 
             expandedHeight: size.height * 0.4,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(

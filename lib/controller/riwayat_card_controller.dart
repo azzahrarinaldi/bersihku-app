@@ -2,7 +2,6 @@ import 'package:bersihku/models/riwayat_card_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class RiwayatController extends GetxController {
   var riwayatList = <RiwayatCardModel>[].obs;
@@ -34,7 +33,6 @@ class RiwayatController extends GetxController {
     }
 
     query.snapshots().listen((snap) {
-      print("==> Got ${snap.docs.length} laporan");
       riwayatList.value = snap.docs
         .map((d) => RiwayatCardModel.fromMap(d.data() as Map<String, dynamic>))
         .toList();

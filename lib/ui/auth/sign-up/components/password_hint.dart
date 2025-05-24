@@ -37,6 +37,7 @@ class _PasswordHintState extends State<PasswordHint> {
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
+        // ignore: deprecated_member_use
         color: isStrong ? Color(0xFF4AB1DA).withOpacity(0.1) : const Color(0xFFFFF6D9),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -59,6 +60,7 @@ class _PasswordHintState extends State<PasswordHint> {
                 height: 4,
                 margin: const EdgeInsets.symmetric(horizontal: 2),
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: isStrong ? Color(0xFF4AB1DA) : Colors.amber.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(4),
                 ),

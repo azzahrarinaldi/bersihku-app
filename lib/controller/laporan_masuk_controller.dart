@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bersihku/models/detail_laporan_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';

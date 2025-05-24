@@ -7,12 +7,12 @@ class ProfileHeader extends StatelessWidget {
   final double size;
 
   const ProfileHeader({
-    Key? key,
+    super.key,
     required this.name,
     required this.email,
     this.imageUrl,
     this.size = 80,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

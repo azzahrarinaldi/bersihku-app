@@ -29,6 +29,7 @@ class _SuccesScreenState extends State<SuccesScreen>
     // Auto redirect after 3 seconds
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
+        // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(builder: (_) => const UserHomeScreen()),
       );
