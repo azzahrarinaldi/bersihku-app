@@ -21,14 +21,20 @@ class NavigationButton extends StatelessWidget {
               elevation: 0,
                 onPressed: onPrev,
                 backgroundColor: Color(0xFF0CA5E2),
-                child: Icon(Icons.arrow_back, color: Colors.white),
+                child: Icon(
+                  Icons.arrow_back, 
+                  color: Colors.white
+                ),
               )
             : SizedBox(width: 56),
         FloatingActionButton(
           elevation: 0,
           onPressed: onNext,
           backgroundColor: Color(0xFF0CA5E2),
-          child: Icon(Icons.arrow_forward, color: Colors.white),
+          child: Icon(
+            Icons.arrow_forward, 
+            color: Colors.white
+          ),
         ),
       ],
     );

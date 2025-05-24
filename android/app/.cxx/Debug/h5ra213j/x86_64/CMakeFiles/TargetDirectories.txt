@@ -1,0 +1,2 @@
+C:/Users/djopr/Documents/RPL_2024/lomba/bersihku-app/android/app/.cxx/Debug/h5ra213j/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/djopr/Documents/RPL_2024/lomba/bersihku-app/android/app/.cxx/Debug/h5ra213j/x86_64/CMakeFiles/rebuild_cache.dir

@@ -39,12 +39,20 @@ class OnboardingContent extends StatelessWidget {
             child: Text(
               description,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Color(0xFF0CA5E2), fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 16, 
+                color: Color(0xFF0CA5E2), 
+                fontWeight: FontWeight.w600
+              ),
             ),
           ),
         ),
         SizedBox(height: 30), 
-        Image.asset(image, width: double.infinity, fit: BoxFit.contain),
+        Image.asset(
+          image, 
+          width: double.infinity, 
+          fit: BoxFit.contain
+        ),
       ],
     );
   }

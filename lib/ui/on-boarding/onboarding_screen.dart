@@ -73,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           _currentPage == onboardingData.length - 1
               ? Align(
-                  alignment: Alignment.center, // AuthButton di tengah
+                  alignment: Alignment.center, 
                   child: AuthButton(),
                 )
               : Positioned(

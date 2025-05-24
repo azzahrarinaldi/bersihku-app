@@ -1,16 +1,68 @@
-# bersihku
 
-A new Flutter project.
+# Bersihku App
 
-## Getting Started
+BersihKu is an app that streamlines waste collection by helping drivers log activities with photos and enabling admins to verify reports, manage drivers, and track schedules.
 
-This project is a starting point for a Flutter application.
+![bersihku-app](https://github.com/user-attachments/assets/68dbcda2-43e2-4b25-a50f-a87d004872d1)
 
-A few resources to get you started if this is your first Flutter project:
+                
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Authentication (Admin & user)
+- Report Form: Drivers submit waste collection reports. (User)
+- Issue Reporting: Send issues to admin via WhatsApp. (User)
+- Edit Profile: Update driver personal info. (User)
+- View Reports: Check incoming waste collection reports from drivers. (Admin)
+- Driver Information: Access and manage driver data. (Admin)
+- Collection History: View the latest waste collection records. (Admin)
+- Generate PDF: Export monthly reports to PDF based on selected area. (Admin)
+- Filtering Tools: Filter data by area, month, or use the search bar. (Admin)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Tech Stack
+
+**Frontend**
+- flutter
+- dart
+
+**Backend**
+- Authentication
+- Cloud Firestore
+- Firebase Storage
+
+**Database**
+- Cloud Firestore
+
+**Other Tools**
+- PDF Generator 
+- WhatsApp Integration
+- State Management (GetX)
+
+**Depedencies:** 
+- firebase_core
+- firebase_auth
+- cloud_firestore
+- provider
+- google_sign_in
+- shared_preferences
+- path_provider
+- url_launcher
+- image
+- get
+- pdf
+- loading_indicator
+- gelocator
+- firebase_storage
+- geocoding
+- intl
+- image_picker
+- open_file
+
+
+## Authors
+
+- [@zaza](https://github.com/azzahrarinaldi)
+- [@Kanaya](https://github.com/nayaaasss)
+- [@ney](https://github.com/nailaalfatin)
+- [@naura](https://github.com/naurarizky)
+
