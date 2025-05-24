@@ -131,8 +131,8 @@ class ProfileUserController extends GetxController {
         'Sukses',
         'Profil berhasil diperbarui',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.white,
-        colorText: Colors.black,
+        backgroundColor: Color.fromARGB(255, 22, 192, 113),
+        colorText: Colors.white,
       );
 
       if (role == 'admin') {
@@ -183,7 +183,7 @@ class ProfileUserController extends GetxController {
         'Sukses', 
         'Foto profil berhasil dihapus',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: const Color(0xFF4EBAE5),
+        backgroundColor: Color.fromARGB(255, 22, 192, 113),
         colorText: Colors.white
       );
     } catch (e) {
@@ -204,8 +204,8 @@ class ProfileUserController extends GetxController {
         'Sukses',
         'Anda telah keluar.',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.white,
-        colorText: Colors.black,
+        backgroundColor: Color.fromARGB(255, 22, 192, 113),
+        colorText: Colors.white,
       );
       Get.offAll(() => LoginScreen());
     } catch (e) {

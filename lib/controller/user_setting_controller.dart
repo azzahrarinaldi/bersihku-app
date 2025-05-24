@@ -120,8 +120,8 @@ class UserSettingController extends GetxController {
         'Sukses',
         'Profil berhasil diperbarui',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.white,
-        colorText: Colors.black,
+        backgroundColor: Color.fromARGB(255, 22, 192, 113),
+        colorText: Colors.white,
       );
 
       // Redirect based on role
@@ -175,7 +175,7 @@ class UserSettingController extends GetxController {
       profileImageUrl.value = '';
       Get.snackbar('Sukses', 'Foto profil berhasil dihapus',
           snackPosition: SnackPosition.TOP,
-          backgroundColor: const Color(0xFF4EBAE5),
+          backgroundColor: Color.fromARGB(255, 22, 192, 113),
           colorText: Colors.white);
     } catch (e) {
       Get.snackbar('Error', 'Tidak bisa menghapus foto: $e',

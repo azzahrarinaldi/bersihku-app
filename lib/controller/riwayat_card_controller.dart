@@ -25,7 +25,7 @@ class RiwayatController extends GetxController {
 
     Query query = FirebaseFirestore.instance
         .collection('laporan_pengangkutan')
-        .orderBy('created_at', descending: true)  // pake created_at
+        .orderBy('created_at', descending: true)
         .limit(3);
 
     if (!isAdmin) {

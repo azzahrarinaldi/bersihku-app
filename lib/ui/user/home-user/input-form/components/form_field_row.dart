@@ -23,6 +23,7 @@ class FieldWithLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // format untuk plat nomor
     final TextInputFormatter plateFormatter = TextInputFormatter.withFunction(
       (oldValue, newValue) {
         if (isPlate) {

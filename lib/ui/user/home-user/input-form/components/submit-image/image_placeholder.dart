@@ -1,9 +1,11 @@
+// upload_image_placeholder.dart
+// ignore_for_file: use_build_context_synchronously
 import 'dart:io';
-
 import 'package:bersihku/handler/image_picker_services.dart';
 import 'package:bersihku/services/location_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';      
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart'; // for compute()
+import 'package:flutter/foundation.dart';                  
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -22,7 +24,6 @@ class UploadImagePlaceholder extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _UploadImagePlaceholderState createState() => _UploadImagePlaceholderState();
 }
 
@@ -34,42 +35,61 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
     setState(() => _isLoading = true);
     try {
       final path = await ImagePickerServices.pickImage();
-      if (path == null || !mounted) return;
+      if (path == null || !mounted) {
+        setState(() => _isLoading = false);
+        return;
+      }
 
+      // 1. Read raw bytes
       final file = File(path);
       final raw = await file.readAsBytes();
 
+      // 2. Build timestamp string
       final now = DateTime.now();
       final timestamp =
-          '${_twoDigits(now.day)}-${_twoDigits(now.month)}-${now.year} ${_twoDigits(now.hour)}:${_twoDigits(now.minute)}:${_twoDigits(now.second)}';
+          '${_twoDigits(now.day)}-${_twoDigits(now.month)}-${now.year} '
+          '${_twoDigits(now.hour)}:${_twoDigits(now.minute)}:${_twoDigits(now.second)}';
 
+      // 3. Ambil UID user
       final user = FirebaseAuth.instance.currentUser;
-      final petugas = user?.displayName ?? '[Unknown]';
-      final lokasi = await LocationService.getLocationText();
+      if (user == null) throw 'User belum login';
 
+      // 4. Ambil nama petugas dari Firestore
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      final petugasName = doc.data()?['name'] as String? ?? '[Unknown]';
+
+      // 5. Ambil lokasi
+      final lokasiText = await LocationService.getLocationText();
+
+      // 6. Proses di isolate
       final result = await compute(processImageInIsolate, {
         'raw': raw,
         'timestamp': timestamp,
-        'petugas': petugas,
-        'lokasi': lokasi,
+        'petugas': petugasName,    // <-- pakai Firestore name
+        'lokasi': lokasiText,
         'path': path,
       });
 
-      final filename = result['filename'];
-      final bytes = result['bytes'];
-
+      // 7. Simpan hasil ke file
+      final filename = result['filename'] as String;
+      final bytes = result['bytes'] as List<int>;
       final outPath = '${file.parent.path}/$filename';
-      final outFile = await File(outPath).writeAsBytes(bytes);
+      await File(outPath).writeAsBytes(bytes);
 
+      // 8. Update state & callback
       setState(() {
-        _imagePaths.add({'path': outFile.path, 'timestamp': now.toIso8601String()});
+        _imagePaths.add({
+          'path': outPath,
+          'timestamp': now.toIso8601String(),
+        });
         _isLoading = false;
       });
-
       widget.onImagesChanged(_imagePaths);
-    } catch (e, st) {
+    } catch (e) {
       debugPrint('Error in _pickImage: $e');
-      debugPrint(st.toString());
       setState(() => _isLoading = false);
     }
   }
@@ -164,11 +184,10 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
             ),
           ),
         if (_isLoading)
-          Container(
-            alignment: Alignment.center,
+          const SizedBox(
             height: 50,
             width: 50,
-            child: const LoadingIndicator(
+            child: LoadingIndicator(
               indicatorType: Indicator.ballPulse,
               colors: [Color(0xFF9AE2FF), Color(0xFFF9E071), Color(0xFFF29753)],
               strokeWidth: 2,
