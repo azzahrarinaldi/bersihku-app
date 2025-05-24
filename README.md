@@ -3,7 +3,7 @@
 
 BersihKu is an app that streamlines waste collection by helping drivers log activities with photos and enabling admins to verify reports, manage drivers, and track schedules.
 
-![Bersihku-APP](https://github.com/user-attachments/assets/68dbcda2-43e2-4b25-a50f-a87d004872d1)
+![bersihku-app](https://github.com/user-attachments/assets/68dbcda2-43e2-4b25-a50f-a87d004872d1)
 
                 
 ## Features
