@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:bersihku/ui/admin/profile-admin/profile-admin-screen/profile_admin_screen.dart';
-import 'package:bersihku/ui/user/profile-user/profile-user-screen/profile_screen.dart';
+import 'package:bersihku/ui/admin/home-admin/home-screen-admin/admin_home_screen.dart';
+import 'package:bersihku/ui/user/home-user/home-screen-user/user_home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -124,10 +124,19 @@ class UserSettingController extends GetxController {
       );
 
       // Redirect based on role
-      if (role == 'admin') {
-        Get.off(() => ProfileScreenAdmin());
+     if (role.trim().toLowerCase() == 'admin') {
+        Get.offAll(() => AdminHomeScreen());
+      } else if (role.trim().toLowerCase() == 'user') {
+        Get.offAll(() => UserHomeScreen());
       } else {
-        Get.off(() => ProfileScreen());
+        // fallback kalau role tidak dikenali
+        Get.snackbar(
+          'Error',
+          'Role tidak dikenali: $role',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       }
     } on FirebaseAuthException catch (e) {
       final msg = e.code == 'requires-recent-login'

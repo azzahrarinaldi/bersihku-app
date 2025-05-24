@@ -101,8 +101,8 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
     img.drawString(image, font, pad, baseY + lineHeight * 0, timestamp, color: color);
     img.drawString(image, font, pad, baseY + lineHeight * 1, petugas, color: color);
 
-    String loc1 = lokasi.length > 50 ? lokasi.substring(0, 50) + '...' : lokasi;
-    String loc2 = lokasi.length > 100 ? lokasi.substring(50, 100) + '...' : '';
+    String loc1 = lokasi.length > 50 ? '${lokasi.substring(0, 50)}...' : lokasi;
+    String loc2 = lokasi.length > 100 ? '${lokasi.substring(50, 100)}...' : '';
 
     img.drawString(image, font, pad, baseY + lineHeight * 2, loc1, color: color);
     if (loc2.isNotEmpty) {

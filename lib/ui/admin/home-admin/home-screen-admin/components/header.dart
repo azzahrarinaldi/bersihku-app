@@ -30,14 +30,14 @@ class HeaderSection extends StatelessWidget {
                     "Selamat Datang,",
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
-                  Text(
-                    "${userController.userName.value} 👋🏻", // Akses data userName
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  Obx(() => Text(
+                        "${userController.userName.value.isNotEmpty ? userController.userName.value : "Loading..."} 👋🏻",
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )),
                 ],
               ),
             ],

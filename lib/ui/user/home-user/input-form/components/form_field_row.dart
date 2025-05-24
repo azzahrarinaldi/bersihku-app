@@ -26,15 +26,21 @@ class FieldWithLabel extends StatelessWidget {
     final TextInputFormatter _plateFormatter = TextInputFormatter.withFunction(
       (oldValue, newValue) {
         if (isPlate) {
-          String cleaned = newValue.text.toUpperCase().replaceAll(RegExp(r'[^A-Z0-9]'), '');
+          String cleaned =
+              newValue.text.toUpperCase().replaceAll(RegExp(r'[^A-Z0-9]'), '');
 
           // Contoh format sederhana: B 1234 XYZ
           String formatted = cleaned;
-          if (cleaned.length >= 1 && cleaned.length <= 9) {
+          if (cleaned.isNotEmpty && cleaned.length <= 9) {
             final buffer = StringBuffer();
-            if (cleaned.length >= 1) buffer.write(cleaned.substring(0, 1));
-            if (cleaned.length >= 2) buffer.write(' ${cleaned.substring(1, cleaned.length.clamp(2, 5))}');
-            if (cleaned.length > 5) buffer.write(' ${cleaned.substring(5)}');
+            buffer.write(cleaned[0]);
+            if (cleaned.length >= 2) {
+              buffer.write(
+                  ' ${cleaned.substring(1, cleaned.length.clamp(2, 5))}');
+            }
+            if (cleaned.length > 5) {
+              buffer.write(' ${cleaned.substring(5)}');
+            }
             formatted = buffer.toString();
           }
 
@@ -66,15 +72,20 @@ class FieldWithLabel extends StatelessWidget {
                 controller: controller,
                 validator: validator,
                 readOnly: readOnly,
-                textCapitalization: isPlate ? TextCapitalization.characters : TextCapitalization.none,
+                textCapitalization: isPlate
+                    ? TextCapitalization.characters
+                    : TextCapitalization.none,
                 inputFormatters: isPlate ? [_plateFormatter] : [],
-                keyboardType: isPlate ? TextInputType.text : const TextInputType.numberWithOptions(decimal: true),
+                keyboardType: isPlate
+                    ? TextInputType.text
+                    : const TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
                   isDense: true,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 ),
               ),
             ),
