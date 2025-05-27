@@ -4,12 +4,13 @@ import 'package:image_picker/image_picker.dart';
 class ImagePickerServices {
   static Future<String?> pickImage(BuildContext context) async {
     final result = await showModalBottomSheet<ImageSource>(
+      backgroundColor: Colors.white,
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (ctx) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -19,13 +20,12 @@ class ImagePickerServices {
               onTap: () => Navigator.pop(ctx, ImageSource.camera),
             ),
             ListTile(
-              leading: const Icon(Icons.photo),
+              leading: const Icon(Icons.photo_library),
               title: const Text('Pilih dari Galeri'),
               onTap: () => Navigator.pop(ctx, ImageSource.gallery),
             ),
-            const Divider(),
             ListTile(
-              leading: const Icon(Icons.close),
+              leading: const Icon(Icons.close, color: Colors.red,),
               title: const Text('Batal'),
               onTap: () => Navigator.pop(ctx),
             ),
