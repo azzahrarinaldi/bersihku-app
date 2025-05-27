@@ -66,7 +66,6 @@ class RegisterController extends GetxController {
             .doc(user.uid)
             .set({
           'email': emailController.text.trim(),
-          'password': passwordController.text.trim(),
           'name': nameController.text.trim(),
           'phone': phoneController.text.trim(),
           'role': 'user',

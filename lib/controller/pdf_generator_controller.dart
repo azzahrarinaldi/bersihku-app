@@ -11,8 +11,39 @@ import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
 
 class PdfGeneratorController extends GetxController {
-  /// Flag untuk menandai saat PDF sedang diproses
   final RxBool isGenerating = false.obs;
+
+  List<pw.Widget> buildImageCells(List<pw.MemoryImage> images) {
+    const maxImages = 2;
+    final widgets = <pw.Widget>[];
+    for (var i = 0; i < images.length && i < maxImages; i++) {
+      widgets.add(
+        pw.Container(
+          height: 90,
+          width: 90,
+          alignment: pw.Alignment.center, // center content
+          padding: const pw.EdgeInsets.all(8),
+          child: pw.Image(
+            images[i],
+            fit: pw.BoxFit.contain,
+          ),
+        ),
+      );
+    }
+    // placeholder kosong untuk gambar kurang dari 2
+    for (var i = images.length; i < maxImages; i++) {
+      widgets.add(
+        pw.Container(
+          height: 90,
+          width: 90,
+          alignment: pw.Alignment.center,
+          padding: const pw.EdgeInsets.all(8),
+          child: pw.Container(), // kosong
+        ),
+      );
+    }
+    return widgets;
+  }
 
   Future<void> generatePdfFile({
     required List<DetailLaporanModel> laporanList,
@@ -24,18 +55,16 @@ class PdfGeneratorController extends GetxController {
       Get.snackbar(
         'Oops',
         'Switch ke Laporan Bulanan dan pilih wilayah dulu',
-         snackPosition: SnackPosition.TOP,        
-         backgroundColor: Colors.white,        
-         colorText: Colors.black,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.white,
+        colorText: Colors.black,
       );
       return;
     }
 
     try {
-      // Aktifkan loading indicator
       isGenerating.value = true;
 
-      // 1. Hitung total semua sampah
       final totalSemua = laporanList
           .map((d) => d.weightBasah + d.weightKering)
           .fold<double>(0, (sum, w) => sum + w);
@@ -43,15 +72,12 @@ class PdfGeneratorController extends GetxController {
           ? totalSemua.toInt().toString()
           : totalSemua.toStringAsFixed(2);
 
-      // 2. Siapkan dokumen PDF
       final pdf = pw.Document();
       final dfTgl = DateFormat('d MMM yyyy', 'id');
 
-      // 3. Load logo dari asset
       final rawLogo = await rootBundle.load('assets/images/logo.png');
       final logoImage = pw.MemoryImage(rawLogo.buffer.asUint8List());
 
-      // 4. Pre–fetch gambar
       final gambarBasahList = <List<pw.MemoryImage>>[];
       final gambarKeringList = <List<pw.MemoryImage>>[];
       for (var d in laporanList) {
@@ -71,7 +97,6 @@ class PdfGeneratorController extends GetxController {
         gambarKeringList.add(kering);
       }
 
-      // 5. Bangun page PDF landscape
       pdf.addPage(
         pw.MultiPage(
           pageFormat: PdfPageFormat.a4.landscape,
@@ -107,14 +132,14 @@ class PdfGeneratorController extends GetxController {
                 1: pw.FlexColumnWidth(1.2),
                 2: pw.FlexColumnWidth(1.4),
                 3: pw.FlexColumnWidth(0.8),
-                4: pw.FlexColumnWidth(2),
-                5: pw.FlexColumnWidth(2),
+                4: pw.FlexColumnWidth(1.8),
+                5: pw.FlexColumnWidth(1.8),
                 6: pw.FlexColumnWidth(0.8),
-                7: pw.FlexColumnWidth(2),
-                8: pw.FlexColumnWidth(2),
+                7: pw.FlexColumnWidth(1.8),
+                8: pw.FlexColumnWidth(1.8),
               },
               children: [
-                // HEADER ROW
+                // Header Row
                 pw.TableRow(
                   decoration: pw.BoxDecoration(color: PdfColors.grey300),
                   children: [
@@ -138,19 +163,21 @@ class PdfGeneratorController extends GetxController {
                     );
                   }).toList(),
                 ),
-                // DATA ROWS
+
+                // Data Rows
                 for (var i = 0; i < laporanList.length; i++)
                   pw.TableRow(
                     children: [
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
-                        child: pw.Text('${i + 1}',
-                            textAlign: pw.TextAlign.center),
+                        child: pw.Text('${i + 1}', textAlign: pw.TextAlign.center),
                       ),
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
-                        child: pw.Text(dfTgl.format(laporanList[i].createdAt),
-                            textAlign: pw.TextAlign.center),
+                        child: pw.Text(
+                          dfTgl.format(laporanList[i].createdAt),
+                          textAlign: pw.TextAlign.center,
+                        ),
                       ),
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
@@ -163,52 +190,14 @@ class PdfGeneratorController extends GetxController {
                             '${laporanList[i].formattedWeightBasah} kg',
                             textAlign: pw.TextAlign.center),
                       ),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.all(4),
-                        child: pw.Container(
-                          height: 60,
-                          child: pw.Image(
-                            gambarBasahList[i][0],
-                            fit: pw.BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.all(4),
-                        child: pw.Container(
-                          height: 60,
-                          child: pw.Image(
-                            gambarBasahList[i][1],
-                            fit: pw.BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                      ...buildImageCells(gambarBasahList[i]),
                       pw.Padding(
                         padding: const pw.EdgeInsets.all(4),
                         child: pw.Text(
                             '${laporanList[i].formattedWeightKering} kg',
                             textAlign: pw.TextAlign.center),
                       ),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.all(4),
-                        child: pw.Container(
-                          height: 60,
-                          child: pw.Image(
-                            gambarKeringList[i][0],
-                            fit: pw.BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      pw.Padding(
-                        padding: const pw.EdgeInsets.all(4),
-                        child: pw.Container(
-                          height: 60,
-                          child: pw.Image(
-                            gambarKeringList[i][1],
-                            fit: pw.BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                      ...buildImageCells(gambarKeringList[i]),
                     ],
                   ),
               ],
@@ -217,10 +206,7 @@ class PdfGeneratorController extends GetxController {
         ),
       );
 
-      // 6. Simpan & buka PDF dengan nama timestamp
       final dir = await getApplicationDocumentsDirectory();
-
-      // ** HANYA BAGIAN INI YANG DIUBAH: **
       final safeRegion = selectedWilayah.replaceAll(' ', '_');
       final fileName =
           'Laporan_Pengangkutan_Sampah_${safeRegion}_$selectedBulan.pdf';
@@ -236,7 +222,6 @@ class PdfGeneratorController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
-      // Matikan loading indicator
       isGenerating.value = false;
     }
   }

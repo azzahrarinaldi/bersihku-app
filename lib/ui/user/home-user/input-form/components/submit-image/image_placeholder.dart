@@ -1,14 +1,11 @@
-// upload_image_placeholder.dart
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
-import 'package:bersihku/handler/image_picker_services.dart';
 import 'package:bersihku/services/location_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';      
+import 'package:bersihku/ui/user/home-user/input-form/components/submit-image/image_picker_logic.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';                  
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-
 import 'image_processing.dart';
 
 class UploadImagePlaceholder extends StatefulWidget {
@@ -24,7 +21,7 @@ class UploadImagePlaceholder extends StatefulWidget {
   });
 
   @override
-  _UploadImagePlaceholderState createState() => _UploadImagePlaceholderState();
+  State<UploadImagePlaceholder> createState() => _UploadImagePlaceholderState();
 }
 
 class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
@@ -34,57 +31,47 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
   Future<void> _pickImage() async {
     setState(() => _isLoading = true);
     try {
-      final path = await ImagePickerServices.pickImage();
+      final path = await ImagePickerServices.pickImage(context);
       if (path == null || !mounted) {
         setState(() => _isLoading = false);
         return;
       }
 
-      // 1. Read raw bytes
       final file = File(path);
       final raw = await file.readAsBytes();
 
-      // 2. Build timestamp string
       final now = DateTime.now();
       final timestamp =
           '${_twoDigits(now.day)}-${_twoDigits(now.month)}-${now.year} '
           '${_twoDigits(now.hour)}:${_twoDigits(now.minute)}:${_twoDigits(now.second)}';
 
-      // 3. Ambil UID user
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) throw 'User belum login';
 
-      // 4. Ambil nama petugas dari Firestore
       final doc = await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
           .get();
       final petugasName = doc.data()?['name'] as String? ?? '[Unknown]';
 
-      // 5. Ambil lokasi
-      final lokasiText = await LocationService.getLocationText();
+      final lokasiText =
+          await LocationService.getLocationText(timeout: const Duration(seconds: 5));
 
-      // 6. Proses di isolate
-      final result = await compute(processImageInIsolate, {
-        'raw': raw,
-        'timestamp': timestamp,
-        'petugas': petugasName,    // <-- pakai Firestore name
-        'lokasi': lokasiText,
-        'path': path,
-      });
+      final result = await processImageOptimized(
+        raw: raw,
+        timestamp: timestamp,
+        petugas: petugasName,
+        lokasi: lokasiText,
+        path: path,
+      );
 
-      // 7. Simpan hasil ke file
       final filename = result['filename'] as String;
       final bytes = result['bytes'] as List<int>;
       final outPath = '${file.parent.path}/$filename';
       await File(outPath).writeAsBytes(bytes);
 
-      // 8. Update state & callback
       setState(() {
-        _imagePaths.add({
-          'path': outPath,
-          'timestamp': now.toIso8601String(),
-        });
+        _imagePaths.add({'path': outPath, 'timestamp': now.toIso8601String()});
         _isLoading = false;
       });
       widget.onImagesChanged(_imagePaths);
@@ -177,11 +164,9 @@ class _UploadImagePlaceholderState extends State<UploadImagePlaceholder> {
         ),
         if (widget.validator != null && _imagePaths.isEmpty)
           const Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Text(
-              'Gambar harus dipilih',
-              style: TextStyle(color: Colors.red, fontSize: 12),
-            ),
+            padding: EdgeInsets.only(top: 8),
+            child: Text('Gambar harus dipilih',
+                style: TextStyle(color: Colors.red, fontSize: 12)),
           ),
         if (_isLoading)
           const SizedBox(

@@ -232,37 +232,4 @@ class AdminHistoryScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildToggleButton(
-    HistoryAdminController ctrl,
-    bool daily,
-    String label,
-  ) {
-    return Obx(() {
-      final sel = ctrl.isDaily.value == daily;
-      return GestureDetector(
-        onTap: () {
-          ctrl.isDaily.value = daily;
-          ctrl.filterCardData();
-        },
-        child: Container(
-          height: 40,
-          decoration: BoxDecoration(
-            color:
-                sel ? const Color(0xFFFDD835) : Colors.white.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: Text(
-              label,
-              style: TextStyle(
-                color: sel ? Colors.black87 : Colors.white,
-                fontWeight: sel ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          ),
-        ),
-      );
-    });
-  }
 }
